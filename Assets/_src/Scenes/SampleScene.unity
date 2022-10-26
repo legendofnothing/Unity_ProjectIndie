@@ -520,7 +520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAngle: 82
-  aimingGuide: {fileID: 0}
+  aimingGuide: {fileID: 345995910}
 --- !u!1 &1954423399
 GameObject:
   m_ObjectHideFlags: 0
