@@ -4,10 +4,10 @@ using _src.Scripts.Core;
 
 namespace _src.Scripts.Player {
     public class Player : MonoBehaviour {
-        protected Camera camera;
+        protected Camera Camera;
 
         private void Awake(){
-            camera = Camera.main;
+            Camera = Camera.main;
         }
     }
 }
