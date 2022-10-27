@@ -42,16 +42,10 @@ namespace _src.Scripts.Player
                     break;
                 
                 case TouchState.LetGo:
-                    transform.rotation = Quaternion.Slerp(transform.rotation,
-                        Quaternion.Euler(Vector3.zero), Time.deltaTime);
-                    
                     _spriteRendererGuide.enabled = false;
-                    
-                    if (transform.rotation == Quaternion.Euler(Vector3.zero)) _touchState = TouchState.None; 
-                     break;
+                    break;
                 
                 case TouchState.None:
-                    _spriteRendererGuide.enabled = false;
                     break;
                 
                 default:
