@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4846720463114266426}
   - component: {fileID: 5053328431617680877}
   - component: {fileID: 343647307332037276}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,6 +101,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   speed: 8
+  bounceLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  destroyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!50 &5053328431617680877
 Rigidbody2D:
   serializedVersion: 4

@@ -1,11 +1,15 @@
 using System;
-using System.Security.Cryptography;
+using _src.Scripts.Core;
 using UnityEngine;
 
 namespace Bullet {
     public class BulletBase : MonoBehaviour {
         public float damage;
         public float speed;
+        
+        [Space]
+        public LayerMask bounceLayer;
+        public LayerMask destroyLayer;
 
         private Vector3 _lastVel;
         
@@ -20,8 +24,18 @@ namespace Bullet {
             _lastVel = rigidbody2D.velocity;
         }
 
-        protected virtual void OnCollisionEnter2D(Collision2D col){
-            if (col)
+        protected virtual void OnCollisionEnter2D(Collision2D col)
+        {
+            if (CheckLayerMask.IsInLayerMask(col.gameObject, bounceLayer))
+            {
+                var newDir = Vector3.Reflect(_lastVel.normalized, col.contacts[0].normal);
+                rigidbody2D.velocity = newDir * speed;
+            }
+
+            if (CheckLayerMask.IsInLayerMask(col.gameObject, destroyLayer))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

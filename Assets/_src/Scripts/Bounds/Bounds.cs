@@ -19,8 +19,7 @@ namespace _src.Scripts.Bounds {
             var pointD = new Vector2(-w / 2, h / 2);
 
             var array = new[] {
-                pointA, pointB, pointC,
-                pointD, pointA
+                pointC, pointD, pointA, pointB //Yeah idk man it just works
             };
 
             _edgeCollider.points = array;
