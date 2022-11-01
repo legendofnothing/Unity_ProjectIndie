@@ -172,11 +172,10 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 2.811094, y: 4.999999}
-  - {x: 2.811094, y: -4.999999}
   - {x: -2.811094, y: -4.999999}
   - {x: -2.811094, y: 4.999999}
   - {x: 2.811094, y: 4.999999}
+  - {x: 2.811094, y: -4.999999}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -630,8 +629,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.5, y: 0}
-  - {x: 0.5, y: 0}
+  - {x: 2.811094, y: -4.999999}
+  - {x: -2.811094, y: -4.999999}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -648,8 +647,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da94fdf569423c4469c11874c8e25104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  _edgeCollider: {fileID: 0}
+  camera: {fileID: 519420031}
+  _edgeCollider: {fileID: 1550363707}
 --- !u!4 &1550363709
 Transform:
   m_ObjectHideFlags: 0
