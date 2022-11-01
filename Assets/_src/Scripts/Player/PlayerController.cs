@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace _src.Scripts.Player
@@ -6,7 +8,12 @@ namespace _src.Scripts.Player
     public class PlayerController : Player
     {
         public float maxAngle;
-        public GameObject aimingGuide; 
+        
+        public GameObject firingPoint;
+        public GameObject aimingGuide;
+        public GameObject bullet;
+
+        private Touch _touchInput;
         
         private enum TouchState
         {
@@ -30,19 +37,11 @@ namespace _src.Scripts.Player
             switch (_touchState)
             {
                 case TouchState.Dragging:
-                    var touchInput = Input.GetTouch(0);
-                    var touchPos = Camera.ScreenToWorldPoint(touchInput.position);
-                    var position = transform.position;
-
-                    var angle = Mathf.Atan2(touchPos.y - position.y, touchPos.x - position.x) * Mathf.Rad2Deg - 90f;
-                    var angleRotateTo = Quaternion.Euler(new Vector3(0, 0, ClampAngle(angle, -maxAngle, maxAngle)));
-                    transform.rotation = Quaternion.Slerp(transform.rotation, angleRotateTo, 0.2f);
-                    
-                    _spriteRendererGuide.enabled = true;
+                    RotatePlayer();
                     break;
                 
                 case TouchState.LetGo:
-                    _spriteRendererGuide.enabled = false;
+                    Shoot();
                     break;
                 
                 case TouchState.None:
@@ -59,8 +58,8 @@ namespace _src.Scripts.Player
             {
                 case > 0:
                 {
-                    var touchInput = Input.GetTouch(0);
-                    _touchState = touchInput.phase switch
+                    _touchInput = Input.GetTouch(0);
+                    _touchState = _touchInput.phase switch
                     {
                         TouchPhase.Moved => TouchState.Dragging,
                         TouchPhase.Ended => TouchState.LetGo,
@@ -71,6 +70,27 @@ namespace _src.Scripts.Player
                 }
             }
         }
+
+        #region TouchEvents
+
+        void RotatePlayer(){
+            var touchPos = Camera.ScreenToWorldPoint(_touchInput.position);
+            var position = transform.position;
+
+            var angle = Mathf.Atan2(touchPos.y - position.y, touchPos.x - position.x) * Mathf.Rad2Deg - 90f;
+            var angleRotateTo = Quaternion.Euler(new Vector3(0, 0, ClampAngle(angle, -maxAngle, maxAngle)));
+            transform.rotation = Quaternion.Slerp(transform.rotation, angleRotateTo, 0.2f);
+                    
+            _spriteRendererGuide.enabled = true;
+        }
+        
+        private void Shoot(){
+            _spriteRendererGuide.enabled = false;
+            Instantiate(bullet, firingPoint.transform.position, firingPoint.transform.rotation);
+            _touchState = TouchState.None;
+        }
+
+        #endregion
 
         #region Clamp Angles
         /// <summary>
