@@ -13,6 +13,7 @@ namespace _src.Scripts.Bullet {
 
         private void Awake(){
             _currentList = new List<GameObject>();
+            amount = bulletList.Count;
         }
 
         private void Update(){

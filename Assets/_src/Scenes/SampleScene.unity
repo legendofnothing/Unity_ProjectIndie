@@ -172,10 +172,10 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -2.3104262, y: -4.999999}
-  - {x: -2.3104262, y: 4.999999}
-  - {x: 2.3104262, y: 4.999999}
-  - {x: 2.3104262, y: -4.999999}
+  - {x: -2.811094, y: -4.999999}
+  - {x: -2.811094, y: 4.999999}
+  - {x: 2.811094, y: 4.999999}
+  - {x: 2.811094, y: -4.999999}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -544,6 +544,7 @@ MonoBehaviour:
   firingPoint: {fileID: 411682178}
   aimingGuide: {fileID: 345995910}
   bullet: {fileID: 811179696128422734, guid: 0dcd3812799ec7c4ea04eb4df326fb41, type: 3}
+  _bulletManager: {fileID: 781605295}
 --- !u!114 &781605295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -557,7 +558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 1
-  bullet: {fileID: 811179696128422734, guid: 0dcd3812799ec7c4ea04eb4df326fb41, type: 3}
+  bulletPrefab: {fileID: 811179696128422734, guid: 0dcd3812799ec7c4ea04eb4df326fb41, type: 3}
   bulletList:
   - {fileID: 811179696128422734, guid: 0dcd3812799ec7c4ea04eb4df326fb41, type: 3}
 --- !u!1 &965881142
@@ -678,7 +679,7 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 1.8740627, y: -3.3333328}
+  - {x: 2.811094, y: -4.999999}
   - {x: -2.811094, y: -4.999999}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
@@ -698,6 +699,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 519420031}
   _edgeCollider: {fileID: 1550363707}
+  _bulletManager: {fileID: 781605295}
+  bulletLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &1550363709
 Transform:
   m_ObjectHideFlags: 0
