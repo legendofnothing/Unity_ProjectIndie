@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _src.Scripts.Bullet;
 using UnityEngine;
 
 namespace _src.Scripts.Player
@@ -13,8 +14,10 @@ namespace _src.Scripts.Player
         public GameObject aimingGuide;
         public GameObject bullet;
 
+        [Header("Refs")] [SerializeField] private BulletManager _bulletManager;
         private Touch _touchInput;
-        
+
+        private bool _canInput = true;
         private enum TouchState
         {
             Dragging, 
@@ -32,7 +35,7 @@ namespace _src.Scripts.Player
 
         private void Update()
         {
-            HandleInput();
+            if (_canInput) HandleInput();
 
             switch (_touchState)
             {
@@ -45,6 +48,7 @@ namespace _src.Scripts.Player
                     break;
                 
                 case TouchState.None:
+                    Check();
                     break;
                 
                 default:
@@ -73,12 +77,15 @@ namespace _src.Scripts.Player
 
         #region TouchEvents
 
-        void RotatePlayer(){
+        private void RotatePlayer(){
             var touchPos = Camera.ScreenToWorldPoint(_touchInput.position);
             var position = transform.position;
 
             var angle = Mathf.Atan2(touchPos.y - position.y, touchPos.x - position.x) * Mathf.Rad2Deg - 90f;
-            var angleRotateTo = Quaternion.Euler(new Vector3(0, 0, ClampAngle(angle, -maxAngle, maxAngle)));
+            
+            var angleRotateTo = 
+                Quaternion.Euler(new Vector3(0, 0, ClampAngle(angle, -maxAngle, maxAngle)));
+            
             transform.rotation = Quaternion.Slerp(transform.rotation, angleRotateTo, 0.2f);
                     
             _spriteRendererGuide.enabled = true;
@@ -86,8 +93,12 @@ namespace _src.Scripts.Player
         
         private void Shoot(){
             _spriteRendererGuide.enabled = false;
-            Instantiate(bullet, firingPoint.transform.position, firingPoint.transform.rotation);
+            StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gameObject.transform.rotation));
             _touchState = TouchState.None;
+        }
+
+        private void Check(){
+            _canInput = !_bulletManager.IsAllBulletsActive();
         }
 
         #endregion
