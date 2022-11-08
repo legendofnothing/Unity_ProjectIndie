@@ -9,9 +9,7 @@ namespace _src.Scripts.Bounds
     {
         [SerializeField] private Camera camera;
         [SerializeField] private EdgeCollider2D _edgeCollider;
-        [SerializeField] private BulletManager _bulletManager;
-        public LayerMask bulletLayer; 
-
+        
         private void Awake()
         {
             GenerateBounds();

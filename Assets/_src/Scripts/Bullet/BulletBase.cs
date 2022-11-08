@@ -1,8 +1,7 @@
-using System;
 using _src.Scripts.Core;
 using UnityEngine;
 
-namespace Bullet {
+namespace _src.Scripts.Bullet {
     public class BulletBase : MonoBehaviour {
         public float damage;
         public float speed;
@@ -12,11 +11,11 @@ namespace Bullet {
 
         private Vector3 _lastVel;
 
-        protected Rigidbody2D rigidbody2D;
+        protected Rigidbody2D Rb;
 
         private void Start(){
-            rigidbody2D = GetComponent<Rigidbody2D>();
-            rigidbody2D.velocity = transform.up * speed;
+            Rb = GetComponent<Rigidbody2D>();
+            Rb.velocity = transform.up * speed;
         }
         
         protected virtual void OnCollisionEnter2D(Collision2D col){

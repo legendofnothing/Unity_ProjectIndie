@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using _src.Scripts.Spawner;
 using UnityEngine;
 
@@ -50,7 +48,7 @@ namespace _src.Scripts.Grid {
                     spawnerInst.name = $"Spawner {s.spawnerType}[{w}:{h}]";
                     
                     //Add to list
-                    _spawnerManager.AddSpawer(spawnerInst);
+                    _spawnerManager.AddSpawner(spawnerInst);
                 }
             }
         }

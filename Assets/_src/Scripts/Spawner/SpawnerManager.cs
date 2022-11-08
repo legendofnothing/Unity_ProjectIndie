@@ -16,7 +16,7 @@ namespace _src.Scripts.Spawner {
             StartCoroutine(SpawnEnemy(3));
         }
 
-        public void AddSpawer(GameObject spawner){
+        public void AddSpawner(GameObject spawner){
             spawnerList.Add(spawner);
         }
 

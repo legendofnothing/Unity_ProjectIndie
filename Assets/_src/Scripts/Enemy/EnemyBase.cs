@@ -1,6 +1,6 @@
 using System;
+using _src.Scripts.Bullet;
 using _src.Scripts.Core;
-using Bullet;
 using UnityEngine;
 
 public class EnemyBase : MonoBehaviour {
