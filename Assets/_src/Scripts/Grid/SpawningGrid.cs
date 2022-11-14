@@ -1,3 +1,4 @@
+using System;
 using _src.Scripts.Spawner;
 using UnityEngine;
 
@@ -16,18 +17,24 @@ namespace _src.Scripts.Grid {
         public Transform spawnersParent;
         
         private SpawnerManager _spawnerManager;
+        private TileManager _tileManager;
 
         private void Awake(){
+            _spawnerManager = gameObject.GetComponent<SpawnerManager>();
+            _tileManager = gameObject.GetComponent<TileManager>();
+
+            _tileManager.tiles = new Tile[width, height];
+        }
+
+        private void Start() {
             GenerateGrid();
         }
 
         //Spawn in Inspector
         public void GenerateGrid(){
-            _spawnerManager = gameObject.GetComponent<SpawnerManager>();
-            
-            for (int h = 0; h <= height; h++)
+            for (int h = 0; h < height; h++)
             {
-                for (int w = 0; w <= width; w++)
+                for (int w = 0; w < width; w++)
                 {
                     var gridPosition = gameObject.transform.position;
                     var pos = new Vector2(w * gridOffset, h * gridOffset) + (Vector2) gridPosition;
@@ -46,6 +53,7 @@ namespace _src.Scripts.Grid {
                     
                     var s = spawnerInst.GetComponent<SpawnerBase>();
                     spawnerInst.name = $"Spawner {s.spawnerType}[{w}:{h}]";
+                    
                     
                     //Add to list
                     _spawnerManager.AddSpawner(spawnerInst);

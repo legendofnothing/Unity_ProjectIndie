@@ -6,10 +6,10 @@ using Random = System.Random;
 
 namespace _src.Scripts.Spawner {
     public class SpawnerManager : MonoBehaviour {
-        private List<GameObject> spawnerList;
+        private List<GameObject> _spawnerList;
 
         private void Awake(){
-            spawnerList = new List<GameObject>();
+            _spawnerList = new List<GameObject>();
         }
     
         private void Start(){
@@ -17,14 +17,14 @@ namespace _src.Scripts.Spawner {
         }
 
         public void AddSpawner(GameObject spawner){
-            spawnerList.Add(spawner);
+            _spawnerList.Add(spawner);
         }
 
         IEnumerator SpawnEnemy(int amount){
             yield return new WaitForSeconds(1.2f);
 
             var rnd = new Random();
-            var randomSpawners = spawnerList.OrderBy(x => rnd.Next()).Take(amount).ToList();
+            var randomSpawners = _spawnerList.OrderBy(x => rnd.Next()).Take(amount).ToList();
 
             foreach (var spawner in randomSpawners)
             {
