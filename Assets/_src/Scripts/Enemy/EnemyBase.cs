@@ -8,18 +8,19 @@ using UnityEngine;
 namespace _src.Scripts.Enemy {
     public class EnemyBase : MonoBehaviour {
         public float hp;
+
+        [HideInInspector] public int x;
+        [HideInInspector] public int y;
         
         [Header("Layers")]
         public LayerMask bulletLayer;
 
-        public Tile tile;
-
-        private void Update() {
-            if (Input.GetKeyDown(KeyCode.E)) {
-                MoveDown();
-            }
+        public void Init(int xCord, int yCord)
+        {
+            x = xCord;
+            y = yCord;
         }
-
+        
         private void OnCollisionEnter2D(Collision2D col){
             if (CheckLayerMask.IsInLayerMask(col.gameObject, bulletLayer))
             {
@@ -35,11 +36,6 @@ namespace _src.Scripts.Enemy {
             {
                 Destroy(gameObject);
             }
-        }
-
-        protected virtual void MoveDown() {
-            if (tile.y == 0) return;
-            transform.DOMove(tile.ReturnTilePos(tile.x, tile.y - 1), 1);
         }
     }
 }

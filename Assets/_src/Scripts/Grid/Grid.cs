@@ -3,7 +3,7 @@ using _src.Scripts.Spawner;
 using UnityEngine;
 
 namespace _src.Scripts.Grid {
-    public class SpawningGrid : MonoBehaviour {
+    public class Grid : MonoBehaviour {
         [Header("Grid Configs")]
         public int width;
         public int height;
@@ -14,19 +14,12 @@ namespace _src.Scripts.Grid {
 
         [Header("Store Grid")] 
         public Transform gridsParent;
-        public Transform spawnersParent;
         
-        private SpawnerManager _spawnerManager;
-        private TileManager _tileManager;
-
-        private void Awake(){
-            _spawnerManager = gameObject.GetComponent<SpawnerManager>();
-            _tileManager = gameObject.GetComponent<TileManager>();
-
-            _tileManager.tiles = new Tile[width, height];
-        }
-
-        private void Start() {
+        private Tile[,] _tiles;
+        
+        private void Start()
+        {
+            _tiles = new Tile[width, height];
             GenerateGrid();
         }
 
@@ -43,22 +36,12 @@ namespace _src.Scripts.Grid {
                     var gridInst = Instantiate(gridPrefab, pos, Quaternion.identity);
                     gridInst.transform.SetParent(gridsParent);
                     gridInst.name = $"Grid [{w}:{h}]";
-                    gridInst.GetComponent<Tile>().Init(w, h);
                     
-                    //Spawn Spawners
-                    if (h < height - 1) continue;
-                    var spawnerInst = Instantiate(spawnerPrefab, new Vector2(pos.x, pos.y), 
-                        Quaternion.identity);
-                    spawnerInst.transform.SetParent(spawnersParent);
-                    
-                    var s = spawnerInst.GetComponent<SpawnerBase>();
-                    spawnerInst.name = $"Spawner {s.spawnerType}[{w}:{h}]";
-                    
-                    
-                    //Add to list
-                    _spawnerManager.AddSpawner(spawnerInst);
+                    _tiles[w, h] = gridInst.GetComponent<Tile>();
+                    _tiles[w, h].Init(w, h);
                 }
             }
         }
     }
+    
 }
