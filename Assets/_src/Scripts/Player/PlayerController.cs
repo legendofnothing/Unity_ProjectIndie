@@ -1,4 +1,5 @@
 using _src.Scripts.Bullet;
+using _src.Scripts.Grid;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -15,8 +16,7 @@ namespace _src.Scripts.Player
 
         [Header("Refs")] [SerializeField] private BulletManager _bulletManager;
         private Touch _touchInput;
-
-        [FormerlySerializedAs("_canInput")] [HideInInspector] public bool canInput = true;
+        
         private enum TouchState
         {
             Dragging, 
@@ -34,7 +34,7 @@ namespace _src.Scripts.Player
 
         private void Update()
         {
-            if (canInput) HandleInput();
+            HandleInput();
 
             switch (_touchState)
             {
@@ -91,10 +91,11 @@ namespace _src.Scripts.Player
         
         private void Shoot(){
             _spriteRendererGuide.enabled = false;
-            StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gameObject.transform.rotation));
             _touchState = TouchState.None;
+            LevelManager.instance.UpdateTurn(Turn.Shooting);
+            
+            StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gameObject.transform.rotation));
         }
-        
         #endregion
 
         #region Clamp Angles

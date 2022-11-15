@@ -22,13 +22,19 @@ namespace _src.Scripts.Bullet {
         }
 
         private void Update(){
-            _currentList?.RemoveAll(destroyedBullet => destroyedBullet == null);
+            if (IsAllBulletsActive())
+            {
+                _currentList?.RemoveAll(destroyedBullet => destroyedBullet == null);
+            }
+
+            if (!IsAllBulletsActive() && LevelManager.instance.currentTurn == Turn.Shooting)
+            {
+                LevelManager.instance.UpdateTurn(Turn.Enemy);
+            }
         }
 
         public IEnumerator SpawnBullet(Vector3 position, Quaternion rotation)
         {
-            levelManager.currentTurn = Turn.Shooting;
-            
             foreach (var bulletInst in bulletList.Select(bullet => Instantiate(bullet, position, rotation)))
             {
                 _currentList.Add(bulletInst);

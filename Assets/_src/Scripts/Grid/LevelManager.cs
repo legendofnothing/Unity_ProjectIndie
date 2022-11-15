@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Threading.Tasks;
 using _src.Scripts.Bullet;
 using _src.Scripts.Player;
 using Unity.Collections;
@@ -11,11 +13,13 @@ namespace _src.Scripts.Grid
         Start,
         Player,
         Shooting, //This state is when bullets r firing
-        Enemy,
+        Enemy
     }
 
     public class LevelManager : MonoBehaviour
     {
+        public static LevelManager instance;
+        
         public PlayerController playerController;
         public BulletManager bulletManager;
         
@@ -23,38 +27,66 @@ namespace _src.Scripts.Grid
         private EnemyManager _enemyManager;
 
         [HideInInspector] public Turn currentTurn;
-        [HideInInspector] public int turnNumber; 
+        [HideInInspector] public int turnNumber = 1; 
 
         private void Awake()
         {
+            if (!instance) instance = this;
+            else
+            {
+                Destroy(this);
+                instance = this;
+            }
+            
             _grid = GetComponentInChildren<Grid>();
             _enemyManager = GetComponentInChildren<EnemyManager>();
             
             if (_grid == null) UnityEngine.Debug.Log($"Grid null at {this}");
             if (_enemyManager == null) UnityEngine.Debug.Log($"EnemyManager null at {this}");
-
-            currentTurn = Turn.Start;
         }
 
-        private void Update()
+        private void Start()
         {
+            UpdateTurn(Turn.Start); 
+        }
+
+        public void UpdateTurn(Turn turn)
+        {
+            currentTurn = turn;
+            
             switch (currentTurn)
             {
                 case Turn.Start:
-                    playerController.canInput = false;
+                    StartCoroutine(StartTurn());
                     break;
                 case Turn.Player:
-                    playerController.canInput = true;
+                    playerController.enabled = true;
+                    bulletManager.enabled = true;
+                    
                     break;
                 case Turn.Shooting:
-                    playerController.canInput = false;
-                    if (!bulletManager.IsAllBulletsActive()) currentTurn = Turn.Enemy;
+                    playerController.enabled = false;
+                    
                     break;
                 case Turn.Enemy:
-                    turnNumber++;
-                    currentTurn = Turn.Player;
+                    
+                    
+                    break;
+                default:
+                    UnityEngine.Debug.LogWarning($"Wrong State at {this}");
                     break;
             }
+        }
+
+        private IEnumerator StartTurn()
+        {
+            _enemyManager.SpawnEnemyRandom(3);
+            playerController.enabled = false;
+            bulletManager.enabled = false;
+
+            yield return null;
+            
+            UpdateTurn(Turn.Player);
         }
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5081683450278813353}
   m_Layer: 0
-  m_Name: SpawnerObjs
+  m_Name: EnemyObjs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -280,6 +280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0541856716edef4a8151fad81771175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyStore: {fileID: 5081683450278813353}
+  enemyPrefab: {fileID: 1163999951790750900, guid: 82396a8527106bb4aaabde6f3ef52e07, type: 3}
 --- !u!1 &5081683451358816935
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +332,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 9013195813678353294, guid: 4d9508166727000478eda80f659dca29, type: 3}
   bulletManager: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+  currentTurn: 0
+  turnNumber: 0
 --- !u!1 &5081683451617540020
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System;
 using _src.Scripts.Spawner;
+using Unity.Collections;
 using UnityEngine;
 
 namespace _src.Scripts.Grid {
@@ -15,11 +16,13 @@ namespace _src.Scripts.Grid {
         [Header("Store Grid")] 
         public Transform gridsParent;
         
-        private Tile[,] _tiles;
+        [Header("Debug Only")]
+        [ReadOnly]
+        public Tile[,] tiles;
         
-        private void Start()
+        private void Awake()
         {
-            _tiles = new Tile[width, height];
+            tiles = new Tile[width, height];
             GenerateGrid();
         }
 
@@ -37,8 +40,8 @@ namespace _src.Scripts.Grid {
                     gridInst.transform.SetParent(gridsParent);
                     gridInst.name = $"Grid [{w}:{h}]";
                     
-                    _tiles[w, h] = gridInst.GetComponent<Tile>();
-                    _tiles[w, h].Init(w, h);
+                    tiles[w, h] = gridInst.GetComponent<Tile>();
+                    tiles[w, h].Init(w, h);
                 }
             }
         }
