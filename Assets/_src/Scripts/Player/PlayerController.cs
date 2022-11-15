@@ -1,10 +1,12 @@
 using _src.Scripts.Bullet;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _src.Scripts.Player
 {
     public class PlayerController : Player
     {
+        [Space]
         public float maxAngle;
         
         public GameObject firingPoint;
@@ -14,7 +16,7 @@ namespace _src.Scripts.Player
         [Header("Refs")] [SerializeField] private BulletManager _bulletManager;
         private Touch _touchInput;
 
-        private bool _canInput = true;
+        [FormerlySerializedAs("_canInput")] [HideInInspector] public bool canInput = true;
         private enum TouchState
         {
             Dragging, 
@@ -32,7 +34,7 @@ namespace _src.Scripts.Player
 
         private void Update()
         {
-            if (_canInput) HandleInput();
+            if (canInput) HandleInput();
 
             switch (_touchState)
             {
@@ -45,7 +47,6 @@ namespace _src.Scripts.Player
                     break;
                 
                 case TouchState.None:
-                    Check();
                     break;
                 
                 default:
@@ -93,11 +94,7 @@ namespace _src.Scripts.Player
             StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gameObject.transform.rotation));
             _touchState = TouchState.None;
         }
-
-        private void Check(){
-            _canInput = !_bulletManager.IsAllBulletsActive();
-        }
-
+        
         #endregion
 
         #region Clamp Angles

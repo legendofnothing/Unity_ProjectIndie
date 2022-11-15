@@ -2,10 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using _src.Scripts.Grid;
 using UnityEngine;
 
 namespace _src.Scripts.Bullet {
-    public class BulletManager : MonoBehaviour {
+    public class BulletManager : MonoBehaviour
+    {
+        public LevelManager levelManager;
+        
+        [Space]
         public int amount;
         public GameObject bulletPrefab;
         public List<GameObject> bulletList;
@@ -20,13 +25,16 @@ namespace _src.Scripts.Bullet {
             _currentList?.RemoveAll(destroyedBullet => destroyedBullet == null);
         }
 
-        public IEnumerator SpawnBullet(Vector3 position, Quaternion rotation){
+        public IEnumerator SpawnBullet(Vector3 position, Quaternion rotation)
+        {
+            levelManager.currentTurn = Turn.Shooting;
+            
             foreach (var bulletInst in bulletList.Select(bullet => Instantiate(bullet, position, rotation)))
             {
                 _currentList.Add(bulletInst);
                 yield return new WaitForSeconds(0.2f);
             }
-
+            
             yield return null;
         }
 

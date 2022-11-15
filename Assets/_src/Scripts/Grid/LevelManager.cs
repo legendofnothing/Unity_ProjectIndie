@@ -8,6 +8,7 @@ namespace _src.Scripts.Grid
 {
     public enum Turn
     {
+        Start,
         Player,
         Shooting, //This state is when bullets r firing
         Enemy,
@@ -22,6 +23,7 @@ namespace _src.Scripts.Grid
         private EnemyManager _enemyManager;
 
         [HideInInspector] public Turn currentTurn;
+        [HideInInspector] public int turnNumber; 
 
         private void Awake()
         {
@@ -31,7 +33,28 @@ namespace _src.Scripts.Grid
             if (_grid == null) UnityEngine.Debug.Log($"Grid null at {this}");
             if (_enemyManager == null) UnityEngine.Debug.Log($"EnemyManager null at {this}");
 
-            currentTurn = Turn.Player;
+            currentTurn = Turn.Start;
+        }
+
+        private void Update()
+        {
+            switch (currentTurn)
+            {
+                case Turn.Start:
+                    playerController.canInput = false;
+                    break;
+                case Turn.Player:
+                    playerController.canInput = true;
+                    break;
+                case Turn.Shooting:
+                    playerController.canInput = false;
+                    if (!bulletManager.IsAllBulletsActive()) currentTurn = Turn.Enemy;
+                    break;
+                case Turn.Enemy:
+                    turnNumber++;
+                    currentTurn = Turn.Player;
+                    break;
+            }
         }
     }
 }
