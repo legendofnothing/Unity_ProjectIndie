@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Threading.Tasks;
 using _src.Scripts.Bullet;
+using _src.Scripts.Core;
 using _src.Scripts.Player;
 using Unity.Collections;
 using UnityEngine;
@@ -16,10 +17,8 @@ namespace _src.Scripts.Grid
         Enemy
     }
 
-    public class LevelManager : MonoBehaviour
+    public class LevelManager : Singleton<LevelManager>
     {
-        public static LevelManager instance;
-        
         public PlayerController playerController;
         public BulletManager bulletManager;
         
@@ -31,13 +30,6 @@ namespace _src.Scripts.Grid
 
         private void Awake()
         {
-            if (!instance) instance = this;
-            else
-            {
-                Destroy(this);
-                instance = this;
-            }
-            
             _grid = GetComponentInChildren<Grid>();
             _enemyManager = GetComponentInChildren<EnemyManager>();
             
@@ -45,8 +37,8 @@ namespace _src.Scripts.Grid
             if (_enemyManager == null) UnityEngine.Debug.Log($"EnemyManager null at {this}");
         }
 
-        private void Start()
-        {
+        private void Start() {
+            turnNumber = 1;
             UpdateTurn(Turn.Start); 
         }
 
