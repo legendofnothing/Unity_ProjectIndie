@@ -1,4 +1,11 @@
 public enum EventType {
     None = 0,
-    ReimuKilledTupac2001
+    
+    //Game State Events
+    SwitchToShooting,
+    SwitchToEnemy,
+    SwitchToPlayer,
+    
+    //Player Events
+    Shoot
 }

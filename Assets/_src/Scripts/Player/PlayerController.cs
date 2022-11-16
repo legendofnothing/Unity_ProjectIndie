@@ -1,5 +1,8 @@
+using System;
 using _src.Scripts.Bullet;
+using _src.Scripts.Core.EventDispatcher;
 using _src.Scripts.Grid;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,64 +16,40 @@ namespace _src.Scripts.Player
         public GameObject firingPoint;
         public GameObject aimingGuide;
         public GameObject bullet;
-
-        [Header("Refs")] [SerializeField] private BulletManager _bulletManager;
-        private Touch _touchInput;
         
-        private enum TouchState
-        {
-            Dragging, 
-            LetGo,
-            None
+        private Touch _touchInput;
+        private SpriteRenderer _spriteRendererGuide;
+        private BulletManager _bulletManager;
+
+        private void Awake() {
+            _bulletManager = gameObject.GetComponent<BulletManager>();
         }
 
-        private TouchState _touchState = TouchState.None;
-        private SpriteRenderer _spriteRendererGuide;
-
-        private void Start()
-        {
+        private void Start() {
             _spriteRendererGuide = aimingGuide.GetComponent<SpriteRenderer>();
         }
 
         private void Update()
-        {
-            HandleInput();
-
-            switch (_touchState)
-            {
-                case TouchState.Dragging:
-                    RotatePlayer();
-                    break;
-                
-                case TouchState.LetGo:
-                    Shoot();
-                    break;
-                
-                case TouchState.None:
-                    break;
-                
-                default:
-                    break;
-            }
-        }
-
-        private void HandleInput()
         {
             switch (Input.touchCount)
             {
                 case > 0:
                 {
                     _touchInput = Input.GetTouch(0);
-                    _touchState = _touchInput.phase switch
-                    {
-                        TouchPhase.Moved => TouchState.Dragging,
-                        TouchPhase.Ended => TouchState.LetGo,
-                        _ => _touchState
-                    };
-
+                    switch (_touchInput.phase) {
+                        case TouchPhase.Moved:
+                            RotatePlayer();
+                            break;
+                        
+                        case TouchPhase.Ended:
+                            Shoot();
+                            break;
+                    }
                     break;
                 }
             }
+
+            UnityEngine.Debug.Log(_touchInput.phase);
         }
 
         #region TouchEvents
@@ -88,13 +67,10 @@ namespace _src.Scripts.Player
                     
             _spriteRendererGuide.enabled = true;
         }
-        
-        private void Shoot(){
+
+        private void Shoot() {
             _spriteRendererGuide.enabled = false;
-            _touchState = TouchState.None;
-            LevelManager.instance.UpdateTurn(Turn.Shooting);
-            
-            StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gameObject.transform.rotation));
+            StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, transform.rotation));
         }
         #endregion
 
