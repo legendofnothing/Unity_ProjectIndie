@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using _src.Scripts.Core.EventDispatcher;
 using _src.Scripts.Enemy;
 using UnityEngine;
 using Random = System.Random;
@@ -32,7 +33,15 @@ namespace _src.Scripts.Grid
             
             InitSpawnerGrids();
         }
-        
+
+        private void Start()
+        {
+            //Subscribe Event
+            this.SubscribeListener(EventType.EnemyTurn, _=>EnemyTurn());
+            this.SubscribeListener(EventType.EnemyKilled, param=>RemoveEnemy((EnemyBase) param));
+            this.SubscribeListener(EventType.SpawnEnemy, param => SpawnEnemyRandom((int) param));
+        }
+
         //Assign the tiles that will be spawning enemy 
         private void InitSpawnerGrids()
         {
@@ -55,7 +64,29 @@ namespace _src.Scripts.Grid
             enemyBase.Init(xCord, yCord);
             _enemies.Add(enemyBase);
         }
+        
+        #region Dispatcher Events
+        private void EnemyTurn()
+        {
+            foreach (var enemy in _enemies)
+            {
+                int updatedEnemyYCord;
+                
+                if (enemy.y - 1 <= 0) updatedEnemyYCord = 0;
+                else updatedEnemyYCord = enemy.y - 1;
+                
+                var pos = _grid.tiles[enemy.x, updatedEnemyYCord].transform.position;
+                StartCoroutine(enemy.EnemyTurnCoroutine(pos, updatedEnemyYCord));
+            }
+            
+            this.SendMessage(EventType.SwitchToPlayer);
+        }
 
+        private void RemoveEnemy(EnemyBase enemyToRemove)
+        {
+            _enemies.Remove(enemyToRemove);
+        }
+        
         public void SpawnEnemyRandom(int amount)
         {
             if (amount > _width * _spawnHeight) amount = _width * _spawnHeight;
@@ -73,5 +104,6 @@ namespace _src.Scripts.Grid
                 AddEnemy(enemyPrefab, pos, x, y);
             }
         }
+        #endregion
     }
 }

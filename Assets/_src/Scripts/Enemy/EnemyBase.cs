@@ -1,9 +1,11 @@
-using System;
+using System.Collections;
+using System.Runtime.CompilerServices;
 using _src.Scripts.Bullet;
 using _src.Scripts.Core;
-using _src.Scripts.Grid;
+using _src.Scripts.Core.EventDispatcher;
 using DG.Tweening;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 namespace _src.Scripts.Enemy {
     public class EnemyBase : MonoBehaviour {
@@ -15,10 +17,13 @@ namespace _src.Scripts.Enemy {
         [Header("Layers")]
         public LayerMask bulletLayer;
 
+        private int _timesAtY0; //Increment everytime at the y pos = 0, after 2 attack
+
         public void Init(int xCord, int yCord)
         {
             x = xCord;
             y = yCord;
+            _timesAtY0 = 0;
         }
         
         private void OnCollisionEnter2D(Collision2D col){
@@ -35,6 +40,38 @@ namespace _src.Scripts.Enemy {
             if (hp <= 0)
             {
                 Destroy(gameObject);
+                this.SendMessage(EventType.EnemyKilled, this);
+            }
+        }
+            
+        public IEnumerator EnemyTurnCoroutine(Vector3 posToMove, int yCord)
+        {
+            Move(posToMove, yCord);
+
+            yield return new WaitForSeconds(1.1f);
+            
+            Attack();
+        }
+        
+        //P much move down
+        protected virtual void Move(Vector3 posToMove, int yCord)
+        {
+            if (yCord < 0) return;
+            transform.DOMove(posToMove, 1);
+            y--; //Update location
+        }
+
+        protected virtual void Attack()
+        {
+            if (y != 0) return;
+            _timesAtY0++;
+            UnityEngine.Debug.Log(_timesAtY0);
+
+            if (_timesAtY0 == 2)
+            {
+                UnityEngine.Debug.Log("attacked");
+                Destroy(gameObject);
+                this.SendMessage(EventType.EnemyKilled, this);
             }
         }
     }

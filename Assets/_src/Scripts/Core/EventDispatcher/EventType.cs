@@ -8,5 +8,11 @@ public enum EventType {
     
     //Player Script Events
     DisablePlayerInput, 
-    EnablePlayerInput
+    EnablePlayerInput,
+    
+    //Enemy Manager Events
+    EnemyTurn,
+    EnemyKilled, 
+    SpawnEnemy,
+    EnemyAttackPlayer
 }
