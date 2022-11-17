@@ -1,8 +1,6 @@
-using System;
 using _src.Scripts.Bullet;
 using _src.Scripts.Core.EventDispatcher;
 using _src.Scripts.Grid;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -16,40 +14,70 @@ namespace _src.Scripts.Player
         public GameObject firingPoint;
         public GameObject aimingGuide;
         public GameObject bullet;
-        
+
+        [Header("Refs")] [SerializeField] private BulletManager _bulletManager;
         private Touch _touchInput;
+
+        private bool _canInput;
+        
+        private enum TouchState
+        {
+            Dragging, 
+            LetGo,
+            None
+        }
+
+        private TouchState _touchState = TouchState.None;
         private SpriteRenderer _spriteRendererGuide;
-        private BulletManager _bulletManager;
 
-        private void Awake() {
-            _bulletManager = gameObject.GetComponent<BulletManager>();
-        }
-
-        private void Start() {
+        private void Start()
+        {
+            _canInput = true;
             _spriteRendererGuide = aimingGuide.GetComponent<SpriteRenderer>();
+            
+            //Subscribe Events
+            this.SubscribeListener(EventType.EnablePlayerInput, _=>CanInput(true));
+            this.SubscribeListener(EventType.DisablePlayerInput, _=>CanInput(false));
         }
 
-        private void Update()
+        private void Update() { 
+            if (_canInput) HandleInput();
+
+            switch (_touchState)
+            {
+                case TouchState.Dragging:
+                    RotatePlayer();
+                    break;
+                
+                case TouchState.LetGo:
+                    Shoot();
+                    break;
+                
+                case TouchState.None:
+                    break;
+                
+                default:
+                    break;
+            }
+        }
+
+        private void HandleInput()
         {
             switch (Input.touchCount)
             {
                 case > 0:
                 {
                     _touchInput = Input.GetTouch(0);
-                    switch (_touchInput.phase) {
-                        case TouchPhase.Moved:
-                            RotatePlayer();
-                            break;
-                        
-                        case TouchPhase.Ended:
-                            Shoot();
-                            break;
-                    }
+                    _touchState = _touchInput.phase switch
+                    {
+                        TouchPhase.Moved => TouchState.Dragging,
+                        TouchPhase.Ended => TouchState.LetGo,
+                        _ => _touchState
+                    };
+
                     break;
                 }
             }
-
-            UnityEngine.Debug.Log(_touchInput.phase);
         }
 
         #region TouchEvents
@@ -67,11 +95,17 @@ namespace _src.Scripts.Player
                     
             _spriteRendererGuide.enabled = true;
         }
-
-        private void Shoot() {
+        
+        private void Shoot(){
             _spriteRendererGuide.enabled = false;
-            StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, transform.rotation));
+            _touchState = TouchState.None;
+            this.SendMessage(EventType.SwitchToShooting);
+            StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gameObject.transform.rotation));
         }
+        #endregion
+
+        #region Recieved Events From Dispatcher
+        private void CanInput(bool condition) => _canInput = condition;
         #endregion
 
         #region Clamp Angles

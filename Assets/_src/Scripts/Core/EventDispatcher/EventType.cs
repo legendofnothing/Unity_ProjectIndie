@@ -6,6 +6,7 @@ public enum EventType {
     SwitchToEnemy,
     SwitchToPlayer,
     
-    //Player Events
-    Shoot
+    //Player Script Events
+    DisablePlayerInput, 
+    EnablePlayerInput
 }
