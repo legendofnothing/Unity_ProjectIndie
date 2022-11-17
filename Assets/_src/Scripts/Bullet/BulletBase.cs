@@ -16,6 +16,8 @@ namespace _src.Scripts.Bullet {
         private void Start(){
             Rb = GetComponent<Rigidbody2D>();
             Rb.velocity = transform.up * speed;
+            
+            Destroy(gameObject, 20f);
         }
         
         protected virtual void OnCollisionEnter2D(Collision2D col){

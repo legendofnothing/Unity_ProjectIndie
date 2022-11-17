@@ -9,13 +9,13 @@ using UnityEngine;
 namespace _src.Scripts.Bullet {
     public class BulletManager : MonoBehaviour
     {
-        public LevelManager levelManager;
-        
-        [Space]
+        [Header("Configs")]
         public int amount;
         public GameObject bulletPrefab;
         public List<GameObject> bulletList;
         private List<GameObject> _currentList;
+
+        private bool _canSwitchTurn = false; 
 
         private void Awake(){
             _currentList = new List<GameObject>();
@@ -27,6 +27,12 @@ namespace _src.Scripts.Bullet {
             {
                 _currentList?.RemoveAll(destroyedBullet => destroyedBullet == null);
             }
+            
+            if (_canSwitchTurn && !IsAllBulletsActive())
+            {
+                _canSwitchTurn = false;
+                this.SendMessage(EventType.SwitchToEnemy);
+            }
         }
 
         public IEnumerator SpawnBullet(Vector3 position, Quaternion rotation)
@@ -36,6 +42,8 @@ namespace _src.Scripts.Bullet {
                 _currentList.Add(bulletInst);
                 yield return new WaitForSeconds(0.2f);
             }
+            
+            _canSwitchTurn = true;
             
             yield return null;
         }

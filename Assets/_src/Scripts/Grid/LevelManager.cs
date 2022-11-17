@@ -62,6 +62,7 @@ namespace _src.Scripts.Grid
                     break;
 
                 case Turn.Enemy:
+                    UpdateTurn(Turn.Player);
                     break;
 
                 default:
