@@ -33,7 +33,7 @@ namespace _src.Scripts.Grid
         }
 
         private void Start() {
-            turnNumber = 1;
+            turnNumber = 0;
             UpdateTurn(Turn.Start);
             
             //Subscribe Events w/ other scripts
@@ -54,6 +54,7 @@ namespace _src.Scripts.Grid
                     break;
 
                 case Turn.Player:
+                    turnNumber++; 
                     this.SendMessage(EventType.EnablePlayerInput);
                     break;
 

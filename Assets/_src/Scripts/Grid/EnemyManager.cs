@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using _src.Scripts.Core.EventDispatcher;
 using _src.Scripts.Enemy;
 using UnityEngine;
 using Random = System.Random;
+using RandomUnity = UnityEngine.Random;
 
 namespace _src.Scripts.Grid
 {
@@ -29,7 +31,7 @@ namespace _src.Scripts.Grid
 
             _width = _grid.width;
             _height = _grid.height;
-            _spawnHeight = 2;
+            _spawnHeight = 1;
             
             InitSpawnerGrids();
         }
@@ -78,8 +80,8 @@ namespace _src.Scripts.Grid
                 var pos = _grid.tiles[enemy.x, updatedEnemyYCord].transform.position;
                 StartCoroutine(enemy.EnemyTurnCoroutine(pos, updatedEnemyYCord));
             }
-            
-            this.SendMessage(EventType.SwitchToPlayer);
+
+            StartCoroutine(SwitchPlayerTurn());
         }
 
         private void RemoveEnemy(EnemyBase enemyToRemove)
@@ -103,6 +105,16 @@ namespace _src.Scripts.Grid
                 
                 AddEnemy(enemyPrefab, pos, x, y);
             }
+        }
+
+        private IEnumerator SwitchPlayerTurn()
+        {
+            yield return new WaitForSeconds(0.8f);
+            var randomNum = RandomUnity.Range(1, _width - 1);
+            SpawnEnemyRandom(randomNum);
+
+            yield return new WaitForSeconds(0.8f);
+            this.SendMessage(EventType.SwitchToPlayer);
         }
         #endregion
     }

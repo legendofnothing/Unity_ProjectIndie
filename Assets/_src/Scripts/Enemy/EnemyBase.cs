@@ -1,10 +1,10 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using _src.Scripts.Bullet;
 using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 namespace _src.Scripts.Enemy {
@@ -57,7 +57,9 @@ namespace _src.Scripts.Enemy {
         protected virtual void Move(Vector3 posToMove, int yCord)
         {
             if (yCord < 0) return;
-            transform.DOMove(posToMove, 1);
+
+            var randomDuration = Random.Range(0.7f, 1f);
+            transform.DOMove(posToMove, randomDuration);
             y--; //Update location
         }
 
