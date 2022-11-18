@@ -1,8 +1,10 @@
 using System.Collections;
+using System.Globalization;
 using _src.Scripts.Bullet;
 using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
@@ -18,6 +20,8 @@ namespace _src.Scripts.Enemy {
         [Header("Layers")]
         public LayerMask bulletLayer;
 
+        [Header("UI Related")] public TextMeshProUGUI hpText;
+
         private int _timesAtY0; //Increment everytime at the y pos = 0, after 2 attack
 
         public void Init(int xCord, int yCord)
@@ -25,13 +29,15 @@ namespace _src.Scripts.Enemy {
             x = xCord;
             y = yCord;
             _timesAtY0 = 0;
+            hpText.text = $"{hp}";
         }
         
         private void OnCollisionEnter2D(Collision2D col){
             if (CheckLayerMask.IsInLayerMask(col.gameObject, bulletLayer))
             {
-                var damage = col.gameObject.GetComponent<BulletBase>().damage;
-                TakeDamage(damage);
+                var damaged = col.gameObject.GetComponent<BulletBase>().damage;
+                TakeDamage(damaged);
+                hpText.text = $"{hp}";
             }
         }
 

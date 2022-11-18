@@ -102,7 +102,7 @@ namespace _src.Scripts.Grid
                 var x = spawner.x;
                 var y = spawner.y;
                 var pos = spawner.transform.position;
-                
+
                 AddEnemy(enemyPrefab, pos, x, y);
             }
         }
