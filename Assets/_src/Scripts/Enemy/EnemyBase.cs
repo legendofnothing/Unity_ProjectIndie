@@ -10,6 +10,7 @@ using Vector3 = UnityEngine.Vector3;
 namespace _src.Scripts.Enemy {
     public class EnemyBase : MonoBehaviour {
         public float hp;
+        public float damage;
 
         [HideInInspector] public int x;
         [HideInInspector] public int y;
@@ -71,7 +72,7 @@ namespace _src.Scripts.Enemy {
 
             if (_timesAtY0 == 2)
             {
-                UnityEngine.Debug.Log("attacked");
+                this.SendMessage(EventType.EnemyDamagePlayer, damage);
                 Destroy(gameObject);
                 this.SendMessage(EventType.EnemyKilled, this);
             }

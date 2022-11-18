@@ -14,5 +14,5 @@ public enum EventType {
     EnemyTurn,
     EnemyKilled, 
     SpawnEnemy,
-    EnemyAttackPlayer
+    EnemyDamagePlayer 
 }
