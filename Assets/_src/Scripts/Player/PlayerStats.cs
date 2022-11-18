@@ -14,11 +14,13 @@ namespace _src.Scripts.Player {
         }
 
         private void Start() {
-            this.SubscribeListener(EventType.EnemyDamagePlayer, param=>DealDamage((int) param));
+            this.SubscribeListener(EventType.EnemyDamagePlayer, param=>DealDamage((float) param));
+            this.SendMessage(EventType.OnPlayerHPChange, _currentHp);
         }
 
         private void DealDamage(float amount) {
             _currentHp -= amount;
+            this.SendMessage(EventType.OnPlayerHPChange, _currentHp);
         }
     }
 }

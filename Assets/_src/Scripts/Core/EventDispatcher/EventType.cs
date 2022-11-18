@@ -14,5 +14,8 @@ public enum EventType {
     EnemyTurn,
     EnemyKilled, 
     SpawnEnemy,
-    EnemyDamagePlayer 
+    EnemyDamagePlayer,
+    
+    //UI Events
+    OnPlayerHPChange
 }

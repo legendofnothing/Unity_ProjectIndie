@@ -67,15 +67,9 @@ namespace _src.Scripts.Enemy {
         protected virtual void Attack()
         {
             if (y != 0) return;
-            _timesAtY0++;
-            UnityEngine.Debug.Log(_timesAtY0);
-
-            if (_timesAtY0 == 2)
-            {
-                this.SendMessage(EventType.EnemyDamagePlayer, damage);
-                Destroy(gameObject);
-                this.SendMessage(EventType.EnemyKilled, this);
-            }
+            this.SendMessage(EventType.EnemyDamagePlayer, damage);
+            this.SendMessage(EventType.EnemyKilled, this);
+            Destroy(gameObject);
         }
     }
 }
