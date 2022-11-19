@@ -10,6 +10,12 @@ public enum EventType {
     DisablePlayerInput, 
     EnablePlayerInput,
     
+    //Bullet Manager Events
+    AddBullet,
+    
+    //Pickup Manager Events
+    SpawnPickup,
+    
     //Enemy Manager Events
     EnemyTurn,
     EnemyKilled, 

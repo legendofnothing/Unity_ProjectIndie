@@ -13,28 +13,27 @@ namespace _src.Scripts.Managers
     {
         public Transform enemyStore;
         public GameObject enemyPrefab;
+
+        [Header("Level Data")] public LevelData levelData;
         
         private List<EnemyBase> _enemies;
         private List<Tile> _spawnerTiles;
-        private Grid _grid;
+        private GridManager _gridManager;
 
         private int _width;
         private int _height;
         private int _spawnHeight; //Number to spawn at like y:7 
-
-        private int _turnNum;
-
+        
         private void Awake()
         {
             _enemies = new List<EnemyBase>();
             _spawnerTiles = new List<Tile>();
-            _grid = gameObject.GetComponent<Grid>();
+            _gridManager = gameObject.GetComponent<GridManager>();
 
-            _width = _grid.width;
-            _height = _grid.height;
+            _width = _gridManager.width;
+            _height = _gridManager.height;
             _spawnHeight = 1;
-            _turnNum = 0;
-            
+
             InitSpawnerGrids();
         }
 
@@ -54,7 +53,7 @@ namespace _src.Scripts.Managers
                 for (var w = 0; w < _width; w++)
                 {
                     if (h < _height - _spawnHeight) continue;
-                    _spawnerTiles.Add(_grid.tiles[w, h]);
+                    _spawnerTiles.Add(_gridManager.tiles[w, h]);
                 }
             }
         }
@@ -69,7 +68,7 @@ namespace _src.Scripts.Managers
                 if (enemy.y - 1 <= 0) updatedEnemyYCord = 0;
                 else updatedEnemyYCord = enemy.y - 1;
                 
-                var pos = _grid.tiles[enemy.x, updatedEnemyYCord].transform.position;
+                var pos = _gridManager.tiles[enemy.x, updatedEnemyYCord].transform.position;
                 StartCoroutine(enemy.EnemyTurnCoroutine(pos, updatedEnemyYCord));
             }
 
@@ -102,7 +101,7 @@ namespace _src.Scripts.Managers
                 var enemyBase = enemyInst.GetComponent<EnemyBase>();
 
                 var adjustedEnemyHp = enemyBase.hp;
-                if (_turnNum > 0) adjustedEnemyHp = enemyBase.hp * _turnNum; 
+                if (levelData.turnNumber > 1) adjustedEnemyHp = enemyBase.hp * levelData.turnNumber;
 
                 enemyBase.Init(x,y, adjustedEnemyHp);
 
@@ -110,7 +109,7 @@ namespace _src.Scripts.Managers
                 _enemies.Add(enemyBase);
             }
             
-            _turnNum += 1;
+            this.SendMessage(EventType.SpawnPickup);
         }
         
         private IEnumerator SwitchPlayerTurn()

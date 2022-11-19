@@ -12,15 +12,30 @@ namespace _src.Scripts.Bullet {
         public int amount;
         public GameObject bulletPrefab;
         public List<GameObject> bulletList;
+        
+        //Holds current bullet in the scene
         private List<GameObject> _currentList;
 
-        private bool _canSwitchTurn = false; 
+        //Store any new bullets being added
+        private List<GameObject> _addedTempList;
+
+        private bool _canSwitchTurn;
 
         private void Awake(){
             _currentList = new List<GameObject>();
-            amount = bulletList.Count;
+            _addedTempList = new List<GameObject>();
+
+            foreach (var unused in bulletList)
+            {
+                amount++;
+            }
         }
-        
+
+        private void Start()
+        {
+            this.SubscribeListener(EventType.AddBullet, _=>AddBullet());
+        }
+
         private void Update(){
             if (IsAllBulletsActive())
             {
@@ -43,18 +58,23 @@ namespace _src.Scripts.Bullet {
             }
             
             _canSwitchTurn = true;
-            
+
+            if (_currentList != null)
+            {
+                bulletList.AddRange(_addedTempList);
+                _addedTempList.Clear();
+            }
             yield return null;
         }
 
-        public bool IsAllBulletsActive(){
+        private bool IsAllBulletsActive(){
             return _currentList.Count > 0;
         }
 
         //Use for bullet pickups
-        public void AddBullet(GameObject type){
+        private void AddBullet(){
             amount++;
-            bulletList.Add(type);
+            _addedTempList.Add(bulletPrefab);
         }
     }
 }

@@ -2,16 +2,14 @@ using Unity.Collections;
 using UnityEngine;
 
 namespace _src.Scripts.Managers {
-    public class Grid : MonoBehaviour {
-        [Header("Grid Configs")]
+    public class GridManager : MonoBehaviour {
+        [Header("GridManager Configs")]
         public int width;
         public int height;
         public GameObject gridPrefab;
         public float gridOffset;
 
-        [Header("Spawner Configs")] public GameObject spawnerPrefab;
-
-        [Header("Store Grid")] 
+        [Header("Store GridManager")] 
         public Transform gridsParent;
         
         [Header("Debug Only")]
@@ -33,10 +31,10 @@ namespace _src.Scripts.Managers {
                     var gridPosition = gameObject.transform.position;
                     var pos = new Vector2(w * gridOffset, h * gridOffset) + (Vector2) gridPosition;
                     
-                    //Spawn Grid
+                    //Spawn GridManager
                     var gridInst = Instantiate(gridPrefab, pos, Quaternion.identity);
                     gridInst.transform.SetParent(gridsParent);
-                    gridInst.name = $"Grid [{w}:{h}]";
+                    gridInst.name = $"GridManager [{w}:{h}]";
                     
                     tiles[w, h] = gridInst.GetComponent<Tile>();
                     tiles[w, h].Init(w, h);

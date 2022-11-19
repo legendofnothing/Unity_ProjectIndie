@@ -14,24 +14,25 @@ namespace _src.Scripts.Managers
 
     public class LevelManager : Singleton<LevelManager>
     {
-        private Grid _grid;
+        private GridManager _gridManager;
         private EnemyManager _enemyManager;
-        
-        [Header("Debug Only")]
-        public Turn currentTurn;
-        public int turnNumber = 1; 
+
+        [Header("LevelData")] public LevelData levelData;
+
+        private Turn _currentTurn;
 
         private void Awake()
         {
-            _grid = GetComponentInChildren<Grid>();
+            _gridManager = GetComponentInChildren<GridManager>();
             _enemyManager = GetComponentInChildren<EnemyManager>();
             
-            if (_grid == null) UnityEngine.Debug.Log($"Grid null at {this}");
+            if (_gridManager == null) UnityEngine.Debug.Log($"GridManager null at {this}");
             if (_enemyManager == null) UnityEngine.Debug.Log($"EnemyManager null at {this}");
+
+            levelData.turnNumber = 1;
         }
 
         private void Start() {
-            turnNumber = 0;
             UpdateTurn(Turn.Start);
             
             //Subscribe Events w/ other scripts
@@ -42,9 +43,9 @@ namespace _src.Scripts.Managers
 
         public void UpdateTurn(Turn turn)
         {
-            currentTurn = turn;
+            _currentTurn = turn;
 
-            switch (currentTurn)
+            switch (_currentTurn)
             {
                 case Turn.Start:
                     _enemyManager.SpawnEnemyRandom(3);
@@ -52,7 +53,7 @@ namespace _src.Scripts.Managers
                     break;
 
                 case Turn.Player:
-                    turnNumber++; 
+                    levelData.turnNumber++;
                     this.SendMessage(EventType.EnablePlayerInput);
                     break;
 
