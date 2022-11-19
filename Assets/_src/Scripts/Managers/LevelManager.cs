@@ -1,10 +1,8 @@
-using _src.Scripts.Bullet;
 using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
-using _src.Scripts.Player;
 using UnityEngine;
 
-namespace _src.Scripts.Grid
+namespace _src.Scripts.Managers
 {
     public enum Turn
     {

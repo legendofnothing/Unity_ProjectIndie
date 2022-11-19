@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Globalization;
 using _src.Scripts.Bullet;
@@ -11,7 +12,7 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace _src.Scripts.Enemy {
     public class EnemyBase : MonoBehaviour {
-        public float hp;
+        public float hp; //BaseHp
         public float damage;
 
         [HideInInspector] public int x;
@@ -22,14 +23,14 @@ namespace _src.Scripts.Enemy {
 
         [Header("UI Related")] public TextMeshProUGUI hpText;
 
-        private int _timesAtY0; //Increment everytime at the y pos = 0, after 2 attack
+        private float _currentHp; //Increment everytime at the y pos = 0, after 2 attack
 
-        public void Init(int xCord, int yCord)
+        public void Init(int xCord, int yCord, float currentHp)
         {
             x = xCord;
             y = yCord;
-            _timesAtY0 = 0;
-            hpText.text = $"{hp}";
+            _currentHp = currentHp;
+            hpText.text = $"{(int) currentHp}";
         }
         
         private void OnCollisionEnter2D(Collision2D col){
@@ -37,14 +38,14 @@ namespace _src.Scripts.Enemy {
             {
                 var damaged = col.gameObject.GetComponent<BulletBase>().damage;
                 TakeDamage(damaged);
-                hpText.text = $"{hp}";
+                hpText.text = $"{(int) _currentHp}";
             }
         }
 
         public void TakeDamage(float amount){
-            hp -= amount;
+            _currentHp -= amount;
 
-            if (hp <= 0)
+            if (_currentHp <= 0)
             {
                 Destroy(gameObject);
                 this.SendMessage(EventType.EnemyKilled, this);

@@ -1,9 +1,6 @@
-using System;
-using _src.Scripts.Core;
-using _src.Scripts.Enemy;
 using UnityEngine;
 
-namespace _src.Scripts.Grid {
+namespace _src.Scripts.Managers {
     public class Tile : MonoBehaviour {
         public int x;
         public int y;

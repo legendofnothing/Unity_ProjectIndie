@@ -1,8 +1,7 @@
-using System;
 using Unity.Collections;
 using UnityEngine;
 
-namespace _src.Scripts.Grid {
+namespace _src.Scripts.Managers {
     public class Grid : MonoBehaviour {
         [Header("Grid Configs")]
         public int width;

@@ -1,14 +1,13 @@
-using System;
 using System.Collections;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using _src.Scripts.Core.EventDispatcher;
 using _src.Scripts.Enemy;
 using UnityEngine;
 using Random = System.Random;
 using RandomUnity = UnityEngine.Random;
 
-namespace _src.Scripts.Grid
+namespace _src.Scripts.Managers
 {
     public class EnemyManager : MonoBehaviour
     {
@@ -23,6 +22,8 @@ namespace _src.Scripts.Grid
         private int _height;
         private int _spawnHeight; //Number to spawn at like y:7 
 
+        private int _turnNum;
+
         private void Awake()
         {
             _enemies = new List<EnemyBase>();
@@ -32,6 +33,7 @@ namespace _src.Scripts.Grid
             _width = _grid.width;
             _height = _grid.height;
             _spawnHeight = 1;
+            _turnNum = 0;
             
             InitSpawnerGrids();
         }
@@ -55,16 +57,6 @@ namespace _src.Scripts.Grid
                     _spawnerTiles.Add(_grid.tiles[w, h]);
                 }
             }
-        }
-
-        private void AddEnemy(GameObject enemy, Vector3 position, int xCord, int yCord)
-        {
-            var enemyInst = Instantiate(enemy, position, Quaternion.identity);
-            enemyInst.transform.SetParent(enemyStore);
-                    
-            var enemyBase = enemyInst.GetComponent<EnemyBase>();
-            enemyBase.Init(xCord, yCord);
-            _enemies.Add(enemyBase);
         }
         
         #region Dispatcher Events
@@ -103,14 +95,30 @@ namespace _src.Scripts.Grid
                 var y = spawner.y;
                 var pos = spawner.transform.position;
 
-                AddEnemy(enemyPrefab, pos, x, y);
-            }
-        }
+                //Spawn Enemy
+                var enemyInst = Instantiate(enemyPrefab, pos, Quaternion.identity);
+                enemyInst.transform.SetParent(enemyStore);
+                    
+                var enemyBase = enemyInst.GetComponent<EnemyBase>();
 
+                var adjustedEnemyHp = enemyBase.hp;
+                if (_turnNum > 0) adjustedEnemyHp = enemyBase.hp * _turnNum; 
+
+                enemyBase.Init(x,y, adjustedEnemyHp);
+
+                //Add To list
+                _enemies.Add(enemyBase);
+            }
+            
+            _turnNum += 1;
+        }
+        
         private IEnumerator SwitchPlayerTurn()
         {
             yield return new WaitForSeconds(0.8f);
-            var randomNum = RandomUnity.Range(1, _width - 1);
+            
+            //Spawn Enemy
+            var randomNum = RandomUnity.Range(1, _width - 2);
             SpawnEnemyRandom(randomNum);
 
             yield return new WaitForSeconds(0.8f);

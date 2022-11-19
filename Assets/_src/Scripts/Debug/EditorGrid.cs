@@ -1,15 +1,14 @@
-using _src.Scripts.Grid;
 using UnityEditor;
 using UnityEngine;
 
 namespace _src.Scripts.Debug {
-    [CustomEditor(typeof(Grid.Grid))]
+    [CustomEditor(typeof(Managers.Grid))]
     public class EditorGrid : Editor
     {
         public override void OnInspectorGUI(){
             DrawDefaultInspector();
             
-            var script = (Grid.Grid)target;
+            var script = (Managers.Grid)target;
             if (GUILayout.Button("Generate Bounds"))
             {
                 script.GenerateGrid();
