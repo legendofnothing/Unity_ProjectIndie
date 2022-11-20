@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0765590bf1db4df592aef17206a15e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 3901560327570013151, guid: c11c32b3228631343bf779c5867b5d09, type: 3}
+  pickupSpawnerPrefab: {fileID: 3901560327570013151, guid: f6ba99135ed6c61448ccee5078d79cc2, type: 3}
   minAmountSpawn: 1
   maxAmountSpawn: 4
   levelData: {fileID: 11400000, guid: 791c6b777f4e60149bbafbe2e114c3ce, type: 2}

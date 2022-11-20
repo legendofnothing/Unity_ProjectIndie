@@ -6,11 +6,7 @@ namespace _src.Scripts.Bullet {
         public float damage;
         public float speed;
         public int thresholdBounces; //threshold to detect if the bullet keep bouncing left/right constantly
-
-        [Space] 
-        public LayerMask boundLayer;
-        public LayerMask destroyLayer;
-
+        
         private int _bouncedTimes;
 
         protected Rigidbody2D Rb;
@@ -22,13 +18,13 @@ namespace _src.Scripts.Bullet {
             _bouncedTimes = 0;
         }
         
-        protected virtual void OnCollisionEnter2D(Collision2D col){
-            if (CheckLayerMask.IsInLayerMask(col.gameObject, destroyLayer))
+        protected virtual void OnCollisionEnter2D(Collision2D col) {
+            if (col.gameObject.layer == LayerMask.NameToLayer("DestroyBound"))
             {
                 Destroy(gameObject);
             }
 
-            if (CheckLayerMask.IsInLayerMask(col.gameObject, boundLayer))
+            if (col.gameObject.layer == LayerMask.NameToLayer("Bounds"))
             {
                 _bouncedTimes++;
 
