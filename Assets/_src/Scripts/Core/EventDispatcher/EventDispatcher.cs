@@ -48,7 +48,7 @@ namespace _src.Scripts.Core.EventDispatcher {
         /// <param name="param">Invoked data, can be any type</param>
         public void SendMessage(EventType type, object param = null) {
             if (!_listeners.ContainsKey(type)) {
-                UnityEngine.Debug.Log($"No registered listener for this event: {type}");
+                UnityEngine.Debug.Log($"No registered listener for this event: {type.ToString()}");
                 return;
             }
 
