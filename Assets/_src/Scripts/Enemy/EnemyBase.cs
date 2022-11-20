@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Globalization;
 using _src.Scripts.Bullet;
 using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
@@ -11,41 +9,49 @@ using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 namespace _src.Scripts.Enemy {
-    public class EnemyBase : MonoBehaviour {
-        public float hp; //BaseHp
-        public float damage;
-
+    public abstract class EnemyBase : MonoBehaviour {
+        public float hp = 100; //BaseHp
+        public float damage = 10;
+        
         [HideInInspector] public int x;
         [HideInInspector] public int y;
         
         [Header("Layers")]
         public LayerMask bulletLayer;
 
-        [Header("UI Related")] public TextMeshProUGUI hpText;
+        [Header("UI Related")] 
+        public TextMeshProUGUI hpText;
 
-        private float _currentHp; //Increment everytime at the y pos = 0, after 2 attack
+        [Space] [Multiline] public string Reminder; 
 
-        public void Init(int xCord, int yCord, float currentHp)
+        protected float currentHp; //Increment everytime at the y pos = 0, after 2 attack
+        protected Transform playerTransform; 
+
+        public void Init(int xCord, int yCord, float currHp)
         {
             x = xCord;
             y = yCord;
-            _currentHp = currentHp;
+            currentHp = currHp;
             hpText.text = $"{(int) currentHp}";
+
+            var player = FindObjectOfType<Player.Player>();
+            if (player == null) UnityEngine.Debug.Log("$Missing player in scene, Script: {this}");
+            playerTransform = player.transform;
         }
         
-        private void OnCollisionEnter2D(Collision2D col){
+        protected virtual void OnCollisionEnter2D(Collision2D col){
             if (CheckLayerMask.IsInLayerMask(col.gameObject, bulletLayer))
             {
                 var damaged = col.gameObject.GetComponent<BulletBase>().damage;
                 TakeDamage(damaged);
-                hpText.text = $"{(int) _currentHp}";
+                hpText.text = $"{(int) currentHp}";
             }
         }
 
-        public void TakeDamage(float amount){
-            _currentHp -= amount;
+        private void TakeDamage(float amount){
+            currentHp -= amount;
 
-            if (_currentHp <= 0)
+            if (currentHp <= 0)
             {
                 Destroy(gameObject);
                 this.SendMessage(EventType.EnemyKilled, this);
