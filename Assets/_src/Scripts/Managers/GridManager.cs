@@ -37,9 +37,25 @@ namespace _src.Scripts.Managers {
                     gridInst.name = $"GridManager [{w}:{h}]";
                     
                     tiles[w, h] = gridInst.GetComponent<Tile>();
-                    tiles[w, h].Init(w, h);
+                    tiles[w, h].Init(w, h, Contains.None);
                 }
             }
+        }
+        
+        /// <summary>
+        /// Update Contain Type of a specific Tile and its overrides 
+        /// </summary>
+        public void SetTileContainContent(int oldX, int oldY, int newX, int newY, 
+            Contains newType, Contains oldType = Contains.None)
+        {
+            tiles[oldX, oldY].UpdateTile(oldType);
+            tiles[newX, newY].UpdateTile(newType);
+        }
+        
+        public void SetTileContainContent(int newX, int newY, 
+            Contains newType)
+        {
+            tiles[newX, newY].UpdateTile(newType);
         }
     }
     

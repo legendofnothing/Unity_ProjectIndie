@@ -59,6 +59,9 @@ namespace _src.Scripts.Managers
         }
         
         #region Dispatcher Events
+        /// <summary>
+        /// Move Enemy Down by one Tile
+        /// </summary>
         private void EnemyTurn()
         {
             foreach (var enemy in _enemies)
@@ -69,6 +72,12 @@ namespace _src.Scripts.Managers
                 else updatedEnemyYCord = enemy.y - 1;
                 
                 var pos = _gridManager.tiles[enemy.x, updatedEnemyYCord].transform.position;
+                
+                //Set Tiles
+                _gridManager.SetTileContainContent(enemy.x, enemy.y, enemy.x, updatedEnemyYCord,
+                    Contains.Enemy);
+                
+                //Run Enemy Behavior
                 StartCoroutine(enemy.EnemyTurnCoroutine(pos, updatedEnemyYCord));
             }
 
@@ -107,6 +116,9 @@ namespace _src.Scripts.Managers
 
                 //Add To list
                 _enemies.Add(enemyBase);
+                
+                //Set Tiles
+                _gridManager.SetTileContainContent(x, y, Contains.Enemy);
             }
             
             this.SendMessage(EventType.SpawnPickup);

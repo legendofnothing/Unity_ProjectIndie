@@ -296,6 +296,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefab: {fileID: 3901560327570013151, guid: c11c32b3228631343bf779c5867b5d09, type: 3}
+  minAmountSpawn: 1
+  maxAmountSpawn: 4
   levelData: {fileID: 11400000, guid: 791c6b777f4e60149bbafbe2e114c3ce, type: 2}
 --- !u!1 &5081683451358816935
 GameObject:

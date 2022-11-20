@@ -13,6 +13,10 @@ namespace _src.Scripts.Managers
     public class PickupManager : MonoBehaviour
     {
         public GameObject pickupPrefab;
+
+        [Header("Configs")] 
+        public int minAmountSpawn;
+        public int maxAmountSpawn;
         [Header("LevelData")] public LevelData levelData;
         
         private GridManager _gridManager;
@@ -73,13 +77,17 @@ namespace _src.Scripts.Managers
             //Spawns every 3 turn
             if (levelData.turnNumber % 3 != 0) return;
 
-            var randomAmount = UnityRandom.Range(1, 3);
+            var randomAmount = UnityRandom.Range(minAmountSpawn, maxAmountSpawn);
             
             var rnd = new Random();
             var randomTileSpawners 
-                = _spawningTiles.OrderBy(_ => rnd.Next()).Take(randomAmount).ToList();
+                = _spawningTiles
+                    .OrderBy(_ => rnd.Next())
+                    .Take(randomAmount)
+                    .Where(tile => tile.contains == Contains.None)
+                    .ToList();
             
-
+            
             foreach (var spawner in randomTileSpawners)
             {
                 var pos = spawner.transform.position;
