@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using _src.Scripts.Core.Collections;
 using UnityEngine;
 
 using _src.Scripts.Core.EventDispatcher;
@@ -10,8 +12,16 @@ namespace _src.Scripts.Managers
 {
     public class PickupManager : MonoBehaviour
     {
-        [Header("Pickup Spawners")]
-        public GameObject pickupSpawnerPrefab;
+        [Serializable]
+        public struct PickupData
+        {
+            public GameObject prefab;
+            public float weight;
+        }
+
+        [Header("Pickup Spawners")] [SerializeField]
+        private List<PickupData> _pickupDatas = new();
+        private readonly WeightedList<PickupData> _weightedPickUpList = new();
 
         [Header("Configs")] 
         public int minAmountSpawn;
@@ -35,6 +45,11 @@ namespace _src.Scripts.Managers
             _width = _gridManager.width;
             
             InitSpawningGrid();
+
+            foreach (var pickup in _pickupDatas)
+            {
+                _weightedPickUpList.AddElement(pickup, pickup.weight);
+            }
         }
 
         private void Start()
@@ -90,7 +105,8 @@ namespace _src.Scripts.Managers
             foreach (var spawner in randomTileSpawners)
             {
                 var pos = spawner.transform.position;
-                var pickupinst = Instantiate(pickupSpawnerPrefab, pos, Quaternion.identity);
+                var rndPickup = _weightedPickUpList.GetRandomItem().prefab;
+                var pickupinst = Instantiate(rndPickup, pos, Quaternion.identity);
                 
                 _pickups?.Add(pickupinst);
             }

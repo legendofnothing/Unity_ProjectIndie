@@ -2,18 +2,18 @@ using _src.Scripts.Core;
 using UnityEngine;
 
 namespace _src.Scripts.Bullet {
-    public class BulletBase : MonoBehaviour {
-        public float damage;
-        public float speed;
-        public int thresholdBounces; //threshold to detect if the bullet keep bouncing left/right constantly
-        
+    public abstract class BulletBase : MonoBehaviour {
+        public float damage = 100f;
+        public float speed = 3f;
+        private const int ThresholdBounces = 12; //threshold to detect if the bullet keep bouncing left/right constantly
+
         private int _bouncedTimes;
 
-        protected Rigidbody2D Rb;
+        protected Rigidbody2D rb;
 
         private void Start(){
-            Rb = GetComponent<Rigidbody2D>();
-            Rb.velocity = transform.up * speed;
+            rb = GetComponent<Rigidbody2D>();
+            rb.velocity = transform.up * speed;
 
             _bouncedTimes = 0;
         }
@@ -28,7 +28,7 @@ namespace _src.Scripts.Bullet {
             {
                 _bouncedTimes++;
 
-                if (_bouncedTimes >= thresholdBounces)
+                if (_bouncedTimes >= ThresholdBounces)
                 {
                     Destroy(gameObject);
                 }

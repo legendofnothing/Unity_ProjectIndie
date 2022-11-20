@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6247140825687169368}
   - component: {fileID: 8409408063893082575}
-  - component: {fileID: 4846720463114266426}
   - component: {fileID: 5053328431617680877}
   - component: {fileID: 343647307332037276}
+  - component: {fileID: 6944674746280930566}
   m_Layer: 7
-  m_Name: Bullet
+  m_Name: BulletHeavy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.39804822, g: 0, b: 0.745283, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,27 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4846720463114266426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811179696128422734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 590f2600e4011d6488ed44985da7f2d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 100
-  speed: 8
-  thresholdBounces: 12
-  boundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  destroyLayer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!50 &5053328431617680877
 Rigidbody2D:
   serializedVersion: 4
@@ -145,3 +124,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &6944674746280930566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811179696128422734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 552979e8aded4185bbfd8fc15b59463d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 200
+  speed: 5

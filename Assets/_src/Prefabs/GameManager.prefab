@@ -301,7 +301,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0765590bf1db4df592aef17206a15e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSpawnerPrefab: {fileID: 3901560327570013151, guid: f6ba99135ed6c61448ccee5078d79cc2, type: 3}
+  _pickupDatas:
+  - prefab: {fileID: 3901560327570013151, guid: bd8767958bd55b148b085bc19d069259, type: 3}
+    weight: 0.9
+  - prefab: {fileID: 3901560327570013151, guid: 6f0c020b78bde9b4296cfda63180a244, type: 3}
+    weight: 0.6
   minAmountSpawn: 1
   maxAmountSpawn: 4
   levelData: {fileID: 11400000, guid: 791c6b777f4e60149bbafbe2e114c3ce, type: 2}

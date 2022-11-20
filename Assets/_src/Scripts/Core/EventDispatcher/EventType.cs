@@ -15,7 +15,7 @@ public enum EventType {
     
     //Pickup Manager Events
     SpawnPickup,
-    
+
     //Enemy Manager Events
     EnemyTurn,
     EnemyKilled, 
