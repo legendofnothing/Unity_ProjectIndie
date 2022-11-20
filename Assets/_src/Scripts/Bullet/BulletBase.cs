@@ -34,7 +34,7 @@ namespace _src.Scripts.Bullet {
 
                 if (_bouncedTimes >= thresholdBounces)
                 {
-                    Rb.velocity = transform.up * speed * 1.2f; 
+                    Destroy(gameObject);
                 }
             }
         }
