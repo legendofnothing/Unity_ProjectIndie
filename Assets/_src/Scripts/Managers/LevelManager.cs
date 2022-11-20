@@ -41,7 +41,7 @@ namespace _src.Scripts.Managers
             this.SubscribeListener(EventType.SwitchToPlayer, _=>UpdateTurn(Turn.Player));
         }
 
-        public void UpdateTurn(Turn turn)
+        private void UpdateTurn(Turn turn)
         {
             _currentTurn = turn;
 

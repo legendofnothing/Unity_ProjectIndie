@@ -77,7 +77,7 @@ namespace _src.Scripts.Managers
             
             var rnd = new Random();
             var randomTileSpawners 
-                = _spawningTiles.OrderBy(x => rnd.Next()).Take(randomAmount).ToList();
+                = _spawningTiles.OrderBy(_ => rnd.Next()).Take(randomAmount).ToList();
             
 
             foreach (var spawner in randomTileSpawners)
@@ -85,7 +85,7 @@ namespace _src.Scripts.Managers
                 var pos = spawner.transform.position;
                 var pickupinst = Instantiate(pickupPrefab, pos, Quaternion.identity);
                 
-                _pickups.Add(pickupinst);
+                _pickups?.Add(pickupinst);
             }
         }
 
