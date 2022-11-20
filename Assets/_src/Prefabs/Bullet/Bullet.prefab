@@ -101,6 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 100
   speed: 8
+  thresholdBounces: 12
+  boundLayer:
+    serializedVersion: 2
+    m_Bits: 64
   destroyLayer:
     serializedVersion: 2
     m_Bits: 256
