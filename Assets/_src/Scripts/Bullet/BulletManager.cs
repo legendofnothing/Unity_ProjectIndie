@@ -33,7 +33,7 @@ namespace _src.Scripts.Bullet {
 
         private void Start()
         {
-            this.SubscribeListener(EventType.AddBullet, _=>AddBullet());
+            this.SubscribeListener(EventType.AddBullet, bullet=>AddBullet((GameObject) bullet));
         }
 
         private void Update(){
@@ -72,9 +72,9 @@ namespace _src.Scripts.Bullet {
         }
 
         //Use for bullet pickups
-        private void AddBullet(){
+        private void AddBullet(GameObject bullet){
             amount++;
-            _addedTempList.Add(bulletPrefab);
+            _addedTempList.Add(bullet);
         }
     }
 }

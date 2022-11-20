@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 using _src.Scripts.Core.EventDispatcher;
-using _src.Scripts.Pickups;
 using Random = System.Random;
 using UnityRandom = UnityEngine.Random;
 
@@ -12,7 +10,8 @@ namespace _src.Scripts.Managers
 {
     public class PickupManager : MonoBehaviour
     {
-        public GameObject pickupPrefab;
+        [Header("Pickup Spawners")]
+        public GameObject pickupSpawnerPrefab;
 
         [Header("Configs")] 
         public int minAmountSpawn;
@@ -91,7 +90,7 @@ namespace _src.Scripts.Managers
             foreach (var spawner in randomTileSpawners)
             {
                 var pos = spawner.transform.position;
-                var pickupinst = Instantiate(pickupPrefab, pos, Quaternion.identity);
+                var pickupinst = Instantiate(pickupSpawnerPrefab, pos, Quaternion.identity);
                 
                 _pickups?.Add(pickupinst);
             }
