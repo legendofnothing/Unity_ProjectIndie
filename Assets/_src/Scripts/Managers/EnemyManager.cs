@@ -1,18 +1,38 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using _src.Scripts.Core.Collections;
 using _src.Scripts.Core.EventDispatcher;
 using _src.Scripts.Enemy;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = System.Random;
 using RandomUnity = UnityEngine.Random;
 
 namespace _src.Scripts.Managers
 {
+    public enum EnemyType
+    {
+        Basic,
+        Range
+    }
+    
     public class EnemyManager : MonoBehaviour
     {
+        [Serializable]
+        public struct EnemyData
+        {
+            public EnemyType type;
+            public GameObject prefab;
+            public float weight; 
+        }
+        
+        [Header("Enemy Spawn Data")]
+        [SerializeField] private List<EnemyData> enemyData = new();
+        private readonly WeightedList<EnemyData> _weightedEnemyList = new(); 
+
         public Transform enemyStore;
-        public GameObject enemyPrefab;
 
         [Header("Level Data")] public LevelData levelData;
         
@@ -35,6 +55,11 @@ namespace _src.Scripts.Managers
             _spawnHeight = 1;
 
             InitSpawnerGrids();
+
+            foreach (var enemy in enemyData)
+            {
+                _weightedEnemyList.AddElement(enemy, enemy.weight);
+            }
         }
 
         private void Start()
@@ -103,17 +128,23 @@ namespace _src.Scripts.Managers
                 var y = spawner.y;
                 var pos = spawner.transform.position;
 
+                var randomEnemy = _weightedEnemyList.GetRandomItem().prefab;
+                
                 //Spawn Enemy
-                var enemyInst = Instantiate(enemyPrefab, pos, Quaternion.identity);
+                var enemyInst = Instantiate(
+                    randomEnemy
+                    , pos
+                    , Quaternion.identity);
+                
                 enemyInst.transform.SetParent(enemyStore);
                     
                 var enemyBase = enemyInst.GetComponent<EnemyBase>();
-
+                
                 var adjustedEnemyHp = enemyBase.hp;
                 if (levelData.turnNumber > 1) adjustedEnemyHp = enemyBase.hp * levelData.turnNumber;
-
+                
                 enemyBase.Init(x,y, adjustedEnemyHp);
-
+                
                 //Add To list
                 _enemies.Add(enemyBase);
                 

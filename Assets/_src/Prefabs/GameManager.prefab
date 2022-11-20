@@ -280,8 +280,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0541856716edef4a8151fad81771175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyData:
+  - type: 0
+    prefab: {fileID: 1163999951790750900, guid: ca9ab78b9aba6d54b9ed1f8f7729366c, type: 3}
+    weight: 0.8
+  - type: 1
+    prefab: {fileID: 1163999951790750900, guid: f3010d91f91341840a65afda4d06fd95, type: 3}
+    weight: 0.4
   enemyStore: {fileID: 5081683450278813353}
-  enemyPrefab: {fileID: 1163999951790750900, guid: 82396a8527106bb4aaabde6f3ef52e07, type: 3}
   levelData: {fileID: 11400000, guid: 791c6b777f4e60149bbafbe2e114c3ce, type: 2}
 --- !u!114 &2598471292446880632
 MonoBehaviour:
