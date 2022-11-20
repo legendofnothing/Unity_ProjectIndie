@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4741490163997196384}
   - component: {fileID: 7591998991998536152}
-  - component: {fileID: 4978307214124467210}
   - component: {fileID: 8135043743975112802}
   m_Layer: 9
-  m_Name: Enemy
+  m_Name: EnemyBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,26 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4978307214124467210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1163999951790750900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d621a3c35ef39b4c8f118e57e042187, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 100
-  damage: 10
-  x: 0
-  y: 0
-  bulletLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  hpText: {fileID: 5379358326533771975}
 --- !u!61 &8135043743975112802
 BoxCollider2D:
   m_ObjectHideFlags: 0
