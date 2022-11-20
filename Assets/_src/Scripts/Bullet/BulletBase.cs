@@ -5,7 +5,7 @@ namespace _src.Scripts.Bullet {
     public abstract class BulletBase : MonoBehaviour {
         public float damage = 100f;
         public float speed = 3f;
-        private const int ThresholdBounces = 12; //threshold to detect if the bullet keep bouncing left/right constantly
+        private int _thresholdBounces = 12; //threshold to detect if the bullet keep bouncing left/right constantly
 
         private int _bouncedTimes;
 
@@ -28,7 +28,7 @@ namespace _src.Scripts.Bullet {
             {
                 _bouncedTimes++;
 
-                if (_bouncedTimes >= ThresholdBounces)
+                if (_bouncedTimes >= _thresholdBounces)
                 {
                     Destroy(gameObject);
                 }

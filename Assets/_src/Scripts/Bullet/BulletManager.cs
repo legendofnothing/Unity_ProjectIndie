@@ -59,7 +59,7 @@ namespace _src.Scripts.Bullet {
             
             _canSwitchTurn = true;
 
-            if (_currentList != null)
+            if (_canSwitchTurn)
             {
                 bulletList.AddRange(_addedTempList);
                 _addedTempList.Clear();
