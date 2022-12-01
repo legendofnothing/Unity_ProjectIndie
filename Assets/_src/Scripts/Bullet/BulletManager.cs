@@ -45,6 +45,10 @@ namespace _src.Scripts.Bullet {
             if (_canSwitchTurn && !IsAllBulletsActive())
             {
                 _canSwitchTurn = false;
+                
+                bulletList.AddRange(_addedTempList);
+                _addedTempList.Clear();
+                
                 this.SendMessage(EventType.SwitchToEnemy);
             }
         }
@@ -58,12 +62,6 @@ namespace _src.Scripts.Bullet {
             }
             
             _canSwitchTurn = true;
-
-            if (_canSwitchTurn)
-            {
-                bulletList.AddRange(_addedTempList);
-                _addedTempList.Clear();
-            }
             yield return null;
         }
 
