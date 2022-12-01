@@ -121,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 312795256}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7619839128830089955}
+        m_TargetAssemblyTypeName: _src.Scripts.UI.PowerupUI, Assembly-CSharp
+        m_MethodName: DamageBuff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &327829695
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +521,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 669963224}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7619839128830089955}
+        m_TargetAssemblyTypeName: _src.Scripts.UI.PowerupUI, Assembly-CSharp
+        m_MethodName: Nuke
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1132848043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,7 +1066,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1884856647}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7619839128830089955}
+        m_TargetAssemblyTypeName: _src.Scripts.UI.PowerupUI, Assembly-CSharp
+        m_MethodName: Explosion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2138989632
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,7 +1200,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2138989635}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7619839128830089955}
+        m_TargetAssemblyTypeName: _src.Scripts.UI.PowerupUI, Assembly-CSharp
+        m_MethodName: Health
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &497515752210800666
 GameObject:
   m_ObjectHideFlags: 0
@@ -1874,6 +1922,7 @@ GameObject:
   - component: {fileID: 7785569623524043782}
   - component: {fileID: 6038041852392455288}
   - component: {fileID: 6179342783887110631}
+  - component: {fileID: 7619839128830089955}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -1964,6 +2013,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7619839128830089955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360551577540024357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6633a6e7ec305b9439270017bd0a9b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpButtons:
+  - {fileID: 2138989634}
+  - {fileID: 312795255}
+  - {fileID: 1884856646}
+  - {fileID: 669963223}
 --- !u!1 &7788949135843281178
 GameObject:
   m_ObjectHideFlags: 0

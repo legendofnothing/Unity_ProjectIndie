@@ -48,7 +48,7 @@ namespace _src.Scripts.Enemy {
             }
         }
 
-        private void TakeDamage(float amount){
+        public void TakeDamage(float amount){
             currentHp -= amount;
 
             if (currentHp <= 0)

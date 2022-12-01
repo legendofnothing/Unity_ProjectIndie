@@ -9,7 +9,7 @@ namespace _src.Scripts.Player {
         public TextMeshProUGUI healthText;
 
         private void Awake() {
-            this.SubscribeListener(EventType.OnPlayerHPChange, param => SetPlayerHealth((float) param));
+            this.SubscribeListener(EventType.OnPlayerHpChange, param => SetPlayerHealth((float) param));
         }
 
         private void SetPlayerHealth(float amount) {

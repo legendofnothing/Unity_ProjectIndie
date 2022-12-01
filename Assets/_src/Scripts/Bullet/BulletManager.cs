@@ -12,7 +12,10 @@ namespace _src.Scripts.Bullet {
         public int amount;
         public GameObject bulletPrefab;
         public List<GameObject> bulletList;
-        
+
+        private const float _baseBulletDamageModifier = 1;
+        private float _currentBulletDamageModifier; 
+
         //Holds current bullet in the scene
         private List<GameObject> _currentList;
 
@@ -29,11 +32,14 @@ namespace _src.Scripts.Bullet {
             {
                 amount++;
             }
+
+            _currentBulletDamageModifier = _baseBulletDamageModifier;
         }
 
         private void Start()
         {
             this.SubscribeListener(EventType.AddBullet, bullet=>AddBullet((GameObject) bullet));
+            this.SubscribeListener(EventType.BuffBullet, param => ChangeDamageModifier((float) param));
         }
 
         private void Update(){
@@ -48,6 +54,8 @@ namespace _src.Scripts.Bullet {
                 
                 bulletList.AddRange(_addedTempList);
                 _addedTempList.Clear();
+
+                _currentBulletDamageModifier = _baseBulletDamageModifier;
                 
                 this.SendMessage(EventType.SwitchToEnemy);
             }
@@ -58,6 +66,10 @@ namespace _src.Scripts.Bullet {
             foreach (var bulletInst in bulletList.Select(bullet => Instantiate(bullet, position, rotation)))
             {
                 _currentList.Add(bulletInst);
+                
+                var bulletDamage = bulletInst.GetComponent<BulletBase>().damage;
+                bulletInst.GetComponent<BulletBase>().damage = bulletDamage * _currentBulletDamageModifier;
+                
                 yield return new WaitForSeconds(0.2f);
             }
             
@@ -73,6 +85,10 @@ namespace _src.Scripts.Bullet {
         private void AddBullet(GameObject bullet){
             amount++;
             _addedTempList.Add(bullet);
+        }
+
+        private void ChangeDamageModifier(float amount) {
+            _currentBulletDamageModifier = amount;
         }
     }
 }

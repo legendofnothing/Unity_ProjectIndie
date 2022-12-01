@@ -36,7 +36,7 @@ namespace _src.Scripts.Managers
 
         [Header("Level Data")] public LevelData levelData;
         
-        private List<EnemyBase> _enemies;
+        [HideInInspector] public List<EnemyBase> _enemies;
         private List<Tile> _spawnerTiles;
         private GridManager _gridManager;
 

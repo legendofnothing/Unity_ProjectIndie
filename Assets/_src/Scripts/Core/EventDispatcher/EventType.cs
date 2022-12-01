@@ -9,9 +9,11 @@ public enum EventType {
     //Player Script Events
     DisablePlayerInput, 
     EnablePlayerInput,
-    
+    AddPlayerHealth,
+
     //Bullet Manager Events
     AddBullet,
+    BuffBullet,
     
     //Pickup Manager Events
     SpawnPickup,
@@ -23,5 +25,11 @@ public enum EventType {
     EnemyDamagePlayer,
     
     //UI Events
-    OnPlayerHPChange
+    OnPlayerHpChange,
+
+    //PowerUp Events
+    PowerupHealth,
+    PowerupDamageBuff,
+    PowerupExplosion,
+    PowerupNuke
 }
