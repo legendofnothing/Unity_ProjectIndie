@@ -21,6 +21,8 @@ namespace _src.Scripts.Managers
 
         private Turn _currentTurn;
 
+        private bool _canAddTurn;
+
         private void Awake()
         {
             _gridManager = GetComponentInChildren<GridManager>();
@@ -49,11 +51,15 @@ namespace _src.Scripts.Managers
             {
                 case Turn.Start:
                     _enemyManager.SpawnEnemyRandom(3);
+                    this.SendMessage(EventType.OnTurnNumberChange, levelData.turnNumber);
                     UpdateTurn(Turn.Player);
                     break;
 
                 case Turn.Player:
-                    levelData.turnNumber++;
+                    if (!_canAddTurn) _canAddTurn = true;
+                    else levelData.turnNumber++; 
+                    
+                    this.SendMessage(EventType.OnTurnNumberChange, levelData.turnNumber);
                     this.SendMessage(EventType.EnablePlayerInput);
                     break;
 
