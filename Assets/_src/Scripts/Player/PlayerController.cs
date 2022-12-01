@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using _src.Scripts.Bullet;
 using _src.Scripts.Core.EventDispatcher;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
 namespace _src.Scripts.Player
@@ -39,7 +41,7 @@ namespace _src.Scripts.Player
             this.SubscribeListener(EventType.DisablePlayerInput, _=>CanInput(false));
         }
 
-        private void Update() { 
+        private void Update() {
             if (_canInput) HandleInput();
 
             switch (_touchState)
@@ -64,16 +66,18 @@ namespace _src.Scripts.Player
         {
             switch (Input.touchCount)
             {
-                case > 0:
+                case > 0: 
                 {
                     _touchInput = Input.GetTouch(0);
-                    _touchState = _touchInput.phase switch
-                    {
-                        TouchPhase.Moved => TouchState.Dragging,
-                        TouchPhase.Ended => TouchState.LetGo,
-                        _ => _touchState
-                    };
-
+                    if (!IsTouchOverUI(_touchInput)) {
+                        
+                        _touchState = _touchInput.phase switch
+                        {
+                            TouchPhase.Moved => TouchState.Dragging,
+                            TouchPhase.Ended => TouchState.LetGo,
+                            _ => _touchState
+                        };   
+                    }
                     break;
                 }
             }
@@ -163,6 +167,20 @@ namespace _src.Scripts.Player
             if (angle < 0) angle += 360;
             return angle;
         }
+        #endregion
+
+        #region Weird Static Method To Prevent Touching UI
+
+        public static bool IsTouchOverUI(Touch touch) {
+            var eventDataCurrentPosition = new PointerEventData(EventSystem.current) {
+                position = new Vector2(touch.position.x, touch.position.y)
+            };
+
+            var results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+            return results.Count > 0;
+        }
+        
         #endregion
     }
 }
