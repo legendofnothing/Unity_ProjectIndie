@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 631771417
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.99215686, g: 0.21176472, b: 0.680356, a: 1}
@@ -202,8 +202,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 727
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d04c95bffdab0594aaa0db8f4a5a8c83, type: 2}
+  m_sharedMaterial: {fileID: -8583163401701303739, guid: d04c95bffdab0594aaa0db8f4a5a8c83, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.45
+  m_fontSize: 0.35
   m_fontSizeBase: 0.2
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -327,7 +327,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 1049029389
+  m_SortingLayerID: 631771417
   m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &2043412641519609425

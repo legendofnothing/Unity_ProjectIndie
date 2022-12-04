@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using _src.Scripts.Core.EventDispatcher;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _src.Scripts.UI {
@@ -28,7 +26,7 @@ namespace _src.Scripts.UI {
         private void DisableButton() {
             foreach (var button in powerUpButtons) {
                 button.interactable = false;
-                button.GetComponent<Image>().DOFade(0, 0.8f);
+                button.GetComponent<Image>().DOFade(155, 0.8f);
             }
         }
         
@@ -38,14 +36,6 @@ namespace _src.Scripts.UI {
 
         public void DamageBuff() {
             this.SendMessage(EventType.PowerupDamageBuff);
-        }
-
-        public void Explosion() {
-            this.SendMessage(EventType.PowerupExplosion);
-        }
-
-        public void Nuke() {
-            this.SendMessage(EventType.PowerupExplosion);
         }
     }
 }
