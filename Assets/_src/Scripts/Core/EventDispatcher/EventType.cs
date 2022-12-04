@@ -25,6 +25,10 @@ public enum EventType {
     SpawnEnemy,
     EnemyDamagePlayer,
     
+    //Score Manager Events
+    AddScore,
+    OnScoreChange,
+    
     //UI Events
     OnPlayerHpChange,
     OnPlayerDie,

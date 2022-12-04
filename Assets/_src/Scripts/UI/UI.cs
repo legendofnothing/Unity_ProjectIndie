@@ -14,8 +14,9 @@ namespace _src.Scripts.UI {
         public PlayerData playerData;
         public TextMeshProUGUI coinText;
         
-        [Header("Turn Number")]
+        [Header("Texts")]
         public TextMeshProUGUI turnNumber;
+        public TextMeshProUGUI score;
 
         [Header("UIs")]
         public GameObject gameUI;
@@ -27,8 +28,11 @@ namespace _src.Scripts.UI {
             this.SubscribeListener(EventType.OnPlayerCoinReduce, param => CoinReduce((int) param));
             
             this.SubscribeListener(EventType.OnPlayerDie, _=>StartCoroutine(EnableDeathUI()));
+            
+            this.SubscribeListener(EventType.OnScoreChange, param=>SetScore((int) param));
 
             coinText.text = $"x{playerData.coins}";
+            score.text = "Score: 0";
             ChangeUI(gameUI);
         }
 
@@ -50,6 +54,11 @@ namespace _src.Scripts.UI {
             coinText.text = $"x{playerData.coins}";
             
             this.SendMessage(EventType.OnPlayerCoinChange);
+        }
+
+        private void SetScore(int amount)
+        {
+            score.text = $"Score: {amount}";
         }
 
         private IEnumerator EnableDeathUI()

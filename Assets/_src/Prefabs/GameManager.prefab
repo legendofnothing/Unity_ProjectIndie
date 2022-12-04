@@ -228,8 +228,9 @@ GameObject:
   - component: {fileID: 238717047355691630}
   - component: {fileID: 2598471292446880632}
   - component: {fileID: 1496345558}
+  - component: {fileID: 6881748568193326075}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Managers
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -323,6 +324,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54ed5dbd110bc7844bb49848038e6b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6881748568193326075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5081683451311133422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e13e7b5602fa04a9cbd726de21668d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelData: {fileID: 11400000, guid: 791c6b777f4e60149bbafbe2e114c3ce, type: 2}
 --- !u!1 &5081683451358816935
 GameObject:
   m_ObjectHideFlags: 0

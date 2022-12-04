@@ -16,6 +16,10 @@ namespace _src.Scripts.Enemy {
         [Space]
         public int coinAddedOnHit = 50;
         public int coinAddedOnDestroy = 100;
+
+        [Space] 
+        public int scoreAddedOnHit = 10;
+        public int scoreAddedOnDestroy = 20;
         
         [HideInInspector] public int x;
         [HideInInspector] public int y;
@@ -52,7 +56,10 @@ namespace _src.Scripts.Enemy {
                 hpText.text = $"{(int) currentHp}";
 
                 if (currentHp <= 0) return;
+                
                 this.SendMessage(EventType.OnPlayerCoinAdd, coinAddedOnHit);
+                this.SendMessage(EventType.AddScore, scoreAddedOnHit);
+                
                 SpawnFloatingCoin(coinAddedOnHit);
             }
         }
@@ -64,7 +71,10 @@ namespace _src.Scripts.Enemy {
             {
                 Destroy(gameObject);
                 this.SendMessage(EventType.EnemyKilled, this);
+                
                 this.SendMessage(EventType.OnPlayerCoinAdd, coinAddedOnDestroy);
+                this.SendMessage(EventType.AddScore, scoreAddedOnDestroy);
+                
                 SpawnFloatingCoin(coinAddedOnDestroy);
             }
         }
