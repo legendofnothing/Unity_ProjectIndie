@@ -13,6 +13,10 @@ namespace _src.Scripts.Enemy {
         public float hp = 100; //BaseHp
         public float damage = 10;
         
+        [Space]
+        public int coinAddedOnHit = 50;
+        public int coinAddedOnDestroy = 100;
+        
         [HideInInspector] public int x;
         [HideInInspector] public int y;
         
@@ -21,6 +25,9 @@ namespace _src.Scripts.Enemy {
 
         [Header("UI Related")] 
         public TextMeshProUGUI hpText;
+
+        [Header("Floating Coins")] 
+        public GameObject floatingCoins;
 
         protected float currentHp; //Increment everytime at the y pos = 0, after 2 attack
         protected Transform playerTransform; 
@@ -43,6 +50,10 @@ namespace _src.Scripts.Enemy {
                 var damaged = col.gameObject.GetComponent<BulletBase>().damage;
                 TakeDamage(damaged);
                 hpText.text = $"{(int) currentHp}";
+
+                if (currentHp <= 0) return;
+                this.SendMessage(EventType.OnPlayerCoinAdd, coinAddedOnHit);
+                SpawnFloatingCoin(coinAddedOnHit);
             }
         }
 
@@ -53,7 +64,15 @@ namespace _src.Scripts.Enemy {
             {
                 Destroy(gameObject);
                 this.SendMessage(EventType.EnemyKilled, this);
+                this.SendMessage(EventType.OnPlayerCoinAdd, coinAddedOnDestroy);
+                SpawnFloatingCoin(coinAddedOnDestroy);
             }
+        }
+
+        public void SpawnFloatingCoin(int amount)
+        {
+            var floatingCoin = Instantiate(floatingCoins, transform.position, Quaternion.identity);
+            floatingCoin.GetComponent<FloatingCoin>().Init(amount);
         }
             
         public IEnumerator EnemyTurnCoroutine(Vector3 posToMove, int yCord)

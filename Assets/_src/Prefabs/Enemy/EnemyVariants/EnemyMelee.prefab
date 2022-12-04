@@ -127,12 +127,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   damage: 10
+  coinAddedOnHit: 50
+  coinAddedOnDestroy: 100
   x: 0
   y: 0
   bulletLayer:
     serializedVersion: 2
     m_Bits: 128
   hpText: {fileID: 5379358326533771975}
+  floatingCoins: {fileID: 2533072670318687323, guid: e960e7b0e44f4cb49888d13103216be4, type: 3}
 --- !u!1 &4564801743663408532
 GameObject:
   m_ObjectHideFlags: 0

@@ -127,13 +127,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   damage: 10
+  coinAddedOnHit: 100
+  coinAddedOnDestroy: 200
   x: 0
   y: 0
   bulletLayer:
     serializedVersion: 2
     m_Bits: 128
   hpText: {fileID: 5379358326533771975}
-  Reminder: 
+  floatingCoins: {fileID: 2533072670318687323, guid: e960e7b0e44f4cb49888d13103216be4, type: 3}
   _bulletPrefab: {fileID: 5400054822447510656, guid: a142d3a03cac4fe4a9cede07c3b4fb45, type: 3}
 --- !u!1 &4564801743663408532
 GameObject:

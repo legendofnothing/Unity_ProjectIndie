@@ -7,9 +7,7 @@ using Random = System.Random;
 
 namespace _src.Scripts.Managers {
     public class PowerUpManager : MonoBehaviour {
-        public LevelData LevelData;
-        
-        private const float baseHp = 10;
+        private const float baseHp = 100;
         private const float baseDamageModifier = 1.2f;
 
         private EnemyManager _enemyManager;

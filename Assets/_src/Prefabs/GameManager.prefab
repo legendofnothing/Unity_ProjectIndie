@@ -290,6 +290,7 @@ MonoBehaviour:
     weight: 0.4
   enemyStore: {fileID: 5081683450278813353}
   levelData: {fileID: 11400000, guid: 791c6b777f4e60149bbafbe2e114c3ce, type: 2}
+  _enemies: []
 --- !u!114 &2598471292446880632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,8 +308,8 @@ MonoBehaviour:
     weight: 0.9
   - prefab: {fileID: 3901560327570013151, guid: 6f0c020b78bde9b4296cfda63180a244, type: 3}
     weight: 0.6
-  minAmountSpawn: 1
-  maxAmountSpawn: 4
+  minAmountSpawn: 2
+  maxAmountSpawn: 5
   levelData: {fileID: 11400000, guid: 791c6b777f4e60149bbafbe2e114c3ce, type: 2}
 --- !u!114 &1496345558
 MonoBehaviour:
@@ -322,7 +323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54ed5dbd110bc7844bb49848038e6b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelData: {fileID: 11400000, guid: 791c6b777f4e60149bbafbe2e114c3ce, type: 2}
 --- !u!1 &5081683451358816935
 GameObject:
   m_ObjectHideFlags: 0

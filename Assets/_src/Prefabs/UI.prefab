@@ -1916,11 +1916,11 @@ MonoBehaviour:
   - type: 0
     button: {fileID: 2138989634}
     costText: {fileID: 6283618074106895066}
-    cost: 200
+    cost: 1200
   - type: 1
     button: {fileID: 312795255}
     costText: {fileID: 524306614625425489}
-    cost: 400
+    cost: 2400
 --- !u!114 &6069249727156610264
 MonoBehaviour:
   m_ObjectHideFlags: 0
