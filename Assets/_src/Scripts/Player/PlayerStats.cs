@@ -23,6 +23,12 @@ namespace _src.Scripts.Player {
         private void DealDamage(float amount) {
             _currentHp -= amount;
             this.SendMessage(EventType.OnPlayerHpChange, _currentHp);
+
+            if (_currentHp <= 0)
+            {
+                _currentHp = 0;
+                this.SendMessage(EventType.SwitchToEnd);
+            }
         }
 
         private void AddHealth(float amount) {

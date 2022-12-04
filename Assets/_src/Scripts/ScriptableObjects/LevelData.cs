@@ -7,4 +7,6 @@ using UnityEngine;
 public class LevelData : ScriptableObject
 {
     public int turnNumber;
+    public int score;
+    public int sceneIndex;
 }

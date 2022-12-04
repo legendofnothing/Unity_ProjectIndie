@@ -5,6 +5,7 @@ public enum EventType {
     SwitchToShooting,
     SwitchToEnemy,
     SwitchToPlayer,
+    SwitchToEnd,
     
     //Player Script Events
     DisablePlayerInput, 
@@ -26,6 +27,7 @@ public enum EventType {
     
     //UI Events
     OnPlayerHpChange,
+    OnPlayerDie,
     OnTurnNumberChange,
     
     OnPlayerCoinChange,
