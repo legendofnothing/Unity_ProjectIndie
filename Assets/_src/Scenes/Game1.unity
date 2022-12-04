@@ -348,13 +348,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4237710353266044691, guid: f1a286ae2b7cb9c4580beb0b68dcba7f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.4599915
+      objectReference: {fileID: 0}
+    - target: {fileID: 5016678119460893628, guid: f1a286ae2b7cb9c4580beb0b68dcba7f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.9700012
+      objectReference: {fileID: 0}
     - target: {fileID: 7360551577540024357, guid: f1a286ae2b7cb9c4580beb0b68dcba7f, type: 3}
       propertyPath: m_Name
       value: UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 7619839128830089955, guid: f1a286ae2b7cb9c4580beb0b68dcba7f, type: 3}
-      propertyPath: powerUpButtons.Array.size
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7785569623524043782, guid: f1a286ae2b7cb9c4580beb0b68dcba7f, type: 3}
       propertyPath: m_Camera
@@ -369,14 +373,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9013195813309851816, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9013195813456117521, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353290, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: m_Name
       value: Player

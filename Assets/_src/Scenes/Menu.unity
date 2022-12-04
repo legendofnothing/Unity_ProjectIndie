@@ -3439,8 +3439,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623b21c0a897cc6478c6c27069ba08b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: f0aac81623f04274c8d00336720c51d2, type: 2}
   loadedUI: {fileID: 324544951}
   loadedUIclip: {fileID: 7400000, guid: 055ca1b793e75c040a47f3cbb957a208, type: 2}
+  coinText: {fileID: 1375445558}
   mainUI: {fileID: 1269076480}
   settingUI: {fileID: 273070417}
   configUI: {fileID: 1654745968}

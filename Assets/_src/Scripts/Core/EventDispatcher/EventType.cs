@@ -27,6 +27,10 @@ public enum EventType {
     //UI Events
     OnPlayerHpChange,
     OnTurnNumberChange,
+    
+    OnPlayerCoinChange,
+    OnPlayerCoinAdd,
+    OnPlayerCoinReduce,
 
     //PowerUp Events
     PowerupHealth,

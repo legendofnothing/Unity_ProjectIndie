@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using _src.Scripts.ScriptableObjects;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,9 +9,13 @@ namespace _src.Scripts.UI.Menu
 {
     public class MenuUI : MonoBehaviour
     {
+        [Header("PlayerData")] public PlayerData playerData;
+        
         [Header("Starter")] 
         public GameObject loadedUI;
         public AnimationClip loadedUIclip;
+
+        [Header("Texts")] public TextMeshProUGUI coinText;
 
         [Header("UIs")] public GameObject mainUI;
         
@@ -23,6 +29,8 @@ namespace _src.Scripts.UI.Menu
 
             settingUI.SetActive(false);
             configUI.SetActive(false);
+
+            coinText.text = $"x{playerData.coins}";
         }
 
         private IEnumerator StartUI()
