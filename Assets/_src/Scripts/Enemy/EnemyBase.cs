@@ -22,8 +22,6 @@ namespace _src.Scripts.Enemy {
         [Header("UI Related")] 
         public TextMeshProUGUI hpText;
 
-        [Space] [Multiline] public string Reminder; 
-
         protected float currentHp; //Increment everytime at the y pos = 0, after 2 attack
         protected Transform playerTransform; 
 
