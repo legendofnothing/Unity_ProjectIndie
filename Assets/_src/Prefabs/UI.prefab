@@ -1682,8 +1682,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -540, y: -74.77002}
-  m_SizeDelta: {x: 1080, y: 149.54}
+  m_AnchoredPosition: {x: -375.00003, y: -74.77002}
+  m_SizeDelta: {x: 750, y: 149.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6144187815289373663
 Canvas:
@@ -1906,7 +1906,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnNumber: {fileID: 6343911181845330309}
-  comboNumber: {fileID: 0}
 --- !u!1 &7788949135843281178
 GameObject:
   m_ObjectHideFlags: 0
