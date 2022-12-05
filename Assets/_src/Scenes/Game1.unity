@@ -324,6 +324,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2914576776104805776, guid: f1a286ae2b7cb9c4580beb0b68dcba7f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 130.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914576776104805776, guid: f1a286ae2b7cb9c4580beb0b68dcba7f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 183.20001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907485419759457286, guid: f1a286ae2b7cb9c4580beb0b68dcba7f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 220.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907485419759457286, guid: f1a286ae2b7cb9c4580beb0b68dcba7f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 144
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907485419759457286, guid: f1a286ae2b7cb9c4580beb0b68dcba7f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -43.805
+      objectReference: {fileID: 0}
     - target: {fileID: 7360551577540024357, guid: f1a286ae2b7cb9c4580beb0b68dcba7f, type: 3}
       propertyPath: m_Name
       value: UI
