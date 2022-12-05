@@ -10,6 +10,9 @@ using UnityRandom = UnityEngine.Random;
 
 namespace _src.Scripts.Managers
 {
+    /// <summary>
+    /// Manager to handle pickups 
+    /// </summary>
     public class PickupManager : MonoBehaviour
     {
         [Serializable]
@@ -29,7 +32,10 @@ namespace _src.Scripts.Managers
         [Header("LevelData")] public LevelData levelData;
         
         private GridManager _gridManager;
+        
         private List<Tile> _spawningTiles;
+        
+        //List to hold current pickups in the scene 
         private List<GameObject> _pickups;
 
         private int _height;
@@ -64,7 +70,10 @@ namespace _src.Scripts.Managers
                 _pickups?.RemoveAll(destroyedPickups => destroyedPickups == null);
             }
         }
-
+        
+        /// <summary>
+        /// Assign pickup spawning tiles 
+        /// </summary>
         private void InitSpawningGrid()
         {
             for (var h = 0; h < _height; h++)
@@ -75,9 +84,14 @@ namespace _src.Scripts.Managers
                 }
             }
         }
-
+        
+        /// <summary>
+        /// Spawn pickups 
+        /// </summary>
         private void SpawnPickups()
         {
+            //Check if any pickups has been spawned, destroy if have.
+            //Pickups only have lifespan of 1 turn.
             if (_pickups != null)
             {
                 foreach (var pickup in _pickups)
@@ -93,6 +107,7 @@ namespace _src.Scripts.Managers
 
             var randomAmount = UnityRandom.Range(minAmountSpawn, maxAmountSpawn);
             
+            //Pick amount of Tiles w/ no duplicates, where the Tile doesn't contain anything
             var rnd = new Random();
             var randomTileSpawners 
                 = _spawningTiles
@@ -101,7 +116,7 @@ namespace _src.Scripts.Managers
                     .Where(tile => tile.contains == Contains.None)
                     .ToList();
             
-            
+            //Spawn pickup on the picked Tiles
             foreach (var spawner in randomTileSpawners)
             {
                 var pos = spawner.transform.position;
@@ -111,7 +126,11 @@ namespace _src.Scripts.Managers
                 _pickups?.Add(pickupinst);
             }
         }
-
+        
+        /// <summary>
+        /// Check if any pickups are in the scene 
+        /// </summary>
+        /// <returns>True if any</returns>
         private bool IsAllPickupActive()
         {
             return _pickups.Count > 0;

@@ -7,6 +7,9 @@ using UnityEngine.Serialization;
 
 namespace _src.Scripts.Player
 {
+    /// <summary>
+    /// Handles Player Controller
+    /// </summary>
     public class PlayerController : Player
     {
         [Space]

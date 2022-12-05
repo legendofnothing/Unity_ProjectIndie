@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace _src.Scripts.Enemy.EnemyWeapon
 {
+    /// <summary>
+    /// Enemy Bullet Behavior
+    /// </summary>
     public class EnemyBullet : MonoBehaviour
     {
         [HideInInspector] public float damage;

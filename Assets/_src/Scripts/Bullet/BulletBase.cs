@@ -1,7 +1,9 @@
-using _src.Scripts.Core;
 using UnityEngine;
 
 namespace _src.Scripts.Bullet {
+    /// <summary>
+    /// Base class for all Bullets, new BulletType will be derived from here
+    /// </summary>
     public abstract class BulletBase : MonoBehaviour {
         public float damage = 100f;
         public float speed = 3f;

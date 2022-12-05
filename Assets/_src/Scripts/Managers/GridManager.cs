@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace _src.Scripts.Managers {
     public class GridManager : MonoBehaviour {
+        /// <summary>
+        /// Manager for grid and tiles 
+        /// </summary>
         [Header("GridManager Configs")]
         public int width;
         public int height;
@@ -22,16 +25,19 @@ namespace _src.Scripts.Managers {
             GenerateGrid();
         }
 
-        //Spawn in Inspector
+        /// <summary>
+        /// Generates Grid and Init Tiles 
+        /// </summary>
         public void GenerateGrid(){
             for (int h = 0; h < height; h++)
             {
                 for (int w = 0; w < width; w++)
                 {
+                    //Spawn Grids 
                     var gridPosition = gameObject.transform.position;
                     var pos = new Vector2(w * gridOffset, h * gridOffset) + (Vector2) gridPosition;
                     
-                    //Spawn GridManager
+                    //Spawn Tiles 
                     var gridInst = Instantiate(gridPrefab, pos, Quaternion.identity);
                     gridInst.transform.SetParent(gridsParent);
                     gridInst.name = $"GridManager [{w}:{h}]";

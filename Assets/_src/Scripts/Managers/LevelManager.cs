@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 namespace _src.Scripts.Managers
 {
+    /// <summary>
+    /// Main Game Manager, communicate between managers 
+    /// </summary>
+    
     public enum Turn
     {
         Start,
@@ -48,7 +52,11 @@ namespace _src.Scripts.Managers
             this.SubscribeListener(EventType.SwitchToPlayer, _=>UpdateTurn(Turn.Player));
             this.SubscribeListener(EventType.SwitchToEnd, _=>UpdateTurn(Turn.End));
         }
-
+        
+        /// <summary>
+        /// Function to update game turn
+        /// </summary>
+        /// <param name="turn">Turn to update</param>
         private void UpdateTurn(Turn turn)
         {
             _currentTurn = turn;
@@ -78,6 +86,7 @@ namespace _src.Scripts.Managers
                     break;
                 
                 case Turn.End:
+                    //Set Data for preservedLevelData for the DeathScreen scene 
                     preservedLevelData.turnNumber = levelData.turnNumber;
                     preservedLevelData.score = levelData.score;
                     preservedLevelData.sceneIndex = levelData.sceneIndex;

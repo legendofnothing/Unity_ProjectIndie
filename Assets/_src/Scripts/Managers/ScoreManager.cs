@@ -10,6 +10,7 @@ namespace _src.Scripts.Managers
 
         private void Start()
         {
+            //Subscribe Events
             this.SubscribeListener(EventType.AddScore, param => AddScore((int) param));
         }
 

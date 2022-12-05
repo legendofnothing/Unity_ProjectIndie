@@ -12,6 +12,10 @@ using RandomUnity = UnityEngine.Random;
 
 namespace _src.Scripts.Managers
 {
+    /// <summary>
+    /// Handles all enemies in the scene 
+    /// </summary>
+    
     public enum EnemyType
     {
         Basic,
@@ -25,13 +29,16 @@ namespace _src.Scripts.Managers
         {
             public EnemyType type;
             public GameObject prefab;
+            
+            //Weight as in spawn chance, not actual enemy weight, that would crash the phone
             public float weight; 
         }
         
         [Header("Enemy Spawn Data")]
         [SerializeField] private List<EnemyData> enemyData = new();
         private readonly WeightedList<EnemyData> _weightedEnemyList = new(); 
-
+        
+        //Empty GameObject to store all enemies in the scene 
         public Transform enemyStore;
 
         [Header("Level Data")] public LevelData levelData;
@@ -40,8 +47,10 @@ namespace _src.Scripts.Managers
         private List<Tile> _spawnerTiles;
         private GridManager _gridManager;
 
+        //Private grid width, height
         private int _width;
         private int _height;
+        
         private int _spawnHeight; //Number to spawn at like y:7 
         
         private void Awake()
@@ -64,7 +73,7 @@ namespace _src.Scripts.Managers
 
         private void Start()
         {
-            //Subscribe Event
+            //Subscribe Events 
             this.SubscribeListener(EventType.EnemyTurn, _=>EnemyTurn());
             this.SubscribeListener(EventType.EnemyKilled, param=>RemoveEnemy((EnemyBase) param));
             this.SubscribeListener(EventType.SpawnEnemy, param => SpawnEnemyRandom((int) param));
@@ -85,43 +94,58 @@ namespace _src.Scripts.Managers
         
         #region Dispatcher Events
         /// <summary>
-        /// Move Enemy Down by one Tile
+        /// Execute EnemyTurn in EnemyBase foreach enemies in the scene 
         /// </summary>
         private void EnemyTurn()
         {
             foreach (var enemy in _enemies)
             {
+                //Get enemy's updated Y Cord
                 int updatedEnemyYCord;
-                
                 if (enemy.y - 1 <= 0) updatedEnemyYCord = 0;
                 else updatedEnemyYCord = enemy.y - 1;
                 
+                //Get tile's Updated Cord
                 var pos = _gridManager.tiles[enemy.x, updatedEnemyYCord].transform.position;
                 
-                //Set Tiles
+                //Set Tiles and Update their Contains
                 _gridManager.SetTileContainContent(enemy.x, enemy.y, enemy.x, updatedEnemyYCord,
                     Contains.Enemy);
                 
-                //Run Enemy Behavior
+                //Run Enemy Behavior, setting enemy pos to move to and updated pos
                 StartCoroutine(enemy.EnemyTurnCoroutine(pos, updatedEnemyYCord));
             }
-
+            
             StartCoroutine(SwitchPlayerTurn());
         }
-
+        
+        /// <summary>
+        /// Remove Enemy from the scene
+        /// </summary>
+        /// <param name="enemyToRemove"></param>
         private void RemoveEnemy(EnemyBase enemyToRemove)
         {
             _enemies.Remove(enemyToRemove);
         }
         
+        /// <summary>
+        /// Spawn an amount of enemy
+        /// </summary>
+        /// <param name="amount">Amount to spawn</param>
         public void SpawnEnemyRandom(int amount)
         {
+            //Capping amount 
             if (amount > _width * _spawnHeight) amount = _width * _spawnHeight;
             
+            //Pick a random amount of Tile to spawn in, no duplicates
             var rnd = new Random();
             var randomTileSpawners 
-                = _spawnerTiles.OrderBy(x => rnd.Next()).Take(amount).ToList();
-
+                = _spawnerTiles
+                    .OrderBy(x => rnd.Next())
+                    .Take(amount)
+                    .ToList();
+            
+            //Spawn enemy in each picked tiles
             foreach (var spawner in randomTileSpawners)
             {
                 var x = spawner.x;
@@ -140,6 +164,7 @@ namespace _src.Scripts.Managers
                     
                 var enemyBase = enemyInst.GetComponent<EnemyBase>();
                 
+                //Increase enemy health every turn
                 var adjustedEnemyHp = enemyBase.hp;
                 if (levelData.turnNumber > 1) adjustedEnemyHp = enemyBase.hp * levelData.turnNumber;
                 
@@ -148,7 +173,7 @@ namespace _src.Scripts.Managers
                 //Add To list
                 _enemies.Add(enemyBase);
                 
-                //Set Tiles
+                //Set Tiles Contents 
                 _gridManager.SetTileContainContent(x, y, Contains.Enemy);
             }
             

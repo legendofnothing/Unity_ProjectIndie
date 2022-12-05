@@ -3,6 +3,9 @@ using _src.Scripts.Core.EventDispatcher;
 using UnityEngine;
 
 namespace _src.Scripts.Player {
+    /// <summary>
+    /// Script to handles player stats
+    /// </summary>
     public class PlayerStats : MonoBehaviour {
         public float hp;
         private float _currentHp;
@@ -19,7 +22,8 @@ namespace _src.Scripts.Player {
             
             this.SendMessage(EventType.OnPlayerHpChange, _currentHp);
         }
-
+        
+        //Deal Damage to Player
         private void DealDamage(float amount) {
             _currentHp -= amount;
             this.SendMessage(EventType.OnPlayerHpChange, _currentHp);
@@ -30,7 +34,8 @@ namespace _src.Scripts.Player {
                 this.SendMessage(EventType.SwitchToEnd);
             }
         }
-
+        
+        //Add Health to player
         private void AddHealth(float amount) {
             _currentHp += amount;
             this.SendMessage(EventType.OnPlayerHpChange, _currentHp);

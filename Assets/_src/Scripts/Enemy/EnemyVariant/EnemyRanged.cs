@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace _src.Scripts.Enemy.EnemyVariant
 {
+    /// <summary>
+    /// Enemy thats shoot
+    /// </summary>
     public class EnemyRanged : EnemyBase
     {
         [Header("Enemy Config")] [SerializeField]
@@ -17,18 +20,22 @@ namespace _src.Scripts.Enemy.EnemyVariant
         {
             switch (y)
             {
+                //At y : 0
                 case 0:
                     this.SendMessage(EventType.EnemyDamagePlayer, damage);
                     this.SendMessage(EventType.EnemyKilled, this);
                     Destroy(gameObject);
                     break;
                 
+                //At any Y
                 default:
                     Shoot();
                     break;
             }
         }
-
+        
+        
+        //Enemy Shoot Function
         private void Shoot()
         {
             var bulletInst = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
