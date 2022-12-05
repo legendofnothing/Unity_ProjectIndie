@@ -20,6 +20,7 @@ namespace _src.Scripts.UI {
 
         [Header("UIs")]
         public GameObject gameUI;
+        public GameObject pauseUI;
 
         private void Start() {
             this.SubscribeListener(EventType.OnTurnNumberChange, param => SetTurnNumber((int) param));
@@ -33,7 +34,9 @@ namespace _src.Scripts.UI {
 
             coinText.text = $"x{playerData.coins}";
             score.text = "Score: 0";
+            
             ChangeUI(gameUI);
+            ChangeUI(null, pauseUI);
         }
 
         private void SetTurnNumber(int number) {
@@ -75,6 +78,25 @@ namespace _src.Scripts.UI {
         {
             if (newUI != null) newUI.SetActive(true);
             if (oldUI != null) oldUI.SetActive(false);
+        }
+
+        #endregion
+
+        #region Buttons
+
+        public void Pause() {
+            Time.timeScale = 0;
+            ChangeUI(pauseUI, gameUI);
+        }
+
+        public void Return() {
+            Time.timeScale = 1;
+            ChangeUI(gameUI, pauseUI);
+        }
+
+        public void Quit() {
+            Time.timeScale = 1;
+            SceneManager.LoadScene("Menu");
         }
 
         #endregion

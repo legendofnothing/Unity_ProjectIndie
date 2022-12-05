@@ -4,6 +4,7 @@ using _src.Scripts.ScriptableObjects;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _src.Scripts.UI.Menu
 {
@@ -45,6 +46,15 @@ namespace _src.Scripts.UI.Menu
         public void SettingButton()
         {
             ChangeUI(settingUI, mainUI);
+        }
+
+        public void LoadTutorial() 
+        {
+            //Implement...
+        }
+
+        public void LoadTrial1() {
+            SceneManager.LoadScene("Game1");
         }
         
         #endregion
