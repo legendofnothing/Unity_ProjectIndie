@@ -5,8 +5,10 @@ using System.Linq;
 using _src.Scripts.Core.Collections;
 using _src.Scripts.Core.EventDispatcher;
 using _src.Scripts.Enemy;
+using _src.Scripts.ScriptableObjects;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = System.Random;
 using RandomUnity = UnityEngine.Random;
 
@@ -22,27 +24,24 @@ namespace _src.Scripts.Managers
         Range
     }
     
-    public class EnemyManager : MonoBehaviour
+    [Serializable]
+    public struct EnemyData
     {
-        [Serializable]
-        public struct EnemyData
-        {
-            public EnemyType type;
-            public GameObject prefab;
+        public EnemyType type;
+        public GameObject prefab;
             
-            //Weight as in spawn chance, not actual enemy weight, that would crash the phone
-            public float weight; 
-        }
-        
-        [Header("Enemy Spawn Data")]
-        [SerializeField] private List<EnemyData> enemyData = new();
+        //Weight as in spawn chance, not actual enemy weight, that would crash the phone
+        public float weight; 
+    }
+    
+    public class EnemyManager : MonoBehaviour { 
+        [SerializeField] private EnemySpawningData enemySpawningData;
         private readonly WeightedList<EnemyData> _weightedEnemyList = new(); 
         
         //Empty GameObject to store all enemies in the scene 
         public Transform enemyStore;
 
         [Header("Level Data")] public LevelData levelData;
-        
         [HideInInspector] public List<EnemyBase> _enemies;
         private List<Tile> _spawnerTiles;
         private GridManager _gridManager;
@@ -65,12 +64,12 @@ namespace _src.Scripts.Managers
 
             InitSpawnerGrids();
 
-            foreach (var enemy in enemyData)
+            foreach (var enemy in enemySpawningData.enemyData)
             {
                 _weightedEnemyList.AddElement(enemy, enemy.weight);
             }
         }
-
+    
         private void Start()
         {
             //Subscribe Events 

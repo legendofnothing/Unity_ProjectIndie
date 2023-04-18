@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/_src/Scenes/Menu.unity
     guid: 783d0e5011584ca4b8c78c6730de180d
   - enabled: 1
-    path: Assets/_src/Scenes/Game1.unity
+    path: Assets/_src/Scenes/DevGameScene/Game1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/_src/Scenes/DeathScene.unity
