@@ -10,16 +10,16 @@ namespace _src.Scripts.Player
     /// <summary>
     /// Handles Player Controller
     /// </summary>
-    public class PlayerController : Player
+    public class PlayerController : MonoBehaviour
     {
         [Space]
         public float maxAngle;
         
         public GameObject firingPoint;
         public GameObject aimingGuide;
-        public GameObject bullet;
 
-        [Header("Refs")] [SerializeField] private BulletManager _bulletManager;
+        [Header("Refs")] 
+        [SerializeField] private BulletManager _bulletManager;
         private Touch _touchInput;
         private bool _canInput;
         
@@ -86,7 +86,7 @@ namespace _src.Scripts.Player
         #region TouchEvents
 
         private void RotatePlayer(){
-            var touchPos = Camera.ScreenToWorldPoint(_touchInput.position);
+            var touchPos = Player.instance.camera.ScreenToWorldPoint(_touchInput.position);
             var position = transform.position;
 
             var angle = Mathf.Atan2(touchPos.y - position.y, touchPos.x - position.x) * Mathf.Rad2Deg - 90f;

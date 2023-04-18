@@ -8,15 +8,11 @@ namespace _src.Scripts.Core {
             get {
                 if (_instance == null) {
                     var instances = FindObjectsOfType<T>();
-                    if (instances.Length > 1) {
-                        _instance = instances[0];
-                    }
+                    _instance = instances.Length > 0 ? 
+                        instances[0] : 
+                        new GameObject($"[SINGLETON] {typeof(T)}").AddComponent<T>();
                 }
 
-                if (_instance == null) {
-                    _instance = new GameObject($"{typeof(T)} (singleton)").AddComponent<T>();
-                }
-                    
                 return _instance; 
             }
         }
