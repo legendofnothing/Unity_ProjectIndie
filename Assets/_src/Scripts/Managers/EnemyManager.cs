@@ -97,20 +97,8 @@ namespace _src.Scripts.Managers
         {
             foreach (var enemy in _enemies)
             {
-                //Get enemy's updated Y Cord
-                int updatedEnemyYCord;
-                if (enemy.y - 1 <= 0) updatedEnemyYCord = 0;
-                else updatedEnemyYCord = enemy.y - 1;
-                
-                //Get tile's Updated Cord
-                var pos = _gridManager.tiles[enemy.x, updatedEnemyYCord].transform.position;
-                
-                //Set Tiles and Update their Contains
-                _gridManager.SetTileContainContent(enemy.x, enemy.y, enemy.x, updatedEnemyYCord,
-                    Contains.Enemy);
-                
                 //Run Enemy Behavior, setting enemy pos to move to and updated pos
-                StartCoroutine(enemy.EnemyTurnCoroutine(pos, updatedEnemyYCord));
+                StartCoroutine(enemy.EnemyTurnCoroutine());
             }
             
             StartCoroutine(SwitchPlayerTurn());
@@ -120,8 +108,7 @@ namespace _src.Scripts.Managers
         /// Remove Enemy from the scene
         /// </summary>
         /// <param name="enemyToRemove"></param>
-        private void RemoveEnemy(EnemyBase enemyToRemove)
-        {
+        private void RemoveEnemy(EnemyBase enemyToRemove) {
             _enemies.Remove(enemyToRemove);
         }
         
@@ -129,8 +116,7 @@ namespace _src.Scripts.Managers
         /// Spawn an amount of enemy
         /// </summary>
         /// <param name="amount">Amount to spawn</param>
-        public void SpawnEnemyRandom(int amount)
-        {
+        public void SpawnEnemyRandom(int amount) {
             //Capping amount 
             if (amount > _width * _spawnHeight) amount = _width * _spawnHeight;
             
@@ -178,8 +164,7 @@ namespace _src.Scripts.Managers
             this.SendMessage(EventType.SpawnPickup);
         }
         
-        private IEnumerator SwitchPlayerTurn()
-        {
+        private IEnumerator SwitchPlayerTurn() {
             yield return new WaitForSeconds(0.8f);
             
             //Spawn Enemy

@@ -32,7 +32,6 @@ namespace _src.Scripts.Enemy.EnemyVariant
             }
         }
         
-        
         //Enemy Shoot Function
         private void Shoot() {
             var bulletInst = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
@@ -45,7 +44,7 @@ namespace _src.Scripts.Enemy.EnemyVariant
             }
             
             bulletComp.damage = damage;
-            bulletInst.transform.DOMove(playerTransform.position, 0.8f);
+            bulletInst.transform.DOMove(Player.Player.instance.transform.position, 0.8f);
         }
     }
 }
