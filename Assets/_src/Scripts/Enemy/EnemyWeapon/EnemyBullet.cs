@@ -12,17 +12,13 @@ namespace _src.Scripts.Enemy.EnemyWeapon
     {
         [HideInInspector] public float damage;
         
-        private void OnCollisionEnter2D(Collision2D col)
-        {
+        private void OnCollisionEnter2D(Collision2D col) {
             StartCoroutine(DestroyBullet());
         }
 
-        private IEnumerator DestroyBullet()
-        {
+        private IEnumerator DestroyBullet() {
             yield return new WaitForSeconds(0.1f);
-            
-            this.SendMessage(EventType.EnemyDamagePlayer, damage);
-
+            Player.Player.instance.TakeDamage(damage);
             transform.DOKill(this);
             Destroy(gameObject);
         }

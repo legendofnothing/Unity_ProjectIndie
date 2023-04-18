@@ -9,7 +9,7 @@ namespace _src.Scripts.Pickups.Bullets
         
         public override void PickupBehavior()
         {
-            this.SendMessage(EventType.AddBullet, bullet);
+            Player.Player.instance.bulletManager.AddBullet(bullet);
         }
     }
 }

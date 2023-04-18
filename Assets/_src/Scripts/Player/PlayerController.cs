@@ -21,7 +21,6 @@ namespace _src.Scripts.Player
 
         [Header("Refs")] [SerializeField] private BulletManager _bulletManager;
         private Touch _touchInput;
-
         private bool _canInput;
         
         private enum TouchState
@@ -38,10 +37,6 @@ namespace _src.Scripts.Player
         {
             _canInput = true;
             _spriteRendererGuide = aimingGuide.GetComponent<SpriteRenderer>();
-            
-            //Subscribe Events
-            this.SubscribeListener(EventType.EnablePlayerInput, _=>CanInput(true));
-            this.SubscribeListener(EventType.DisablePlayerInput, _=>CanInput(false));
         }
 
         private void Update() {
@@ -85,6 +80,8 @@ namespace _src.Scripts.Player
                 }
             }
         }
+        
+        public void CanInput(bool condition) => _canInput = condition;
 
         #region TouchEvents
 
@@ -108,10 +105,6 @@ namespace _src.Scripts.Player
             this.SendMessage(EventType.SwitchToShooting);
             StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gameObject.transform.rotation));
         }
-        #endregion
-
-        #region Recieved Events From Dispatcher
-        private void CanInput(bool condition) => _canInput = condition;
         #endregion
 
         #region Clamp Angles

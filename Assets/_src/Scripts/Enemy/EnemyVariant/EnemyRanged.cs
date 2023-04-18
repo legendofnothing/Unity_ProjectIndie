@@ -16,13 +16,11 @@ namespace _src.Scripts.Enemy.EnemyVariant
         /// <summary>
         /// Override of Attack, if reaches y = 0 attack and destroy player, else shoot at player every turn
         /// </summary>
-        protected override void Attack()
-        {
-            switch (y)
-            {
+        protected override void Attack() {
+            switch (y) {
                 //At y : 0
                 case 0:
-                    this.SendMessage(EventType.EnemyDamagePlayer, damage);
+                    Player.Player.instance.TakeDamage(damage);
                     this.SendMessage(EventType.EnemyKilled, this);
                     Destroy(gameObject);
                     break;
@@ -36,8 +34,7 @@ namespace _src.Scripts.Enemy.EnemyVariant
         
         
         //Enemy Shoot Function
-        private void Shoot()
-        {
+        private void Shoot() {
             var bulletInst = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
             
             var bulletComp = bulletInst.GetComponent<EnemyBullet>();

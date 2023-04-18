@@ -461,7 +461,6 @@ GameObject:
   - component: {fileID: 9013195813678353293}
   - component: {fileID: 9013195813678353291}
   - component: {fileID: 9013195813678353294}
-  - component: {fileID: 1477826336921621010}
   - component: {fileID: 9013195813678353295}
   m_Layer: 3
   m_Name: Player
@@ -501,6 +500,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ca30fb9862a3049ac0b5eba7c51677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 500
+  input: {fileID: 9013195813678353294}
 --- !u!114 &9013195813678353294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,24 +514,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef27e59c5a80c604da0bd6924ddfea49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 0
+  input: {fileID: 0}
   maxAngle: 82
   firingPoint: {fileID: 9013195813375547298}
   aimingGuide: {fileID: 9013195813309851814}
   bullet: {fileID: 811179696128422734, guid: 0dcd3812799ec7c4ea04eb4df326fb41, type: 3}
   _bulletManager: {fileID: 9013195813678353295}
---- !u!114 &1477826336921621010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9013195813678353290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d9c94a0d45c74c4dbcafd51c6b9d38d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 500
 --- !u!114 &9013195813678353295
 MonoBehaviour:
   m_ObjectHideFlags: 0

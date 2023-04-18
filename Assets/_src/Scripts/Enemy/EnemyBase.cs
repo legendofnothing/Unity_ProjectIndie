@@ -141,7 +141,7 @@ namespace _src.Scripts.Enemy {
         protected virtual void Attack()
         {
             if (y != 0) return; //Only attacks on Y = 0;
-            this.SendMessage(EventType.EnemyDamagePlayer, damage);
+            Player.Player.instance.TakeDamage(damage);
             this.SendMessage(EventType.EnemyKilled, this);
             Destroy(gameObject);
         }

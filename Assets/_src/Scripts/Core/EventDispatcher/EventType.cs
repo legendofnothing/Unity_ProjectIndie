@@ -10,15 +10,6 @@ public enum EventType {
     SwitchToPlayer,
     SwitchToEnd,
     
-    //Player Script Events
-    DisablePlayerInput, 
-    EnablePlayerInput,
-    AddPlayerHealth,
-
-    //Bullet Manager Events
-    AddBullet,
-    BuffBullet,
-    
     //Pickup Manager Events
     SpawnPickup,
 
@@ -26,8 +17,7 @@ public enum EventType {
     EnemyTurn,
     EnemyKilled, 
     SpawnEnemy,
-    EnemyDamagePlayer,
-    
+
     //Score Manager Events
     AddScore,
     OnScoreChange,

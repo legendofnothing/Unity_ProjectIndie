@@ -74,11 +74,11 @@ namespace _src.Scripts.Managers
                     else levelData.turnNumber++; 
                     
                     this.SendMessage(EventType.OnTurnNumberChange, levelData.turnNumber);
-                    this.SendMessage(EventType.EnablePlayerInput);
+                    Player.Player.instance.input.CanInput(true);
                     break;
 
                 case Turn.Shooting:
-                    this.SendMessage(EventType.DisablePlayerInput);
+                    Player.Player.instance.input.CanInput(false);
                     break;
 
                 case Turn.Enemy:
@@ -91,7 +91,7 @@ namespace _src.Scripts.Managers
                     preservedLevelData.score = levelData.score;
                     preservedLevelData.sceneIndex = levelData.sceneIndex;
                     
-                    this.SendMessage(EventType.DisablePlayerInput);
+                    Player.Player.instance.input.CanInput(false);
                     this.SendMessage(EventType.OnPlayerDie);
                     break;
 
