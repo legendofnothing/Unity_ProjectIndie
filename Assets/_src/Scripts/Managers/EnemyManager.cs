@@ -40,7 +40,7 @@ namespace _src.Scripts.Managers
         //Empty GameObject to store all enemies in the scene 
         public Transform enemyStore;
         
-        [HideInInspector] public List<EnemyBase> _enemies;
+       [HideInInspector] public List<EnemyBase> enemies;
         private List<Tile> _spawnerTiles;
         private GridManager _gridManager;
 
@@ -52,7 +52,7 @@ namespace _src.Scripts.Managers
         
         private void Awake()
         {
-            _enemies = new List<EnemyBase>();
+            enemies = new List<EnemyBase>();
             _spawnerTiles = new List<Tile>();
             _gridManager = gameObject.GetComponent<GridManager>();
 
@@ -95,12 +95,7 @@ namespace _src.Scripts.Managers
         /// </summary>
         private void EnemyTurn()
         {
-            foreach (var enemy in _enemies)
-            {
-                //Run Enemy Behavior, setting enemy pos to move to and updated pos
-                StartCoroutine(enemy.EnemyTurnCoroutine());
-            }
-            
+            foreach (var enemy in enemies) { StartCoroutine(enemy.EnemyTurnCoroutine()); }
             StartCoroutine(SwitchPlayerTurn());
         }
         
@@ -109,7 +104,7 @@ namespace _src.Scripts.Managers
         /// </summary>
         /// <param name="enemyToRemove"></param>
         private void RemoveEnemy(EnemyBase enemyToRemove) {
-            _enemies.Remove(enemyToRemove);
+            enemies.Remove(enemyToRemove);
         }
         
         /// <summary>
@@ -155,7 +150,7 @@ namespace _src.Scripts.Managers
                 enemyBase.Init(x,y, adjustedEnemyHp);
                 
                 //Add To list
-                _enemies.Add(enemyBase);
+                enemies.Add(enemyBase);
                 
                 //Set Tiles Contents 
                 _gridManager.SetTileContainContent(x, y, Contains.Enemy);
@@ -165,9 +160,14 @@ namespace _src.Scripts.Managers
         }
         
         private IEnumerator SwitchPlayerTurn() {
-            yield return new WaitForSeconds(0.8f);
+            var canSwitch = false;
+            while (!canSwitch) {
+                var finishedEnemies = enemies.FindAll(enemy => enemy.hasFinishedTurn = true).Count;
+                canSwitch = finishedEnemies >= enemies.Count;
+            }
+        
+            yield return new WaitForSeconds(0.4f);
             
-            //Spawn Enemy
             var randomNum = RandomUnity.Range(1, _width - 2);
             SpawnEnemyRandom(randomNum);
 

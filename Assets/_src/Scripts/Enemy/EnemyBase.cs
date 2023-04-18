@@ -42,6 +42,7 @@ namespace _src.Scripts.Enemy {
 
         private float _currentHp;
         protected GridManager GridManager;
+        [HideInInspector] public bool hasFinishedTurn; 
 
         /// <summary>
         /// Init function,call everytime a new enemy is instantiated 
@@ -58,9 +59,12 @@ namespace _src.Scripts.Enemy {
         }
         
         public IEnumerator EnemyTurnCoroutine() {
-            Move();
-            yield return new WaitForSeconds(1.1f);
+            hasFinishedTurn = false;
+            var randomDuration = Random.Range(0.7f, 1f);
+            Move(randomDuration);
+            yield return new WaitForSeconds(randomDuration);
             Attack();
+            hasFinishedTurn = true;
         }
         
         protected virtual void OnCollisionEnter2D(Collision2D col) {
@@ -98,14 +102,13 @@ namespace _src.Scripts.Enemy {
             floatingCoin.GetComponent<FloatingCoin>().Init(amount);
         }
         
-        protected virtual void Move() {
+        protected virtual void Move(float moveDuration) {
             if (y <= 0) return;
             var updatedY = y - 1;
             var newPos = GridManager.tiles[x, updatedY].transform.position;
             
             GridManager.SetTileContainContent(x, y, x, updatedY, Contains.Enemy);
-            var randomDuration = Random.Range(0.7f, 1f);
-            transform.DOMove(newPos, randomDuration);
+            transform.DOMove(newPos, moveDuration);
             y--;
         }
         

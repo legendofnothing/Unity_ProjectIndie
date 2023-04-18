@@ -44,7 +44,7 @@ namespace _src.Scripts.Enemy.EnemyVariant
             }
             
             bulletComp.damage = damage;
-            bulletInst.transform.DOMove(Player.Player.instance.transform.position, 0.8f);
+            bulletInst.transform.DOMove(Player.Player.instance.transform.position, 0.4f);
         }
     }
 }
