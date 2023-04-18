@@ -6,8 +6,6 @@ namespace _src.Scripts.Managers
 {
     public class ScoreManager : MonoBehaviour
     {
-        public LevelData levelData;
-
         private void Start()
         {
             //Subscribe Events
@@ -16,8 +14,8 @@ namespace _src.Scripts.Managers
 
         private void AddScore(int amount)
         {
-            levelData.score += amount * levelData.turnNumber;
-            this.SendMessage(EventType.OnScoreChange, levelData.score);
+            LevelManager.instance.levelData.score += amount * LevelManager.instance.levelData.turnNumber;
+            this.SendMessage(EventType.OnScoreChange, LevelManager.instance.levelData.score);
         }
     }
 }

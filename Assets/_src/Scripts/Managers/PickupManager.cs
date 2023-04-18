@@ -29,8 +29,7 @@ namespace _src.Scripts.Managers
         [Header("Configs")] 
         public int minAmountSpawn;
         public int maxAmountSpawn;
-        [Header("LevelData")] public LevelData levelData;
-        
+
         private GridManager _gridManager;
         
         private List<Tile> _spawningTiles;
@@ -41,8 +40,7 @@ namespace _src.Scripts.Managers
         private int _height;
         private int _width;
 
-        private void Awake()
-        {
+        private void Awake() {
             _gridManager = gameObject.GetComponent<GridManager>();
             _spawningTiles = new List<Tile>();
             _pickups = new List<GameObject>();
@@ -58,13 +56,11 @@ namespace _src.Scripts.Managers
             }
         }
 
-        private void Start()
-        {
+        private void Start() {
             this.SubscribeListener(EventType.SpawnPickup, _=>SpawnPickups());
         }
 
-        private void Update()
-        {
+        private void Update() {
             if (IsAllPickupActive())
             {
                 _pickups?.RemoveAll(destroyedPickups => destroyedPickups == null);
@@ -74,8 +70,7 @@ namespace _src.Scripts.Managers
         /// <summary>
         /// Assign pickup spawning tiles 
         /// </summary>
-        private void InitSpawningGrid()
-        {
+        private void InitSpawningGrid() {
             for (var h = 0; h < _height; h++)
             {
                 for (var w = 0; w < _width; w++)
@@ -88,14 +83,11 @@ namespace _src.Scripts.Managers
         /// <summary>
         /// Spawn pickups 
         /// </summary>
-        private void SpawnPickups()
-        {
+        private void SpawnPickups() {
             //Check if any pickups has been spawned, destroy if have.
             //Pickups only have lifespan of 1 turn.
-            if (_pickups != null)
-            {
-                foreach (var pickup in _pickups)
-                {
+            if (_pickups != null) {
+                foreach (var pickup in _pickups) {
                     Destroy(pickup);
                 }
                 
@@ -103,7 +95,7 @@ namespace _src.Scripts.Managers
             }
             
             //Spawns every 3 turn
-            if (levelData.turnNumber % 3 != 0) return;
+            if (LevelManager.instance.levelData.turnNumber % 3 != 0) return;
 
             var randomAmount = UnityRandom.Range(minAmountSpawn, maxAmountSpawn);
             
@@ -117,8 +109,7 @@ namespace _src.Scripts.Managers
                     .ToList();
             
             //Spawn pickup on the picked Tiles
-            foreach (var spawner in randomTileSpawners)
-            {
+            foreach (var spawner in randomTileSpawners) {
                 var pos = spawner.transform.position;
                 var rndPickup = _weightedPickUpList.GetRandomItem().prefab;
                 var pickupinst = Instantiate(rndPickup, pos, Quaternion.identity);
@@ -131,8 +122,7 @@ namespace _src.Scripts.Managers
         /// Check if any pickups are in the scene 
         /// </summary>
         /// <returns>True if any</returns>
-        private bool IsAllPickupActive()
-        {
+        private bool IsAllPickupActive() {
             return _pickups.Count > 0;
         }
     }

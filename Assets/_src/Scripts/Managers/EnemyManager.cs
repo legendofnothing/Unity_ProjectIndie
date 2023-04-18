@@ -34,14 +34,12 @@ namespace _src.Scripts.Managers
         public float weight; 
     }
     
-    public class EnemyManager : MonoBehaviour { 
-        [SerializeField] private EnemySpawningData enemySpawningData;
+    public class EnemyManager : MonoBehaviour {
         private readonly WeightedList<EnemyData> _weightedEnemyList = new(); 
         
         //Empty GameObject to store all enemies in the scene 
         public Transform enemyStore;
-
-        [Header("Level Data")] public LevelData levelData;
+        
         [HideInInspector] public List<EnemyBase> _enemies;
         private List<Tile> _spawnerTiles;
         private GridManager _gridManager;
@@ -64,7 +62,7 @@ namespace _src.Scripts.Managers
 
             InitSpawnerGrids();
 
-            foreach (var enemy in enemySpawningData.enemyData)
+            foreach (var enemy in LevelManager.instance.enemySpawningData.enemyData)
             {
                 _weightedEnemyList.AddElement(enemy, enemy.weight);
             }
@@ -165,7 +163,8 @@ namespace _src.Scripts.Managers
                 
                 //Increase enemy health every turn
                 var adjustedEnemyHp = enemyBase.hp;
-                if (levelData.turnNumber > 1) adjustedEnemyHp = enemyBase.hp * levelData.turnNumber;
+                if (LevelManager.instance.levelData.turnNumber > 1) 
+                    adjustedEnemyHp = enemyBase.hp * LevelManager.instance.levelData.turnNumber;
                 
                 enemyBase.Init(x,y, adjustedEnemyHp);
                 

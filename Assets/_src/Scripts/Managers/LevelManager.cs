@@ -1,5 +1,6 @@
 using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
+using _src.Scripts.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,9 +24,10 @@ namespace _src.Scripts.Managers
         private GridManager _gridManager;
         private EnemyManager _enemyManager;
 
-        [Header("LevelData")] 
+        [Header("Data")] 
         public LevelData levelData;
         public LevelData preservedLevelData;
+        public EnemySpawningData enemySpawningData;
 
         private Turn _currentTurn;
 
