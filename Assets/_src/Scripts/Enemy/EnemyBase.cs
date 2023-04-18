@@ -42,8 +42,10 @@ namespace _src.Scripts.Enemy {
 
         private float _currentHp;
         protected GridManager GridManager;
-        [HideInInspector] public bool hasFinishedTurn; 
-
+        
+        //State booleans 
+        [HideInInspector] public bool hasFinishedTurn;
+        
         /// <summary>
         /// Init function,call everytime a new enemy is instantiated 
         /// </summary>
@@ -58,13 +60,9 @@ namespace _src.Scripts.Enemy {
             GridManager = GridManager.instance; 
         }
         
-        public IEnumerator EnemyTurnCoroutine() {
+        public void OnEnemyTurn() {
             hasFinishedTurn = false;
-            var randomDuration = Random.Range(0.7f, 1f);
-            Move(randomDuration);
-            yield return new WaitForSeconds(randomDuration);
-            Attack();
-            hasFinishedTurn = true;
+            Move();
         }
         
         protected virtual void OnCollisionEnter2D(Collision2D col) {
@@ -102,21 +100,27 @@ namespace _src.Scripts.Enemy {
             floatingCoin.GetComponent<FloatingCoin>().Init(amount);
         }
         
-        protected virtual void Move(float moveDuration) {
+        protected virtual void Move() {
             if (y <= 0) return;
             var updatedY = y - 1;
             var newPos = GridManager.tiles[x, updatedY].transform.position;
+            var randomDuration = Random.Range(0.7f, 1f);
             
             GridManager.SetTileContainContent(x, y, x, updatedY, Contains.Enemy);
-            transform.DOMove(newPos, moveDuration);
-            y--;
+            transform.DOMove(newPos, randomDuration).OnComplete(() => {
+                y--;
+                Attack();
+            });
         }
         
         protected virtual void Attack() {
-            if (y != 0) return; //Only attacks on Y = 0;
-            Player.Player.instance.TakeDamage(damage);
-            this.SendMessage(EventType.EnemyKilled, this);
-            Destroy(gameObject);
+            if (y <= 0) {
+                //Only attacks on Y = 0;
+                Player.Player.instance.TakeDamage(damage);
+                this.SendMessage(EventType.EnemyKilled, this);
+                Destroy(gameObject);
+            } 
+            hasFinishedTurn = true;
         }
     }
 }

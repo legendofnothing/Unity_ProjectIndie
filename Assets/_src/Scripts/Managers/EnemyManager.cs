@@ -77,12 +77,9 @@ namespace _src.Scripts.Managers
         }
 
         //Assign the tiles that will be spawning enemy 
-        private void InitSpawnerGrids()
-        {
-            for (var h = 0; h < _height; h++)
-            {
-                for (var w = 0; w < _width; w++)
-                {
+        private void InitSpawnerGrids() {
+            for (var h = 0; h < _height; h++) {
+                for (var w = 0; w < _width; w++) {
                     if (h < _height - _spawnHeight) continue;
                     _spawnerTiles.Add(_gridManager.tiles[w, h]);
                 }
@@ -93,9 +90,8 @@ namespace _src.Scripts.Managers
         /// <summary>
         /// Execute EnemyTurn in EnemyBase foreach enemies in the scene 
         /// </summary>
-        private void EnemyTurn()
-        {
-            foreach (var enemy in enemies) { StartCoroutine(enemy.EnemyTurnCoroutine()); }
+        private void EnemyTurn() {
+            foreach (var enemy in enemies) { enemy.OnEnemyTurn(); }
             StartCoroutine(SwitchPlayerTurn());
         }
         

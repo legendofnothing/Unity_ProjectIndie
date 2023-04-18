@@ -23,6 +23,7 @@ namespace _src.Scripts.Enemy.EnemyVariant
                     Player.Player.instance.TakeDamage(damage);
                     this.SendMessage(EventType.EnemyKilled, this);
                     Destroy(gameObject);
+                    hasFinishedTurn = true;
                     break;
                 
                 //At any Y
@@ -35,16 +36,16 @@ namespace _src.Scripts.Enemy.EnemyVariant
         //Enemy Shoot Function
         private void Shoot() {
             var bulletInst = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
-            
             var bulletComp = bulletInst.GetComponent<EnemyBullet>();
 
-            if (bulletComp == null)
-            {
+            if (bulletComp == null) {
                 UnityEngine.Debug.Log($"Missing Bullet Script at {bulletInst}");
             }
             
             bulletComp.damage = damage;
-            bulletInst.transform.DOMove(Player.Player.instance.transform.position, 0.4f);
+            bulletInst.transform
+                .DOMove(Player.Player.instance.transform.position, 0.4f)
+                .OnComplete(() => hasFinishedTurn = true);
         }
     }
 }
