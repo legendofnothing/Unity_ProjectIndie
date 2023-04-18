@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using _src.Scripts.Core;
 using Unity.Collections;
 using UnityEngine;
@@ -30,9 +32,9 @@ namespace _src.Scripts.Managers {
         /// Generates Grid and Init Tiles 
         /// </summary>
         public void GenerateGrid(){
-            for (int h = 0; h < height; h++)
+            for (var h = 0; h < height; h++)
             {
-                for (int w = 0; w < width; w++)
+                for (var w = 0; w < width; w++)
                 {
                     //Spawn Grids 
                     var gridPosition = gameObject.transform.position;
@@ -60,6 +62,16 @@ namespace _src.Scripts.Managers {
         
         public void SetTileContainContent(int newX, int newY, Contains newType) {
             tiles[newX, newY].UpdateTile(newType);
+        }
+
+        public List<Tile> GetEmptyTiles() {
+            List<Tile> list = new();
+            for (var h = 0; h < height; h++) {
+                for (var w = 0; w < width; w++) {
+                    if (tiles[w, h].contains == Contains.None) { list.Add(tiles[w, h]); }
+                }
+            }
+            return list;
         }
     }
     
