@@ -18,6 +18,11 @@ namespace _src.Scripts.Player {
         
         private void Start() {
             camera = Camera.main;
+            
+            float unitsPerPixel = 7f / Screen.width;
+            float desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
+            camera.orthographicSize = desiredHalfHeight;
+            
             _currentHp = hp;
         }
 
