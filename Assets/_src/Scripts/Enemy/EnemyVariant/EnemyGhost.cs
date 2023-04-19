@@ -24,17 +24,17 @@ namespace _src.Scripts.Enemy.EnemyVariant {
                 _isInvisible = true;
                 var emptyTiles = GridManager.GetEmptyTiles();
                 var tileToMoveTo = emptyTiles[new SystemRandom().Next(emptyTiles.Count)];
-                GridManager.SetTileContainContent(
-                    x
-                    , y
-                    , tileToMoveTo.x
-                    , tileToMoveTo.y
-                    , Contains.Enemy);
+                GridManager.SetTileContainContent(tileToMoveTo.x, tileToMoveTo.y, Contains.Enemy);
                 spriteRenderer.DOFade(0, randomDuration);
+                
                 enemyUI.DOFade(0, randomDuration);
                 transform
                     .DOMove(tileToMoveTo.transform.position, randomDuration)
-                    .OnComplete(() => hasFinishedTurn = true);
+                    .OnComplete(() => {
+                        GridManager.ResetTileContainContent(x, y);
+                        UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
+                        hasFinishedTurn = true;
+                    });
             }
 
             else {

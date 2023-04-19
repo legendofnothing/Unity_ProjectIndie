@@ -16,13 +16,11 @@ namespace _src.Scripts.Enemy.EnemyVariant {
             var tileToMoveTo = emptyTiles[new SystemRandom().Next(emptyTiles.Count)];
             
             var randomDuration = Random.Range(0.7f, 1f);
-            GridManager.SetTileContainContent(
-                x
-                , y
-                , tileToMoveTo.x
-                , tileToMoveTo.y
-                , Contains.Enemy);
-            transform.DOMove(tileToMoveTo.transform.position, randomDuration).OnComplete(Attack);
+            GridManager.SetTileContainContent(x, y, Contains.Enemy);
+            transform.DOMove(tileToMoveTo.transform.position, randomDuration).OnComplete(() => {
+                UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
+                Attack();
+            });
         }
         
         protected override void Attack() {

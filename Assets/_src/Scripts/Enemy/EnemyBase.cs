@@ -93,14 +93,15 @@ namespace _src.Scripts.Enemy {
         }
         
         protected virtual void Move() {
-            if (y <= 0) return;
+            if (y <= 0) return; 
             var updatedY = y - 1;
+            GridManager.SetTileContainContent(x, updatedY,Contains.Enemy);
             var newPos = GridManager.tiles[x, updatedY].transform.position;
             var randomDuration = Random.Range(0.7f, 1f);
             
-            GridManager.SetTileContainContent(x, y, x, updatedY, Contains.Enemy);
             transform.DOMove(newPos, randomDuration).OnComplete(() => {
-                y--;
+                GridManager.ResetTileContainContent(x, y);
+                UpdatePosition(x, updatedY);
                 Attack();
             });
         }
@@ -113,6 +114,11 @@ namespace _src.Scripts.Enemy {
                 Destroy(gameObject);
             } 
             hasFinishedTurn = true;
+        }
+
+        protected void UpdatePosition(int newX, int newY) {
+            x = newX;
+            y = newY; 
         }
     }
 }
