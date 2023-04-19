@@ -13,7 +13,8 @@ namespace _src.Scripts.Enemy.EnemyVariant {
         [Header("Enemy Config")] 
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private CanvasGroup enemyUI; 
+        [SerializeField] private CanvasGroup enemyUI;
+        [SerializeField] private float fadeAlpha; 
 
         private bool _isInvisible; 
 
@@ -25,9 +26,8 @@ namespace _src.Scripts.Enemy.EnemyVariant {
                 var emptyTiles = GridManager.GetEmptyTiles();
                 var tileToMoveTo = emptyTiles[new SystemRandom().Next(emptyTiles.Count)];
                 GridManager.SetTileContainContent(tileToMoveTo.x, tileToMoveTo.y, Contains.Enemy);
-                spriteRenderer.DOFade(0, randomDuration);
-                
-                enemyUI.DOFade(0, randomDuration);
+                spriteRenderer.DOFade(fadeAlpha, randomDuration);
+                enemyUI.DOFade(fadeAlpha, randomDuration);
                 transform
                     .DOMove(tileToMoveTo.transform.position, randomDuration)
                     .OnComplete(() => {
@@ -41,7 +41,7 @@ namespace _src.Scripts.Enemy.EnemyVariant {
                 _isInvisible = false;
                 enemyUI.DOFade(1, randomDuration);
                 spriteRenderer
-                    .DOFade(255, randomDuration)
+                    .DOFade(1, randomDuration)
                     .OnComplete(Attack);
             }
         }
@@ -71,8 +71,8 @@ namespace _src.Scripts.Enemy.EnemyVariant {
         private void Change() {
             var color = spriteRenderer.color;
             _isInvisible = false;
-            spriteRenderer.color = new Color(color.r, color.g, color.b, 255);
-            enemyUI.alpha = 1;
+            spriteRenderer.DOFade(1, 0.4f);
+            enemyUI.DOFade(1, 0.4f);
         }
     }
 }

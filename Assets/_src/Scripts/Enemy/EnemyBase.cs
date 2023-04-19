@@ -72,19 +72,23 @@ namespace _src.Scripts.Enemy {
             }
         }
 
-        private void TakeDamage(float amount) {
+        public void TakeDamage(float amount) {
             _currentHp -= amount;
             hpText.text = $"{(int) _currentHp}";
             
+            this.SendMessage(EventType.OnPlayerCoinAdd, coinAddedOnHit);
+            this.SendMessage(EventType.AddScore, scoreAddedOnHit);
+                
+            SpawnFloatingCoin(coinAddedOnHit);
+            
+            //Execute Enemy if HP reaches 0
+            if (!(_currentHp <= 0)) return;
             this.SendMessage(EventType.OnPlayerCoinAdd, coinAddedOnDestroy);
             this.SendMessage(EventType.AddScore, scoreAddedOnDestroy);
                 
             SpawnFloatingCoin(coinAddedOnDestroy);
-            
-            //Execute Enemy if HP reaches 0
-            if (!(_currentHp <= 0)) return;
-            Destroy(gameObject);
             this.SendMessage(EventType.EnemyKilled, this);
+            Destroy(gameObject);
         }
         
         private void SpawnFloatingCoin(int amount) {

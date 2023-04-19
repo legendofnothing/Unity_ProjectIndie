@@ -5,10 +5,8 @@ using System.Linq;
 using _src.Scripts.Core.Collections;
 using _src.Scripts.Core.EventDispatcher;
 using _src.Scripts.Enemy;
-using _src.Scripts.ScriptableObjects;
-using Unity.VisualScripting;
+using _src.Scripts.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = System.Random;
 using RandomUnity = UnityEngine.Random;
 
@@ -34,7 +32,7 @@ namespace _src.Scripts.Managers
         public float weight; 
     }
     
-    public class EnemyManager : MonoBehaviour {
+    public class EnemyManager : Singleton<EnemyManager> {
         private readonly WeightedList<EnemyData> _weightedEnemyList = new(); 
         
         //Empty GameObject to store all enemies in the scene 
