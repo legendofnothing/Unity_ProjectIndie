@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8409408063893082575}
   - component: {fileID: 5053328431617680877}
   - component: {fileID: 343647307332037276}
-  - component: {fileID: -1083875765605599227}
+  - component: {fileID: 705072739632631483}
   m_Layer: 7
-  m_Name: BulletBasic
+  m_Name: BulletHoming
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
+  m_Color: {r: 0.735849, g: 0.21867211, b: 0.21867211, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -124,7 +124,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &-1083875765605599227
+--- !u!114 &705072739632631483
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,15 +133,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 811179696128422734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 590f2600e4011d6488ed44985da7f2d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bbe8eda4dd3440aaaaf001aa5a5fab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 100
-  speed: 8
+  speed: 0.8
   thresholdBounces: 12
   bounceLayer:
     serializedVersion: 2
-    m_Bits: 576
+    m_Bits: 0
   destroyLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
+  easeType: 17

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8409408063893082575}
   - component: {fileID: 5053328431617680877}
   - component: {fileID: 343647307332037276}
-  - component: {fileID: -1083875765605599227}
+  - component: {fileID: 1051679819494454189}
   m_Layer: 7
-  m_Name: BulletBasic
+  m_Name: BulletScatterIntact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
+  m_Color: {r: 0.075694196, g: 0.75080484, b: 0.764151, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -124,7 +124,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &-1083875765605599227
+--- !u!114 &1051679819494454189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,15 +133,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 811179696128422734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 590f2600e4011d6488ed44985da7f2d4, type: 3}
+  m_Script: {fileID: 11500000, guid: c49b8691ea6d4c9faacf6abebd001768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 100
-  speed: 8
+  speed: 6
   thresholdBounces: 12
   bounceLayer:
     serializedVersion: 2
-    m_Bits: 576
+    m_Bits: 0
   destroyLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
+  scatterPiece: {fileID: 811179696128422734, guid: f8aef2d87a166de489776a2f2abec13a, type: 3}
+  scatterLayer:
+    serializedVersion: 2
+    m_Bits: 832
+  minScatter: 3
+  maxScatter: 6
+  minAngle: 20
+  maxAngle: 20

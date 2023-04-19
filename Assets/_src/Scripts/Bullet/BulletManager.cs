@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _src.Scripts.Bullet {
     /// <summary>
     /// Manager to handle bullets
     /// </summary>
-    public class BulletManager : MonoBehaviour
+    public class BulletManager : Singleton<BulletManager>
     {
         public List<GameObject> bulletList;
         
@@ -78,6 +80,10 @@ namespace _src.Scripts.Bullet {
         
         public void AddBullet(GameObject bullet) { 
             _addedTempList.Add(bullet);
+        }
+        
+        public void AddBulletOnScene(GameObject bullet) { 
+            _currentList.Add(bullet);
         }
 
         public void ChangeDamageModifier(float amount) {

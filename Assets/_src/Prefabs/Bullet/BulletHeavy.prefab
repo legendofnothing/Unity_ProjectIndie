@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8409408063893082575}
   - component: {fileID: 5053328431617680877}
   - component: {fileID: 343647307332037276}
-  - component: {fileID: 6944674746280930566}
+  - component: {fileID: 6441096237622191545}
   m_Layer: 7
   m_Name: BulletHeavy
   m_TagString: Untagged
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 631771417
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.39804822, g: 0, b: 0.745283, a: 1}
@@ -103,11 +103,11 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 08561660c1ecfad4696f7e4a46f1f1b1, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &343647307332037276
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -124,7 +124,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &6944674746280930566
+--- !u!114 &6441096237622191545
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,8 +133,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 811179696128422734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 552979e8aded4185bbfd8fc15b59463d, type: 3}
+  m_Script: {fileID: 11500000, guid: 590f2600e4011d6488ed44985da7f2d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 200
-  speed: 5
+  speed: 3
+  thresholdBounces: 12
+  bounceLayer:
+    serializedVersion: 2
+    m_Bits: 576
+  destroyLayer:
+    serializedVersion: 2
+    m_Bits: 256
