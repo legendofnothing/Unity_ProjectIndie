@@ -9,7 +9,6 @@ using UnityEngine.Serialization;
 
 namespace _src.Scripts.Enemy.EnemyVariant {
     public class EnemyJumper : EnemyBase {
-        [FormerlySerializedAs("_bulletPrefab")]
         [Header("Enemy Config")] 
         [SerializeField] private GameObject bulletPrefab;
         protected override void Move() {
