@@ -1,37 +1,49 @@
+using _src.Scripts.Core;
+using DG.Tweening;
 using UnityEngine;
+using Vector2 = System.Numerics.Vector2;
 
 namespace _src.Scripts.Bullet {
     /// <summary>
     /// Base class for all Bullets, new BulletType will be derived from here
     /// </summary>
-    public abstract class BulletBase : MonoBehaviour {
+    public class BulletBase : MonoBehaviour {
         public float damage = 100f;
         public float speed = 3f;
-        private int _thresholdBounces = 12; //threshold to detect if the bullet keep bouncing left/right constantly
+        public int thresholdBounces = 12; //threshold to detect if the bullet keep bouncing left/right constantly
+
+        [Space] 
+        public LayerMask bounceLayer;
+        public LayerMask destroyLayer;
 
         private int _bouncedTimes;
-
+        private Vector3 _dir; 
         protected Rigidbody2D rb;
 
-        private void Start(){
+        protected void Start(){
             rb = GetComponent<Rigidbody2D>();
-            rb.velocity = transform.up * speed;
-
             _bouncedTimes = 0;
+            
+            OnSpawn();
+        }
+
+        protected virtual void OnSpawn() {
+            _dir = transform.up;
+            rb.velocity = transform.up * speed;
         }
         
         protected virtual void OnCollisionEnter2D(Collision2D col) {
-            if (col.gameObject.layer == LayerMask.NameToLayer("DestroyBound"))
-            {
+            if (CheckLayerMask.IsInLayerMask(col.gameObject, destroyLayer)) {
                 Destroy(gameObject);
             }
 
-            if (col.gameObject.layer == LayerMask.NameToLayer("Bounds"))
-            {
-                _bouncedTimes++;
+            if (CheckLayerMask.IsInLayerMask(col.gameObject, bounceLayer)) {
+                _dir = Vector3.Reflect(_dir, col.contacts[0].normal);
+                rb.velocity = _dir * speed;
+                transform.rotation = Quaternion.FromToRotation(Vector3.up, _dir);
 
-                if (_bouncedTimes >= _thresholdBounces)
-                {
+                    _bouncedTimes++;
+                if (_bouncedTimes >= thresholdBounces) {
                     Destroy(gameObject);
                 }
             }
