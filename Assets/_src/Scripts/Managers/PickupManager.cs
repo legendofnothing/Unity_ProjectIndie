@@ -15,16 +15,8 @@ namespace _src.Scripts.Managers
     /// </summary>
     public class PickupManager : MonoBehaviour
     {
-        [Serializable]
-        public struct PickupData
-        {
-            public GameObject prefab;
-            public float weight;
-        }
-
-        [Header("Pickup Spawners")] [SerializeField]
-        private List<PickupData> _pickupDatas = new();
-        private readonly WeightedList<PickupData> _weightedPickUpList = new();
+        [Header("Pickup Spawners")]
+        private readonly WeightedList<GlobalDefines.SpawnData> _weightedPickUpList = new();
 
         [Header("Configs")] 
         public int minAmountSpawn;
@@ -50,9 +42,8 @@ namespace _src.Scripts.Managers
             
             InitSpawningGrid();
 
-            foreach (var pickup in _pickupDatas)
-            {
-                _weightedPickUpList.AddElement(pickup, pickup.weight);
+            foreach (var pickup in LevelManager.instance.pickupBulletSpawningData.pickupData) {
+                _weightedPickUpList.AddElement(pickup, pickup.chance);
             }
         }
 

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35fe5a9a118046f0805c3f543e9d3912, type: 3}
+  m_Name: PickupBulletSpawningData
+  m_EditorClassIdentifier: 
+  pickupData:
+  - prefab: {fileID: 3901560327570013151, guid: bd8767958bd55b148b085bc19d069259, type: 3}
+    chance: 0.9
+  - prefab: {fileID: 3901560327570013151, guid: 6f0c020b78bde9b4296cfda63180a244, type: 3}
+    chance: 0.8
+  - prefab: {fileID: 3901560327570013151, guid: 420fff20c4c2ab044b26e1a41909f6cc, type: 3}
+    chance: 0.5
+  - prefab: {fileID: 3901560327570013151, guid: 0ccfbd396ee1e9a4eaae335cf3b267c1, type: 3}
+    chance: 0.3
+  - prefab: {fileID: 3901560327570013151, guid: e464ba8e61a84c04cbfb22dfd63f6c8c, type: 3}
+    chance: 0.2
+  - prefab: {fileID: 3901560327570013151, guid: c4dbf1d92503f144da89c003c87c123d, type: 3}
+    chance: 0.1

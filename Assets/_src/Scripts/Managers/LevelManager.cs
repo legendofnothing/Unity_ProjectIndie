@@ -27,7 +27,11 @@ namespace _src.Scripts.Managers
         [Header("Data")] 
         public LevelData levelData;
         public LevelData preservedLevelData;
+        [Space]
         public EnemySpawningData enemySpawningData;
+
+        [Space] 
+        public PickupBulletSpawningData pickupBulletSpawningData;
 
         private Turn _currentTurn;
 

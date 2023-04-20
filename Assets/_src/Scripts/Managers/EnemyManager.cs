@@ -15,25 +15,8 @@ namespace _src.Scripts.Managers
     /// <summary>
     /// Handles all enemies in the scene 
     /// </summary>
-    
-    public enum EnemyType
-    {
-        Basic,
-        Range
-    }
-    
-    [Serializable]
-    public struct EnemyData
-    {
-        public EnemyType type;
-        public GameObject prefab;
-            
-        //Weight as in spawn chance, not actual enemy weight, that would crash the phone
-        public float weight; 
-    }
-    
     public class EnemyManager : Singleton<EnemyManager> {
-        private readonly WeightedList<EnemyData> _weightedEnemyList = new(); 
+        private readonly WeightedList<GlobalDefines.SpawnData> _weightedEnemyList = new(); 
         
         //Empty GameObject to store all enemies in the scene 
         public Transform enemyStore;
@@ -62,7 +45,7 @@ namespace _src.Scripts.Managers
 
             foreach (var enemy in LevelManager.instance.enemySpawningData.enemyData)
             {
-                _weightedEnemyList.AddElement(enemy, enemy.weight);
+                _weightedEnemyList.AddElement(enemy, enemy.chance);
             }
         }
     
