@@ -66,11 +66,14 @@ namespace _src.Scripts.Player
         }
 
         private void HandleInput() {
-            if (Input.GetMouseButtonDown(0)) {
-                _touchState = TouchState.Aiming;
-                if (_canSetTime) {
-                    _canSetTime = false;
-                    _startTime = Time.time;
+            if (Input.GetMouseButton(0)) {
+                if (_touchState == TouchState.Default) {
+                    _touchState = TouchState.Aiming;
+                    
+                    if (_canSetTime) {
+                        _canSetTime = false;
+                        _startTime = Time.time;
+                    }
                 }
             }
 
