@@ -10,8 +10,14 @@ namespace _src.Scripts.Player
     /// <summary>
     /// Handles Player Controller
     /// </summary>
-    public class PlayerController : MonoBehaviour
-    {
+    public class PlayerController : MonoBehaviour {
+        [Space] 
+        public float safePixelsWidth;
+        public float minHoldDuration;
+        
+        private float _startTime;
+        private bool _canSetTime;
+        
         [Space]
         public float maxAngle;
         
@@ -20,21 +26,18 @@ namespace _src.Scripts.Player
 
         [Header("Refs")] 
         [SerializeField] private BulletManager _bulletManager;
-        private Touch _touchInput;
         private bool _canInput;
         
-        private enum TouchState
-        {
-            Dragging, 
-            LetGo,
-            None
+        private enum TouchState {
+            Aiming, 
+            Shooting,
+            Default
         }
 
-        private TouchState _touchState = TouchState.None;
+        private TouchState _touchState = TouchState.Default;
         private SpriteRenderer _spriteRendererGuide;
 
-        private void Start()
-        {
+        private void Start() {
             _canInput = true;
             _spriteRendererGuide = aimingGuide.GetComponent<SpriteRenderer>();
         }
@@ -42,17 +45,16 @@ namespace _src.Scripts.Player
         private void Update() {
             if (_canInput) HandleInput();
 
-            switch (_touchState)
-            {
-                case TouchState.Dragging:
+            switch (_touchState) {
+                case TouchState.Aiming:
                     RotatePlayer();
                     break;
                 
-                case TouchState.LetGo:
+                case TouchState.Shooting:
                     Shoot();
                     break;
                 
-                case TouchState.None:
+                case TouchState.Default:
                     break;
                 
                 default:
@@ -60,24 +62,24 @@ namespace _src.Scripts.Player
             }
         }
 
-        private void HandleInput()
-        {
-            switch (Input.touchCount)
-            {
-                case > 0: 
-                {
-                    _touchInput = Input.GetTouch(0);
-                    if (!IsTouchOverUI(_touchInput)) {
-                        
-                        _touchState = _touchInput.phase switch
-                        {
-                            TouchPhase.Moved => TouchState.Dragging,
-                            TouchPhase.Ended => TouchState.LetGo,
-                            _ => _touchState
-                        };   
-                    }
-                    break;
+        private void HandleInput() {
+            if (Input.GetMouseButtonDown(0)) {
+                _touchState = TouchState.Aiming;
+                if (_canSetTime) {
+                    _canSetTime = false;
+                    _startTime = Time.time;
                 }
+            }
+
+            if (Input.GetMouseButtonUp(0)) {
+                if (Mathf.Abs(Input.mousePosition.x) >= Screen.width - safePixelsWidth) return;
+                if (EventSystem.current.IsPointerOverGameObject()) return;
+                if ((Time.time - _startTime) <= minHoldDuration) {
+                    _canSetTime = true;
+                    return;
+                }
+                _canSetTime = true;
+                _touchState = TouchState.Shooting;
             }
         }
         
@@ -86,7 +88,7 @@ namespace _src.Scripts.Player
         #region TouchEvents
 
         private void RotatePlayer(){
-            var touchPos = Player.instance.camera.ScreenToWorldPoint(_touchInput.position);
+            var touchPos = Player.instance.camera.ScreenToWorldPoint(Input.mousePosition);
             var position = transform.position;
 
             var angle = Mathf.Atan2(touchPos.y - position.y, touchPos.x - position.x) * Mathf.Rad2Deg - 90f;
@@ -101,7 +103,7 @@ namespace _src.Scripts.Player
         
         private void Shoot(){
             _spriteRendererGuide.enabled = false;
-            _touchState = TouchState.None;
+            _touchState = TouchState.Default;
             this.SendMessage(EventType.SwitchToShooting);
             StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gameObject.transform.rotation));
         }
@@ -163,20 +165,6 @@ namespace _src.Scripts.Player
             if (angle < 0) angle += 360;
             return angle;
         }
-        #endregion
-
-        #region Weird Static Method To Prevent Touching UI
-
-        public static bool IsTouchOverUI(Touch touch) {
-            var eventDataCurrentPosition = new PointerEventData(EventSystem.current) {
-                position = new Vector2(touch.position.x, touch.position.y)
-            };
-
-            var results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-            return results.Count > 0;
-        }
-        
         #endregion
     }
 }
