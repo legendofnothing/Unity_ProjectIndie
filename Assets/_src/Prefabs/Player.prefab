@@ -519,6 +519,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   safePixelsWidth: 15
   minHoldDuration: 0.18
+  uiLayer:
+    serializedVersion: 2
+    m_Bits: 32
   maxAngle: 82
   firingPoint: {fileID: 9013195813375547298}
   aimingGuide: {fileID: 9013195813309851814}
