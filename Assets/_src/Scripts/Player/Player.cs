@@ -14,13 +14,16 @@ namespace _src.Scripts.Player {
         [Space]
         public PlayerController input;
         public BulletManager bulletManager;
+
+        [Space] public float offsetToCamera; 
+        
         [HideInInspector] public Camera camera;
         
         private void Start() {
             camera = Camera.main;
             
-            float unitsPerPixel = 7f / Screen.width;
-            float desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
+            var unitsPerPixel = offsetToCamera / Screen.width;
+            var desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
             camera.orthographicSize = desiredHalfHeight;
             
             _currentHp = hp;
