@@ -37,7 +37,7 @@ namespace _src.Scripts.Managers {
                 for (var w = 0; w < width; w++)
                 {
                     //Spawn Grids 
-                    var gridPosition = gameObject.transform.position;
+                    var gridPosition = gridsParent.transform.position;
                     var pos = new Vector2(w * gridOffset, h * gridOffset) + (Vector2) gridPosition;
                     
                     //Spawn Tiles 

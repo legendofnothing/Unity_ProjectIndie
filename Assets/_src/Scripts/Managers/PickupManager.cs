@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using _src.Scripts.Core;
 using _src.Scripts.Core.Collections;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace _src.Scripts.Managers
     /// <summary>
     /// Manager to handle pickups 
     /// </summary>
-    public class PickupManager : MonoBehaviour
+    public class PickupManager : Singleton<PickupManager>
     {
         [Header("Pickup Spawners")]
         private readonly WeightedList<GlobalDefines.SpawnData> _weightedPickUpList = new();

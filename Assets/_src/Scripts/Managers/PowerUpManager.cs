@@ -1,12 +1,13 @@
 
 using System.Linq;
+using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
 using _src.Scripts.Enemy;
 using UnityEngine;
 using Random = System.Random;
 
 namespace _src.Scripts.Managers {
-    public class PowerUpManager : MonoBehaviour {
+    public class PowerUpManager : Singleton<PowerUpManager> {
         private const float BaseHp = 100;
         private const float BaseDamageModifier = 1.2f;
 

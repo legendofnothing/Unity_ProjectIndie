@@ -1,10 +1,11 @@
 using System;
+using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
 using UnityEngine;
 
 namespace _src.Scripts.Managers
 {
-    public class ScoreManager : MonoBehaviour
+    public class ScoreManager : Singleton<ScoreManager>
     {
         private void Start()
         {
