@@ -23,10 +23,7 @@ namespace _src.Scripts.Managers
     {
         private GridManager _gridManager;
         private EnemyManager _enemyManager;
-
-        [Header("Data")] 
-        public LevelData levelData;
-        public LevelData preservedLevelData;
+        
         [Space]
         public EnemySpawningData enemySpawningData;
 
@@ -34,19 +31,15 @@ namespace _src.Scripts.Managers
         public PickupBulletSpawningData pickupBulletSpawningData;
 
         private Turn _currentTurn;
-
         private bool _canAddTurn;
 
-        private void Awake()
-        {
+        private void Awake() {
+            SaveSystem.instance.Init();
             _gridManager = GetComponentInChildren<GridManager>();
             _enemyManager = GetComponentInChildren<EnemyManager>();
             
             if (_gridManager == null) UnityEngine.Debug.Log($"GridManager null at {this}");
             if (_enemyManager == null) UnityEngine.Debug.Log($"EnemyManager null at {this}");
-
-            levelData.turnNumber = 1;
-            levelData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
         }
 
         private void Start() {
@@ -71,15 +64,15 @@ namespace _src.Scripts.Managers
             {
                 case Turn.Start:
                     _enemyManager.SpawnEnemyRandom(3);
-                    this.SendMessage(EventType.OnTurnNumberChange, levelData.turnNumber);
+                    this.SendMessage(EventType.OnTurnNumberChange, SaveSystem.instance.currentLevelData.TurnNumber);
                     UpdateTurn(Turn.Player);
                     break;
 
                 case Turn.Player:
                     if (!_canAddTurn) _canAddTurn = true;
-                    else levelData.turnNumber++; 
+                    else SaveSystem.instance.currentLevelData.TurnNumber++; 
                     
-                    this.SendMessage(EventType.OnTurnNumberChange, levelData.turnNumber);
+                    this.SendMessage(EventType.OnTurnNumberChange, SaveSystem.instance.currentLevelData.TurnNumber);
                     Player.Player.instance.input.CanInput(true);
                     break;
 
@@ -92,11 +85,7 @@ namespace _src.Scripts.Managers
                     break;
                 
                 case Turn.End:
-                    //Set Data for preservedLevelData for the DeathScreen scene 
-                    preservedLevelData.turnNumber = levelData.turnNumber;
-                    preservedLevelData.score = levelData.score;
-                    preservedLevelData.sceneIndex = levelData.sceneIndex;
-                    
+                    SaveSystem.instance.SaveData(SceneManager.GetActiveScene().name);
                     Player.Player.instance.input.CanInput(false);
                     this.SendMessage(EventType.OnPlayerDie);
                     break;

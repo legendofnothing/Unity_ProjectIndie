@@ -87,7 +87,7 @@ namespace _src.Scripts.Managers
             }
             
             //Spawns every 3 turn
-            if (LevelManager.instance.levelData.turnNumber % 3 != 0) return;
+            if (SaveSystem.instance.currentLevelData.TurnNumber % 3 != 0) return;
 
             var randomAmount = UnityRandom.Range(minAmountSpawn, maxAmountSpawn);
             

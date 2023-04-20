@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
 using _src.Scripts.ScriptableObjects;
 using TMPro;
@@ -10,8 +11,7 @@ using UnityEngine.SceneManagement;
 namespace _src.Scripts.UI {
     public class UI : MonoBehaviour
     {
-        [Header("Coins")] 
-        public PlayerData playerData;
+        [Header("Coins")]
         public TextMeshProUGUI coinText;
         
         [Header("Texts")]
@@ -32,7 +32,7 @@ namespace _src.Scripts.UI {
             
             this.SubscribeListener(EventType.OnScoreChange, param=>SetScore((int) param));
 
-            coinText.text = $"x{playerData.coins}";
+            coinText.text = $"x{SaveSystem.instance.playerData.Coin}";
             score.text = "Score: 0";
             
             ChangeUI(gameUI);
@@ -43,29 +43,25 @@ namespace _src.Scripts.UI {
             turnNumber.text = number.ToString();
         }
 
-        private void CoinReduce(int amount)
-        {
-            playerData.coins -= amount;
-            coinText.text = $"x{playerData.coins}";
+        private void CoinReduce(int amount) {
+            SaveSystem.instance.playerData.Coin -= amount;
+            coinText.text = $"x{SaveSystem.instance.playerData.Coin}";
             
             this.SendMessage(EventType.OnPlayerCoinChange);
         }
         
-        private void CoinAdd(int amount)
-        {
-            playerData.coins += amount;
-            coinText.text = $"x{playerData.coins}";
+        private void CoinAdd(int amount) {
+            SaveSystem.instance.playerData.Coin += amount;
+            coinText.text = $"x{SaveSystem.instance.playerData.Coin}";
             
             this.SendMessage(EventType.OnPlayerCoinChange);
         }
 
-        private void SetScore(int amount)
-        {
+        private void SetScore(int amount) {
             score.text = $"Score: {amount}";
         }
 
-        private IEnumerator EnableDeathUI()
-        {
+        private IEnumerator EnableDeathUI() {
             yield return new WaitForSeconds(0.5f);
             Time.timeScale = 0;
             

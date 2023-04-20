@@ -122,8 +122,8 @@ namespace _src.Scripts.Managers
                 
                 //Increase enemy health every turn
                 var adjustedEnemyHp = enemyBase.hp;
-                if (LevelManager.instance.levelData.turnNumber > 1) 
-                    adjustedEnemyHp = enemyBase.hp * LevelManager.instance.levelData.turnNumber;
+                if (SaveSystem.instance.currentLevelData.TurnNumber > 1) 
+                    adjustedEnemyHp = enemyBase.hp * SaveSystem.instance.currentLevelData.TurnNumber;
                 
                 enemyBase.Init(x,y, adjustedEnemyHp);
                 

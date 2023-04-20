@@ -7,16 +7,15 @@ namespace _src.Scripts.Managers
 {
     public class ScoreManager : Singleton<ScoreManager>
     {
-        private void Start()
-        {
+        private void Start() {
             //Subscribe Events
             this.SubscribeListener(EventType.AddScore, param => AddScore((int) param));
         }
 
-        private void AddScore(int amount)
-        {
-            LevelManager.instance.levelData.score += amount * LevelManager.instance.levelData.turnNumber;
-            this.SendMessage(EventType.OnScoreChange, LevelManager.instance.levelData.score);
+        private void AddScore(int amount) {
+            SaveSystem.instance.currentLevelData.Score += amount 
+                                                          * SaveSystem.instance.currentLevelData.TurnNumber;
+            this.SendMessage(EventType.OnScoreChange, SaveSystem.instance.currentLevelData.Score);
         }
     }
 }
