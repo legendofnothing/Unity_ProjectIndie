@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _src.Scripts.Bullet;
+using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,6 +18,8 @@ namespace _src.Scripts.Player
         
         private float _startTime;
         private bool _canSetTime;
+
+        [Space] public LayerMask uiLayer;
         
         [Space]
         public float maxAngle;
@@ -73,7 +76,7 @@ namespace _src.Scripts.Player
 
             if (Input.GetMouseButtonUp(0)) {
                 if (Mathf.Abs(Input.mousePosition.x) >= Screen.width - safePixelsWidth) return;
-                if (EventSystem.current.IsPointerOverGameObject()) return;
+                if (IsOverUI()) return;
                 if ((Time.time - _startTime) <= minHoldDuration) {
                     _canSetTime = true;
                     return;
@@ -82,8 +85,6 @@ namespace _src.Scripts.Player
                 _touchState = TouchState.Shooting;
             }
         }
-        
-        public void CanInput(bool condition) => _canInput = condition;
 
         #region TouchEvents
 
@@ -164,6 +165,21 @@ namespace _src.Scripts.Player
             if (angle > 360) angle -= 360;
             if (angle < 0) angle += 360;
             return angle;
+        }
+        #endregion
+
+        #region Helper Functions
+        public void CanInput(bool condition) => _canInput = condition;
+
+        private bool IsOverUI() {
+            //raycast from mouse pos to all UI elements 
+            var results = new List<RaycastResult>();
+            var eventData = new PointerEventData(EventSystem.current) {
+                position = Input.mousePosition
+            };
+            EventSystem.current.RaycastAll(eventData, results);
+            var hit = results.Find(result => CheckLayerMask.IsInLayerMask(result.gameObject, uiLayer));
+            return hit.gameObject != null;
         }
         #endregion
     }
