@@ -113,7 +113,8 @@ namespace _src.Scripts.Managers
             var rnd = new Random();
             var randomTileSpawners 
                 = _spawnerTiles
-                    .OrderBy(x => rnd.Next())
+                    .FindAll(tile => tile.contains == Contains.None)
+                    .OrderBy(_ => rnd.Next())
                     .Take(amount)
                     .ToList();
             
