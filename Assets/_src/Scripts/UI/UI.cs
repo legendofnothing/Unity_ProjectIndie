@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
 using _src.Scripts.ScriptableObjects;
+using DG.Tweening;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
@@ -62,9 +64,8 @@ namespace _src.Scripts.UI {
         }
 
         private IEnumerator EnableDeathUI() {
-            yield return new WaitForSeconds(0.5f);
-            Time.timeScale = 0;
-            
+            var tweenList = new List<Tween>();
+            yield return new WaitUntil(() => DOTween.PlayingTweens(tweenList) == null);
             SceneManager.LoadScene("DeathScene");
         }
         
