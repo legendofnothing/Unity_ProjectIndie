@@ -48,13 +48,13 @@ namespace _src.Scripts.Core {
             DontDestroyOnLoad(gameObject);
             if (!PlayerPrefs.HasKey(DataKey.Player)) {
                 playerData = new PlayerData {
-                    Coin = 0,
+                    Coin = 727,
                     LevelData = new Dictionary<string, DataLevel>(),
                     PlayerLevels = new Dictionary<string, int>() {
-                        {PlayerStatLevels.HP,   0},
-                        {PlayerStatLevels.ATK,  0},
-                        {PlayerStatLevels.DEF,  0},
-                        {PlayerStatLevels.CRIT, 0}
+                        {PlayerStatLevels.HP,   5},
+                        {PlayerStatLevels.ATK,  6},
+                        {PlayerStatLevels.DEF,  7},
+                        {PlayerStatLevels.CRIT, 8}
                     }
                 };
                 PlayerPrefs.SetString(DataKey.Player, JsonConvert.SerializeObject(playerData));

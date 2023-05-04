@@ -20,6 +20,7 @@ public enum EventType {
     SpawnEnemy,
 
     //UI Events
+    OnInitUI,
     OnPlayerHpChange,
     OnPlayerDie,
     OnTurnNumberChange,

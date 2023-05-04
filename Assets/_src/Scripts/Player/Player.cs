@@ -3,6 +3,7 @@ using _src.Scripts.Bullet;
 using UnityEngine;
 using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
+using _src.Scripts.UI;
 using Unity.Collections;
 using UnityEngine.Serialization;
 
@@ -49,7 +50,10 @@ namespace _src.Scripts.Player {
             bulletManager.ChangeDamageModifier(_attackModifier);
             bulletManager.ChangeCritModifier(_critChance);
             
-            EventDispatcher.instance.SendMessage(EventType.OnPlayerHpChange, _currentHp);
+            EventDispatcher.instance.SendMessage(EventType.OnInitUI, new UIInitData() {
+                PlayerHp = _currentHp,
+                PlayerCoins = SaveSystem.instance.playerData.Coin
+            });
         }
 
         public void TakeDamage(float amount) {
