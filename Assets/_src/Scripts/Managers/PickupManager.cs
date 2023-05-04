@@ -46,15 +46,11 @@ namespace _src.Scripts.Managers
             foreach (var pickup in LevelManager.instance.pickupBulletSpawningData.pickupData) {
                 _weightedPickUpList.AddElement(pickup, pickup.chance);
             }
-        }
-
-        private void Start() {
             this.SubscribeListener(EventType.SpawnPickup, _=>SpawnPickups());
         }
-
+        
         private void Update() {
-            if (IsAllPickupActive())
-            {
+            if (IsAllPickupActive()) {
                 _pickups?.RemoveAll(destroyedPickups => destroyedPickups == null);
             }
         }
@@ -86,9 +82,8 @@ namespace _src.Scripts.Managers
                 _pickups.Clear();
             }
             
-            //Spawns every 3 turn
+            //Spawns every 5 turn
             if (SaveSystem.instance.currentLevelData.TurnNumber % 3 != 0) return;
-
             var randomAmount = UnityRandom.Range(minAmountSpawn, maxAmountSpawn);
             
             //Pick amount of Tiles w/ no duplicates, where the Tile doesn't contain anything
