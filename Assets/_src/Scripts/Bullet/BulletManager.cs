@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _src.Scripts.Bullet {
     /// <summary>
@@ -14,10 +12,10 @@ namespace _src.Scripts.Bullet {
     public class BulletManager : Singleton<BulletManager>
     {
         public List<GameObject> bulletList;
-        
-        private const float BaseBulletDamageModifier = 1;
-        private float _currentBulletDamageModifier; 
 
+        private float _critChance; 
+        private float _damageModifier; 
+        
         //Holds current bullet in the scene
         private List<GameObject> _currentList;
         //Store any new bullets being added
@@ -27,8 +25,6 @@ namespace _src.Scripts.Bullet {
         private void Awake(){
             _currentList = new List<GameObject>();
             _addedTempList = new List<GameObject>();
-
-            _currentBulletDamageModifier = BaseBulletDamageModifier;
         }
 
         private void Update(){
@@ -45,10 +41,7 @@ namespace _src.Scripts.Bullet {
                 
                 bulletList.AddRange(_addedTempList);
                 _addedTempList.Clear();
-                
-                //Reset Modifier
-                _currentBulletDamageModifier = BaseBulletDamageModifier;
-                
+
                 //Switch to Enemy Turn
                 this.SendMessage(EventType.SwitchToEnemy);
             }
@@ -69,8 +62,11 @@ namespace _src.Scripts.Bullet {
                 
                 //Set Bullet Damage w/ any modifiers
                 var bulletDamage = bulletInst.GetComponent<BulletBase>().damage;
-                bulletInst.GetComponent<BulletBase>().damage = bulletDamage * _currentBulletDamageModifier;
-                
+                var modifiedDamage = (Random.Range(0f, 1f) < _critChance)
+                    ? bulletDamage * 2 * _damageModifier
+                    : bulletDamage * _damageModifier;
+
+                bulletInst.GetComponent<BulletBase>().damage = modifiedDamage;
                 yield return new WaitForSeconds(0.2f);
             }
             
@@ -87,7 +83,11 @@ namespace _src.Scripts.Bullet {
         }
 
         public void ChangeDamageModifier(float amount) {
-            _currentBulletDamageModifier = amount;
+            _damageModifier = amount;
+        }
+        
+        public void ChangeCritModifier(float percent) {
+            _critChance = percent;
         }
     }
 }

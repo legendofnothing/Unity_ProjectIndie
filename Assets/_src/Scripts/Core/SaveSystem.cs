@@ -8,6 +8,13 @@ namespace _src.Scripts.Core {
     public static class DataKey {
         public const string Player = "PLAYER";
     }
+
+    public static class PlayerStatLevels {
+        public const string HP = "HP";
+        public const string DEF = "DEF";
+        public const string ATK = "ATK";
+        public const string CRIT = "CRIT";
+    }
     
     public struct DataLevel {
         public int TurnNumber;
@@ -23,6 +30,7 @@ namespace _src.Scripts.Core {
         public int Coin;
         public string PreviousSceneName; 
         public Dictionary<string, DataLevel> LevelData;
+        public Dictionary<string, int> PlayerLevels;
     }
 
     public class SaveSystem : Singleton<SaveSystem> {
@@ -41,7 +49,13 @@ namespace _src.Scripts.Core {
             if (!PlayerPrefs.HasKey(DataKey.Player)) {
                 playerData = new PlayerData {
                     Coin = 0,
-                    LevelData = new Dictionary<string, DataLevel>()
+                    LevelData = new Dictionary<string, DataLevel>(),
+                    PlayerLevels = new Dictionary<string, int>() {
+                        {PlayerStatLevels.HP,   0},
+                        {PlayerStatLevels.ATK,  0},
+                        {PlayerStatLevels.DEF,  0},
+                        {PlayerStatLevels.CRIT, 0}
+                    }
                 };
                 PlayerPrefs.SetString(DataKey.Player, JsonConvert.SerializeObject(playerData));
             }
