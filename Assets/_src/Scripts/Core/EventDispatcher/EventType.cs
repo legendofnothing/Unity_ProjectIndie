@@ -7,6 +7,7 @@ public enum EventType {
     //Game State Events
     SwitchToShooting,
     SwitchToEnemy,
+    SwitchToShop,
     SwitchToPlayer,
     SwitchToEnd,
     

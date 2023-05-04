@@ -150,7 +150,7 @@ namespace _src.Scripts.Managers
             SpawnEnemyRandom(randomNum);
 
             yield return new WaitForSeconds(0.8f);
-            this.SendMessage(EventType.SwitchToPlayer);
+            this.SendMessage(EventType.SwitchToShop);
         }
         #endregion
     }
