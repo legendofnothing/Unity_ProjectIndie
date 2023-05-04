@@ -20,14 +20,16 @@ namespace _src.Scripts.Player {
         public BulletManager bulletManager;
         [Space] public float offsetToCamera;
         [HideInInspector] public Camera camera;
-        
-        private void Start() {
-            SetupStats();
+
+        private void Awake() {
             camera = Camera.main;
-            
             var unitsPerPixel = offsetToCamera / Screen.width;
             var desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
             camera.orthographicSize = desiredHalfHeight;
+        }
+
+        private void Start() {
+            SetupStats();
         }
 
         private void SetupStats() {
@@ -53,10 +55,25 @@ namespace _src.Scripts.Player {
             this.SendMessage(EventType.SwitchToEnd);
         }
         
-        //Add Health to player
         public void AddHealth(float amount) {
             _currentHp += amount;
             this.SendMessage(EventType.OnPlayerHpChange, _currentHp);
+        }
+
+        public void AddCoin(int amount) {
+            SaveSystem.instance.playerData.Coin += amount;
+            this.SendMessage(EventType.OnPlayerCoinChange, SaveSystem.instance.playerData.Coin);
+        }
+
+        public void ReduceCoin(int amount) {
+            SaveSystem.instance.playerData.Coin -= amount;
+            this.SendMessage(EventType.OnPlayerCoinChange, SaveSystem.instance.playerData.Coin);
+        }
+        
+        public void AddScore(int amount) {
+            SaveSystem.instance.currentLevelData.Score += amount 
+                                                          * SaveSystem.instance.currentLevelData.TurnNumber;
+            this.SendMessage(EventType.OnScoreChange, SaveSystem.instance.currentLevelData.Score);
         }
     }
 }

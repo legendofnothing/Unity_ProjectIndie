@@ -77,15 +77,15 @@ namespace _src.Scripts.Enemy {
             hpText.text = $"{(int) _currentHp}";
 
             if (_currentHp > 0) {
-                this.SendMessage(EventType.OnPlayerCoinAdd, coinAddedOnHit);
-                this.SendMessage(EventType.AddScore, scoreAddedOnHit);
+                Player.Player.instance.AddCoin(coinAddedOnHit);
+                Player.Player.instance.AddScore(scoreAddedOnHit);
                 
                 SpawnFloatingCoin(coinAddedOnHit);   
             }
 
             else {
-                this.SendMessage(EventType.OnPlayerCoinAdd, coinAddedOnDestroy);
-                this.SendMessage(EventType.AddScore, scoreAddedOnDestroy);
+                Player.Player.instance.AddCoin(coinAddedOnDestroy);
+                Player.Player.instance.AddScore(scoreAddedOnDestroy);
                 
                 SpawnFloatingCoin(coinAddedOnDestroy);
                 this.SendMessage(EventType.EnemyKilled, this);

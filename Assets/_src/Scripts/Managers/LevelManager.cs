@@ -50,7 +50,7 @@ namespace _src.Scripts.Managers
             this.SubscribeListener(EventType.SwitchToShooting, _=>UpdateTurn(Turn.Shooting));
             this.SubscribeListener(EventType.SwitchToEnemy, _=>UpdateTurn(Turn.Enemy));
             this.SubscribeListener(EventType.SwitchToPlayer, _=>UpdateTurn(Turn.Player));
-            this.SubscribeListener(EventType.SwitchToPlayer, _=>UpdateTurn(Turn.Shop));
+            this.SubscribeListener(EventType.SwitchToShop, _=>UpdateTurn(Turn.Shop));
             this.SubscribeListener(EventType.SwitchToEnd, _=>UpdateTurn(Turn.End));
         }
         
@@ -87,10 +87,9 @@ namespace _src.Scripts.Managers
                     break;
                 
                 case Turn.Shop:
-                    if (SaveSystem.instance.currentLevelData.TurnNumber % 3 != 0) {
-                        this.SendMessage(EventType.SwitchToPlayer);
-                    }
-                    
+                    // if (SaveSystem.instance.currentLevelData.TurnNumber % 3 != 0) {
+                    // }
+                    this.SendMessage(EventType.SwitchToPlayer);
                     break;
                 
                 case Turn.End:
