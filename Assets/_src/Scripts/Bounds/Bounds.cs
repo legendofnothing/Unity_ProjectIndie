@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _src.Scripts.Bounds {
     
@@ -7,7 +8,7 @@ namespace _src.Scripts.Bounds {
     /// </summary>
     public class Bounds : MonoBehaviour {
         [SerializeField] private Camera camera;
-        [SerializeField] private EdgeCollider2D _edgeCollider;
+        [SerializeField] private EdgeCollider2D edgeCollider;
         
         private void Awake(){
             GenerateBounds();
@@ -28,7 +29,7 @@ namespace _src.Scripts.Bounds {
             };
 
             //Assign edge collider points
-            _edgeCollider.points = array;
+            edgeCollider.points = array;
         }
     }
 }

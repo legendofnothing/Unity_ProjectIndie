@@ -22,10 +22,16 @@ namespace _src.Scripts.Player {
         [HideInInspector] public Camera camera;
 
         private void Awake() {
+            var screenHeightInInch =  Screen.height / Screen.dpi;
             camera = Camera.main;
-            var unitsPerPixel = offsetToCamera / Screen.width;
-            var desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
-            camera.orthographicSize = desiredHalfHeight;
+            if (screenHeightInInch < 6) {
+                var unitsPerPixel = offsetToCamera / Screen.width;
+                var desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
+                camera.orthographicSize = desiredHalfHeight;
+            }
+            else {
+                camera.orthographicSize = 5;
+            }
         }
 
         private void Start() {

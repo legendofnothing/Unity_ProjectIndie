@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 5081683452080377696}
-  _edgeCollider: {fileID: 5081683451617540018}
+  edgeCollider: {fileID: 5081683451617540018}
 --- !u!68 &5081683451617540018
 EdgeCollider2D:
   m_ObjectHideFlags: 0
