@@ -252,7 +252,7 @@ MonoBehaviour:
   hp: 500
   input: {fileID: 9013195813678353294}
   bulletManager: {fileID: 9013195813678353295}
-  offsetToCamera: 5.8
+  offsetToCamera: 6.5
   camera: {fileID: 0}
 --- !u!114 &9013195813678353294
 MonoBehaviour:

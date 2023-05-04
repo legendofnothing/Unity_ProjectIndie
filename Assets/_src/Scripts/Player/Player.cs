@@ -22,16 +22,20 @@ namespace _src.Scripts.Player {
         [Space] public float offsetToCamera;
         [HideInInspector] public Camera camera;
 
+        /**
+        * Desired specs
+         * Camera Size: 6
+         * Res: 1080x1920
+        */
         private void Awake() {
-            var screenHeightInInch =  Screen.height / Screen.dpi;
             camera = Camera.main;
-            if (screenHeightInInch < 6) {
-                var unitsPerPixel = offsetToCamera / Screen.width;
-                var desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
-                camera.orthographicSize = desiredHalfHeight;
-            }
-            else {
-                camera.orthographicSize = 5;
+
+            var windowAspect = Screen.width / (float)Screen.height;
+            const float desiredAspect = 1080f / 1920f;
+            var scaleHeight = windowAspect / desiredAspect;
+
+            if (scaleHeight < 1.0f) {  
+                camera.orthographicSize /= scaleHeight;
             }
         }
 
