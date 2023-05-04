@@ -19,8 +19,8 @@ namespace _src.Scripts.Managers {
 
         private void Start() {
             //Subscribe Events
-            this.SubscribeListener(EventType.PowerupHealth, _ => AddHealth());
-            this.SubscribeListener(EventType.PowerupDamageBuff, _=> BuffDamage());
+            // this.SubscribeListener(EventType.PowerupHealth, _ => AddHealth());
+            // this.SubscribeListener(EventType.PowerupDamageBuff, _=> BuffDamage());
         }
 
         private void AddHealth() {

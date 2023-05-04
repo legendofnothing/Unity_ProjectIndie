@@ -1,92 +1,35 @@
 using System;
-using System.Collections;
-using _src.Scripts.ScriptableObjects;
+using _src.Scripts.Core;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace _src.Scripts.UI.Menu
-{
-    public class MenuUI : MonoBehaviour
-    {
-        [Header("PlayerData")] public PlayerData playerData;
+namespace _src.Scripts.UI.Menu {
+    public class MenuUI : MonoBehaviour {
+        public TextMeshProUGUI coinDisplayText;
+        private SaveSystem _saveSystem;
         
-        [Header("Starter")] 
-        public GameObject loadedUI;
-        public AnimationClip loadedUIclip;
-
-        [Header("Texts")] public TextMeshProUGUI coinText;
-
-        [Header("UIs")] public GameObject mainUI;
-        
-        [Space]
-        public GameObject settingUI;
-        public GameObject configUI;
-
-        private void Start()
-        {
-            StartCoroutine(StartUI());
-
-            settingUI.SetActive(false);
-            configUI.SetActive(false);
-
-            coinText.text = $"x{playerData.coins}";
+        private void Awake() {
+            _saveSystem = SaveSystem.instance;
+            _saveSystem.Init();
         }
 
-        private IEnumerator StartUI()
-        {
-            loadedUI.SetActive(true);
-            yield return new WaitForSeconds(loadedUIclip.length + 0.2f);
-            loadedUI.SetActive(false);
+        private void Start() {
+            coinDisplayText.text = "x" + _saveSystem.playerData.Coin;
         }
 
-        #region MainMenu
-        
-        public void SettingButton()
-        {
-            ChangeUI(settingUI, mainUI);
-        }
-
-        public void LoadTutorial() 
-        {
-            //Implement...
-        }
-
-        public void LoadTrial1() {
+        #region Button Events
+        public void StartGame() {
             SceneManager.LoadScene("Game1");
         }
-        
+
+        public void OpenEquipments() {
+            
+        }
+
+        public void OpenUpgrades() {
+            
+        }
         #endregion
-
-        #region Settings
-
-        public void ReturnButton()
-        {
-            ChangeUI(mainUI, settingUI);
-        }
-
-        public void ConfigButton()
-        {
-            ChangeUI(configUI, settingUI);
-        }
-
-        public void ExitGame()
-        {
-            Application.Quit();
-        }
-
-        public void ReturnButtonConfig()
-        {
-            ChangeUI(settingUI, configUI);
-        }
-        
-        #endregion
-
-        private static void ChangeUI(GameObject newUI, GameObject oldUI = null)
-        {
-            newUI.SetActive(true);
-            if (oldUI != null) oldUI.SetActive(false);
-        }
     }
 }

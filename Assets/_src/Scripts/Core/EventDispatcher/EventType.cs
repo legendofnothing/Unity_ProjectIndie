@@ -30,10 +30,4 @@ public enum EventType {
     OnPlayerCoinChange,
     OnPlayerCoinAdd,
     OnPlayerCoinReduce,
-
-    //PowerUp Events
-    PowerupHealth,
-    PowerupDamageBuff,
-    PowerupExplosion,
-    PowerupNuke
 }

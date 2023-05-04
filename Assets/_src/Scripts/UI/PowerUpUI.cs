@@ -102,7 +102,7 @@ namespace _src.Scripts.UI {
         {
             if (!IsEnoughMoney(PowerUpType.Health)) return;
             
-            this.SendMessage(EventType.PowerupHealth);
+            //this.SendMessage(EventType.PowerupHealth);
             
             DisableButton(PowerUpType.Health);
             UpdateCoins(PowerUpType.Health);
@@ -111,7 +111,7 @@ namespace _src.Scripts.UI {
         public void DamageBuff() {
             if (!IsEnoughMoney(PowerUpType.DamageBuff)) return;
             
-            this.SendMessage(EventType.PowerupDamageBuff);
+            //this.SendMessage(EventType.PowerupDamageBuff);
             
             DisableButton(PowerUpType.DamageBuff);
             UpdateCoins(PowerUpType.DamageBuff);
