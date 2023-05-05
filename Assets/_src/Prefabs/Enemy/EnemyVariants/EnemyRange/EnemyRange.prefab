@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 4741490163997196384}
   - component: {fileID: 686687057808214472}
   - component: {fileID: 79999934189623510}
-  - component: {fileID: 5022151570374424660}
+  - component: {fileID: 8418415620283355141}
   m_Layer: 9
   m_Name: EnemyRange
   m_TagString: Untagged
@@ -175,7 +175,7 @@ MonoBehaviour:
   floatingCoins: {fileID: 2533072670318687323, guid: e960e7b0e44f4cb49888d13103216be4, type: 3}
   hasFinishedTurn: 0
   _bulletPrefab: {fileID: 5400054822447510656, guid: a142d3a03cac4fe4a9cede07c3b4fb45, type: 3}
---- !u!95 &5022151570374424660
+--- !u!95 &8418415620283355141
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -492,7 +492,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

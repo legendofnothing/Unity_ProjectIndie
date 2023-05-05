@@ -72,7 +72,6 @@ namespace _src.Scripts.Managers
         /// Execute EnemyTurn in EnemyBase foreach enemies in the scene 
         /// </summary>
         private void EnemyTurn() {
-            foreach (var enemy in enemies) { enemy.OnEnemyTurn(); }
             StartCoroutine(SwitchPlayerTurn());
         }
         
@@ -138,11 +137,15 @@ namespace _src.Scripts.Managers
         }
         
         private IEnumerator SwitchPlayerTurn() {
-            var canSwitch = false;
-            while (!canSwitch) {
-                var finishedEnemies = enemies.FindAll(enemy => enemy.hasFinishedTurn = true).Count;
-                canSwitch = finishedEnemies >= enemies.Count;
-            }
+            yield return new WaitUntil(() => {
+                return enemies.FindAll(enemy => enemy.isEnemyDying).Count <= 0;
+            });
+            
+            foreach (var enemy in enemies) { enemy.OnEnemyTurn(); }
+            
+            yield return new WaitUntil(() => {
+                return enemies.FindAll(enemy => enemy.hasFinishedTurn).Count >= enemies.Count;
+            });
         
             yield return new WaitForSeconds(0.4f);
             

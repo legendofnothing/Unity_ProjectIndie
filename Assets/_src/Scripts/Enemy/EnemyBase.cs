@@ -10,6 +10,12 @@ using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 namespace _src.Scripts.Enemy {
+    public class EnemyAnim {
+        public static string IsMoving = "isMoving";
+        public static string Attack = "Attack";
+        public static string Hit = "Hit";
+        public static string Die = "Die";
+    }
     
     /// <summary>
     /// Abstract class for different type of enemy to inherit from.
@@ -41,11 +47,11 @@ namespace _src.Scripts.Enemy {
         public GameObject floatingCoins;
 
         private float _currentHp;
-        protected GridManager GridManager;
-        
-        //State booleans 
         [HideInInspector] public bool hasFinishedTurn;
-        
+        [HideInInspector] public bool isEnemyDying;
+        protected GridManager GridManager;
+        protected Animator _animator;
+
         /// <summary>
         /// Init function,call everytime a new enemy is instantiated 
         /// </summary>
@@ -57,7 +63,8 @@ namespace _src.Scripts.Enemy {
             y = yCord;
             _currentHp = currHp;
             hpText.text = $"{(int) _currentHp}";
-            GridManager = GridManager.instance; 
+            GridManager = GridManager.instance;
+            _animator = gameObject.GetComponent<Animator>();
         }
         
         public void OnEnemyTurn() {
@@ -80,7 +87,8 @@ namespace _src.Scripts.Enemy {
                 Player.Player.instance.AddCoin(coinAddedOnHit);
                 Player.Player.instance.AddScore(scoreAddedOnHit);
                 
-                SpawnFloatingCoin(coinAddedOnHit);   
+                SpawnFloatingCoin(coinAddedOnHit); 
+                _animator.SetTrigger(EnemyAnim.Hit);
             }
 
             else {
@@ -89,19 +97,39 @@ namespace _src.Scripts.Enemy {
                 
                 SpawnFloatingCoin(coinAddedOnDestroy);
                 this.SendMessage(EventType.EnemyKilled, this);
-                Destroy(gameObject);
+                _animator.SetTrigger(EnemyAnim.Die);
+                isEnemyDying = true;
             }
         }
-        
+
+        public void OnFinishDeathAnimation() {
+            GridManager.instance.SetTileContainContent(x, y, Contains.None);
+            this.SendMessage(EventType.EnemyKilled, this);
+            Destroy(gameObject);
+        }
+
+        public void OnAttackAnimationDamage() {
+            Player.Player.instance.TakeDamage(damage);
+        }
+
+        public virtual void OnFinishAttackAnimation() {
+            _animator.SetTrigger(EnemyAnim.Die);
+            hasFinishedTurn = true;
+        }
+
         private void SpawnFloatingCoin(int amount) {
             var floatingCoin = Instantiate(floatingCoins, transform.position, Quaternion.identity);
             floatingCoin.GetComponent<FloatingCoin>().Init(amount);
         }
-        
+
         protected virtual void Move() {
             if (y <= 0) return; 
             var updatedY = y - 1;
-            if (GridManager.tiles[x, updatedY].contains == Contains.Enemy) return;
+            if (GridManager.tiles[x, updatedY].contains == Contains.Enemy) {
+                hasFinishedTurn = true;
+                return;
+            }
+            _animator.SetBool(EnemyAnim.IsMoving, true);
             GridManager.SetTileContainContent(x, updatedY,Contains.Enemy);
             var newPos = GridManager.tiles[x, updatedY].transform.position;
             var randomDuration = Random.Range(0.7f, 1f);
@@ -109,18 +137,19 @@ namespace _src.Scripts.Enemy {
             transform.DOMove(newPos, randomDuration).OnComplete(() => {
                 GridManager.ResetTileContainContent(x, y);
                 UpdatePosition(x, updatedY);
+                _animator.SetBool(EnemyAnim.IsMoving, false);
                 Attack();
             });
         }
         
         protected virtual void Attack() {
             if (y <= 0) {
-                //Only attacks on Y = 0;
-                Player.Player.instance.TakeDamage(damage);
-                this.SendMessage(EventType.EnemyKilled, this);
-                Destroy(gameObject);
-            } 
-            hasFinishedTurn = true;
+                _animator.SetTrigger(EnemyAnim.Attack);
+            }
+
+            else {
+                hasFinishedTurn = true;
+            }
         }
 
         protected void UpdatePosition(int newX, int newY) {

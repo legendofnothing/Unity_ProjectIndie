@@ -1,3 +1,4 @@
+using System.Collections;
 using _src.Scripts.Core.EventDispatcher;
 using _src.Scripts.Enemy.EnemyWeapon;
 using DG.Tweening;
@@ -20,10 +21,7 @@ namespace _src.Scripts.Enemy.EnemyVariant
             switch (y) {
                 //At y : 0
                 case 0:
-                    Player.Player.instance.TakeDamage(damage);
-                    this.SendMessage(EventType.EnemyKilled, this);
-                    Destroy(gameObject);
-                    hasFinishedTurn = true;
+                    StartCoroutine(AttackAtY0Routine());
                     break;
                 
                 //At any Y
@@ -32,20 +30,21 @@ namespace _src.Scripts.Enemy.EnemyVariant
                     break;
             }
         }
-        
+
+        public override void OnFinishAttackAnimation() {
+            hasFinishedTurn = true;
+        }
+
         //Enemy Shoot Function
         private void Shoot() {
-            var bulletInst = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
-            var bulletComp = bulletInst.GetComponent<EnemyBullet>();
+            _animator.SetTrigger(EnemyAnim.Attack);
+        }
 
-            if (bulletComp == null) {
-                UnityEngine.Debug.Log($"Missing Bullet Script at {bulletInst}");
-            }
-            
-            bulletComp.damage = damage;
-            bulletInst.transform
-                .DOMove(Player.Player.instance.transform.position, 0.4f)
-                .OnComplete(() => hasFinishedTurn = true);
+        private IEnumerator AttackAtY0Routine() {
+            _animator.SetTrigger(EnemyAnim.Attack);
+            yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
+            _animator.SetTrigger(EnemyAnim.Die);
+            hasFinishedTurn = true;
         }
     }
 }
