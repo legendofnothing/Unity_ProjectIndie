@@ -259,6 +259,7 @@ MonoBehaviour:
   hpText: {fileID: 5379358326533771975}
   floatingCoins: {fileID: 2533072670318687323, guid: e960e7b0e44f4cb49888d13103216be4, type: 3}
   hasFinishedTurn: 0
+  isEnemyDying: 0
 --- !u!95 &4342446169885649026
 Animator:
   serializedVersion: 4

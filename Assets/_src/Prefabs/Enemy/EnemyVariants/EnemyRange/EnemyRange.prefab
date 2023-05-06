@@ -174,6 +174,7 @@ MonoBehaviour:
   hpText: {fileID: 5379358326533771975}
   floatingCoins: {fileID: 2533072670318687323, guid: e960e7b0e44f4cb49888d13103216be4, type: 3}
   hasFinishedTurn: 0
+  isEnemyDying: 0
   _bulletPrefab: {fileID: 5400054822447510656, guid: a142d3a03cac4fe4a9cede07c3b4fb45, type: 3}
 --- !u!95 &8418415620283355141
 Animator:
@@ -267,7 +268,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 631771417
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1512736881, guid: 2228158ab9e5b094db10cd757ad08f7b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -486,7 +487,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 631771417
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

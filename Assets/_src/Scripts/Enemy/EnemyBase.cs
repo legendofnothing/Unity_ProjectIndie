@@ -81,9 +81,8 @@ namespace _src.Scripts.Enemy {
 
         public void TakeDamage(float amount) {
             _currentHp -= amount;
-            hpText.text = $"{(int) _currentHp}";
-
             if (_currentHp > 0) {
+                hpText.text = $"{(int) _currentHp}";
                 Player.Player.instance.AddCoin(coinAddedOnHit);
                 Player.Player.instance.AddScore(scoreAddedOnHit);
                 
@@ -92,6 +91,7 @@ namespace _src.Scripts.Enemy {
             }
 
             else {
+                hpText.text = "0";
                 Player.Player.instance.AddCoin(coinAddedOnDestroy);
                 Player.Player.instance.AddScore(scoreAddedOnDestroy);
                 
