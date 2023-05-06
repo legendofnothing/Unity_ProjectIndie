@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 namespace _src.Scripts.Enemy {
-    public static class EnemyAnim {
+    public class EnemyAnim {
         public const string IsMoving = "isMoving";
         public const string Attack = "Attack";
         public const string Hit = "Hit";

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData:
   - prefab: {fileID: 1163999951790750900, guid: ca9ab78b9aba6d54b9ed1f8f7729366c, type: 3}
-    chance: 0.8
+    chance: 0
   - prefab: {fileID: 1163999951790750900, guid: f3010d91f91341840a65afda4d06fd95, type: 3}
-    chance: 0.4
+    chance: 0
   - prefab: {fileID: 1163999951790750900, guid: 669d4c7715b19e343994247924b4f512, type: 3}
     chance: 0
   - prefab: {fileID: 1163999951790750900, guid: 936563f6d44a1ad4088d35da0051bc21, type: 3}
-    chance: 0
+    chance: 1
