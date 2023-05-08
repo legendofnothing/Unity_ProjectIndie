@@ -59,7 +59,7 @@ namespace _src.Scripts.Enemy {
         /// <param name="xCord">X Position on the Grid</param>
         /// <param name="yCord">Y Position on the Grid</param>
         /// <param name="currHp">Set Enemy HP w/ any modifiers</param>
-        public void Init(int xCord, int yCord, float currHp) {
+        public virtual void Init(int xCord, int yCord, float currHp) {
             x = xCord;
             y = yCord;
             _currentHp = currHp;
@@ -115,7 +115,7 @@ namespace _src.Scripts.Enemy {
             Destroy(gameObject);
         }
 
-        public void OnAttackAnimationDamage() {
+        public virtual void OnAttackAnimationDamage() {
             Player.Player.instance.TakeDamage(damage);
         }
 
