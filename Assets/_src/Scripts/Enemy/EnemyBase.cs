@@ -6,7 +6,9 @@ using _src.Scripts.Managers;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
+using Slider = UnityEngine.UI.Slider;
 using Vector3 = UnityEngine.Vector3;
 
 namespace _src.Scripts.Enemy {
@@ -42,10 +44,12 @@ namespace _src.Scripts.Enemy {
 
         [Header("UI Related")] 
         public TextMeshProUGUI hpText;
+        public Slider healthBar;
 
         [Header("Floating Coins")] 
         public GameObject floatingCoins;
 
+        private float _hp;
         private float _currentHp;
         [HideInInspector] public bool hasFinishedTurn;
         [HideInInspector] public bool isEnemyDying;
@@ -62,9 +66,14 @@ namespace _src.Scripts.Enemy {
             x = xCord;
             y = yCord;
             _currentHp = currHp;
-            hpText.text = $"{(int) _currentHp}";
+            _hp = currHp;
             GridManager = GridManager.instance;
             _animator = gameObject.GetComponent<Animator>();
+
+            DOVirtual.Float(0, currHp, 1.2f, value => {
+                hpText.text = $"{(int) value}";
+            });
+            healthBar.DOValue(currHp, 1.2f);
         }
         
         public void OnEnemyTurn() {
@@ -82,20 +91,22 @@ namespace _src.Scripts.Enemy {
         public void TakeDamage(float amount) {
             _currentHp -= amount;
             if (_currentHp > 0) {
-                hpText.text = $"{(int) _currentHp}";
                 Player.Player.instance.AddCoin(coinAddedOnHit);
                 Player.Player.instance.AddScore(scoreAddedOnHit);
                 
-                SpawnFloatingCoin(coinAddedOnHit); 
+                hpText.text = $"{(int) _currentHp}";
+                healthBar.DOValue(_currentHp / _hp, _currentHp / _hp);
+                
                 _animator.SetTrigger(EnemyAnim.Hit);
             }
 
             else {
                 hpText.text = "0";
+                healthBar.value = 0;
+                
                 Player.Player.instance.AddCoin(coinAddedOnDestroy);
                 Player.Player.instance.AddScore(scoreAddedOnDestroy);
                 
-                SpawnFloatingCoin(coinAddedOnDestroy);
                 _animator.SetTrigger(EnemyAnim.Die);
                 isEnemyDying = true;
             }
