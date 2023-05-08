@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b83978e520ebebb40bcdeda492830672
+guid: a54474e3727c9064fa8c6de90bf33b5d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 55
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -129,138 +129,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SMALL SMOKE 2_0
+      name: MiscWeapon_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 1
-        width: 5
-        height: 4
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8e368242a93bcd64ead11d026cd86ded
-      internalID: 1722622066
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SMALL SMOKE 2_1
-      rect:
-        serializedVersion: 2
-        x: 23
-        y: 0
-        width: 13
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3aa4c1bd5090f3b4894f62970d03a558
-      internalID: -556974710
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SMALL SMOKE 2_2
-      rect:
-        serializedVersion: 2
-        x: 39
-        y: 0
-        width: 11
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a435c7811fb04fd4490a79cefdf41393
-      internalID: 253669368
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SMALL SMOKE 2_3
-      rect:
-        serializedVersion: 2
-        x: 57
-        y: 1
-        width: 8
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bc40de4d1f14da54b8b8acbf736eeced
-      internalID: -453913986
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SMALL SMOKE 2_4
-      rect:
-        serializedVersion: 2
-        x: 74
-        y: 2
-        width: 5
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b36b7bae4195f0f4d93d77297eae5d37
-      internalID: 218891309
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SMALL SMOKE 2_5
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 2
-        width: 8
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 95155fc1459914144835d5fb58fc84fe
-      internalID: 1124407616
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SMALL SMOKE 2_6
-      rect:
-        serializedVersion: 2
-        x: 107
-        y: 4
-        width: 8
+        x: 37
+        y: 112
+        width: 6
         height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -269,8 +143,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1be3656c12761fc42af6ae826cfa2ebc
-      internalID: 1703011440
+      spriteID: 4d8b7eecef063df4793dbd545cf834c7
+      internalID: -939044508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiscWeapon_1
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 80
+        width: 3
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc6c9a0f4c578e14a9164e9dc97cdd90
+      internalID: -1826136026
       vertices: []
       indices: 
       edges: []
@@ -286,13 +181,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SMALL SMOKE 2_3: -453913986
-      SMALL SMOKE 2_4: 218891309
-      SMALL SMOKE 2_6: 1703011440
-      SMALL SMOKE 2_0: 1722622066
-      SMALL SMOKE 2_5: 1124407616
-      SMALL SMOKE 2_2: 253669368
-      SMALL SMOKE 2_1: -556974710
+      MiscWeapon_0: -939044508
+      MiscWeapon_1: -1826136026
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -16,25 +16,27 @@ namespace _src.Scripts.Enemy.EnemyVariant {
             var tileToMoveTo = emptyTiles[new SystemRandom().Next(emptyTiles.Count)];
             
             var randomDuration = Random.Range(0.7f, 1f);
+            
             GridManager.SetTileContainContent(x, y, Contains.Enemy);
-            transform.DOMove(tileToMoveTo.transform.position, randomDuration).OnComplete(() => {
+            transform.DOMove(tileToMoveTo.transform.position, randomDuration).OnStart(() => { 
+                _animator.speed = randomDuration / _animator.GetCurrentAnimatorClipInfo(0).Length;
+                _animator.SetBool(EnemyAnim.IsMoving, true);
+            })
+            .OnComplete(() => {
+                GridManager.ResetTileContainContent(x, y);
                 UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
+                _animator.speed = 1;
+                _animator.SetBool(EnemyAnim.IsMoving, false);
                 Attack();
             });
         }
         
         protected override void Attack() {
-            var bulletInst = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            var bulletComp = bulletInst.GetComponent<EnemyBullet>();
-
-            if (bulletComp == null) {
-                UnityEngine.Debug.Log($"Missing Bullet Script at {bulletInst}");
-            }
-            
-            bulletComp.damage = damage;
-            bulletInst.transform
-                .DOMove(Player.Player.instance.transform.position, 0.4f)
-                .OnComplete(() => hasFinishedTurn = true);
+            _animator.SetTrigger(EnemyAnim.Attack);
+        }
+        
+        public override void OnFinishAttackAnimation() {
+            hasFinishedTurn = true;
         }
     }
 }

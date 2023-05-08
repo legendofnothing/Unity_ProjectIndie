@@ -96,7 +96,6 @@ namespace _src.Scripts.Enemy {
                 Player.Player.instance.AddScore(scoreAddedOnDestroy);
                 
                 SpawnFloatingCoin(coinAddedOnDestroy);
-                this.SendMessage(EventType.EnemyKilled, this);
                 _animator.SetTrigger(EnemyAnim.Die);
                 isEnemyDying = true;
             }
