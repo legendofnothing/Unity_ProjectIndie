@@ -1,3 +1,4 @@
+using System;
 using _src.Scripts.Core;
 using DG.Tweening;
 using UnityEngine;
@@ -17,21 +18,21 @@ namespace _src.Scripts.Bullet {
         public LayerMask destroyLayer;
 
         private int _bouncedTimes;
-        private Vector3 _dir; 
-        protected Rigidbody2D rb;
+        private Vector3 _dir;
 
         protected void Start(){
-            rb = GetComponent<Rigidbody2D>();
             _bouncedTimes = 0;
-            
             OnSpawn();
         }
 
         protected virtual void OnSpawn() {
-            _dir = transform.up;
-            rb.velocity = transform.up * speed;
+            _dir = transform.up;                
         }
-        
+
+        private void FixedUpdate() {
+            transform.position += _dir * (speed * Time.fixedDeltaTime);
+        }
+
         protected virtual void OnCollisionEnter2D(Collision2D col) {
             if (CheckLayerMask.IsInLayerMask(col.gameObject, destroyLayer)) {
                 Destroy(gameObject);
@@ -39,10 +40,9 @@ namespace _src.Scripts.Bullet {
 
             if (CheckLayerMask.IsInLayerMask(col.gameObject, bounceLayer)) {
                 _dir = Vector3.Reflect(_dir, col.contacts[0].normal);
-                rb.velocity = _dir * speed;
                 transform.rotation = Quaternion.FromToRotation(Vector3.up, _dir);
-
-                    _bouncedTimes++;
+                _bouncedTimes++;
+                
                 if (_bouncedTimes >= thresholdBounces) {
                     Destroy(gameObject);
                 }
