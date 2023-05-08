@@ -9,8 +9,6 @@ using UnityEngine.Serialization;
 
 namespace _src.Scripts.Enemy.EnemyVariant {
     public class EnemyJumper : EnemyBase {
-        [Header("Enemy Config")] 
-        [SerializeField] private GameObject bulletPrefab;
         protected override void Move() {
             var emptyTiles = GridManager.GetEmptyTiles();
             var tileToMoveTo = emptyTiles[new SystemRandom().Next(emptyTiles.Count)];

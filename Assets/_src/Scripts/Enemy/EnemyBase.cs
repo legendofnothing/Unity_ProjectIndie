@@ -46,9 +46,6 @@ namespace _src.Scripts.Enemy {
         public TextMeshProUGUI hpText;
         public Slider healthBar;
 
-        [Header("Floating Coins")] 
-        public GameObject floatingCoins;
-
         private float _hp;
         private float _currentHp;
         [HideInInspector] public bool hasFinishedTurn;
@@ -126,12 +123,7 @@ namespace _src.Scripts.Enemy {
             _animator.SetTrigger(EnemyAnim.Die);
             hasFinishedTurn = true;
         }
-
-        private void SpawnFloatingCoin(int amount) {
-            var floatingCoin = Instantiate(floatingCoins, transform.position, Quaternion.identity);
-            floatingCoin.GetComponent<FloatingCoin>().Init(amount);
-        }
-
+        
         protected virtual void Move() {
             if (y <= 0) return; 
             var updatedY = y - 1;

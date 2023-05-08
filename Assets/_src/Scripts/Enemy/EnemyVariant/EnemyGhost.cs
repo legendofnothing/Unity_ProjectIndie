@@ -18,12 +18,6 @@ namespace _src.Scripts.Enemy.EnemyVariant {
     }
     
     public class EnemyGhost : EnemyBase {
-        [Header("Enemy Config")] 
-        [SerializeField] private GameObject bulletPrefab;
-        [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private CanvasGroup enemyUI;
-        [SerializeField] private float fadeAlpha; 
-
         private bool _isInvisible; 
 
         protected override void Move() {

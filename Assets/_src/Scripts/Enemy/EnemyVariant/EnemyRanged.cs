@@ -11,9 +11,6 @@ namespace _src.Scripts.Enemy.EnemyVariant
     /// </summary>
     public class EnemyRanged : EnemyBase
     {
-        [Header("Enemy Config")] [SerializeField]
-        private GameObject _bulletPrefab;
-
         /// <summary>
         /// Override of Attack, if reaches y = 0 attack and destroy player, else shoot at player every turn
         /// </summary>
