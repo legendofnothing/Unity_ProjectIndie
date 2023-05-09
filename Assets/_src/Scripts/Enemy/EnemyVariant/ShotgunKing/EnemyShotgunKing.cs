@@ -74,12 +74,13 @@ namespace _src.Scripts.Enemy.EnemyVariant.ShotgunKing {
             var emptyTiles = GridManager.GetEmptyTiles();
             var tileToMoveTo = emptyTiles.Find(tile => {
                 if (tile.y <= 2) return false;
+                if (Vector2.Distance(transform.position, tile.transform.position) <= 1f) return false;
                 return tile.contains == Contains.None;
             });
             
             _animator.SetTrigger(ShotgunKingAnim.Evade);
             GridManager.SetTileContainContent(tileToMoveTo.x, tileToMoveTo.y, Contains.Enemy);
-            transform.DOMove(tileToMoveTo.transform.position, 1.4f).OnComplete(() => {
+            transform.DOMove(tileToMoveTo.transform.position, 0.1f).OnComplete(() => {
                 GridManager.ResetTileContainContent(x, y);
                 UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
             });
