@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 55
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -127,7 +127,112 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: '[FULL_MUZZLE_FLASH] Shotgun_V1.02_0'
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 12
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e024f7483684f14fbecd17b3dbf7063
+      internalID: 1508999365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[FULL_MUZZLE_FLASH] Shotgun_V1.02_1'
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 8
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb548c9b2711be44ba38077bf1806bef
+      internalID: 1141957948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[FULL_MUZZLE_FLASH] Shotgun_V1.02_3'
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 2
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ec23db02e6ab764b92befce4023455b
+      internalID: 694998921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[FULL_MUZZLE_FLASH] Shotgun_V1.02_5'
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 0
+        width: 29
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72bf5a53c36f4a74680fff9d97214f51
+      internalID: -1696777216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[FULL_MUZZLE_FLASH] Shotgun_V1.02_6'
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 0
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da1ed4c8e871b7542a65e043f713cb98
+      internalID: -791612134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -138,7 +243,17 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      '[FULL_MUZZLE_FLASH] Shotgun_V1.02_2': 278574040
+      '[FULL_MUZZLE_FLASH] Shotgun_V1.02_9': -1919555581
+      '[FULL_MUZZLE_FLASH] Shotgun_V1.02_6': -791612134
+      '[FULL_MUZZLE_FLASH] Shotgun_V1.02_1': 1141957948
+      '[FULL_MUZZLE_FLASH] Shotgun_V1.02_7': -1391007531
+      '[FULL_MUZZLE_FLASH] Shotgun_V1.02_5': -1696777216
+      '[FULL_MUZZLE_FLASH] Shotgun_V1.02_0': 1508999365
+      '[FULL_MUZZLE_FLASH] Shotgun_V1.02_3': 694998921
+      '[FULL_MUZZLE_FLASH] Shotgun_V1.02_8': -2107378403
+      '[FULL_MUZZLE_FLASH] Shotgun_V1.02_4': 1382310080
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

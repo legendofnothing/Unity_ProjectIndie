@@ -52,6 +52,7 @@ namespace _src.Scripts.Enemy {
         [HideInInspector] public bool isEnemyDying;
         protected GridManager GridManager;
         protected Animator _animator;
+        protected bool _canTakeDamage = true;
 
         /// <summary>
         /// Init function,call everytime a new enemy is instantiated 
@@ -80,6 +81,7 @@ namespace _src.Scripts.Enemy {
         
         protected virtual void OnCollisionEnter2D(Collision2D col) {
             if (CheckLayerMask.IsInLayerMask(col.gameObject, bulletLayer)) {
+                if (!_canTakeDamage) return;
                 var damaged = col.gameObject.GetComponent<BulletBase>().damage;
                 TakeDamage(damaged);
             }

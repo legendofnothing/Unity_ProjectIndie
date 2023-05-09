@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -127,7 +127,301 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_0'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 0
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdce7ed54bbfecb4aa9821497808fb32
+      internalID: -1962684563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_1'
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 0
+        width: 98
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2b5c6304616c454bb27be9e3e4977ae
+      internalID: 2008207111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_2'
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 0
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0a2aa0a8731f8341a5c5702bf589f8d
+      internalID: 1132106442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_3'
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 0
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f16b4e4cd7f68534b8834227db5eb8af
+      internalID: -1327461820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_4'
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 0
+        width: 97
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6e2329e558eb50479937760a7bdb87f
+      internalID: 1811518639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_5'
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 0
+        width: 97
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31a139c79bd23c5479acffdf8aec9d9d
+      internalID: -14164667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_6'
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 0
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b538707436518b44adb07fa5c6bfaaa
+      internalID: 445734978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_7'
+      rect:
+        serializedVersion: 2
+        x: 1124
+        y: 0
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47e8cbd67e86aef49838f5bc1c5c25a6
+      internalID: -936807273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_8'
+      rect:
+        serializedVersion: 2
+        x: 1282
+        y: 0
+        width: 98
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e12621267179e7142b1869fdc596235e
+      internalID: 106463103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_9'
+      rect:
+        serializedVersion: 2
+        x: 1443
+        y: 0
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68ce139de9d88fe46b85b200024dc0ba
+      internalID: -1609564338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_10'
+      rect:
+        serializedVersion: 2
+        x: 1603
+        y: 0
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbb4416fb55ac434c9ecdbc795f10cec
+      internalID: -1781426531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_11'
+      rect:
+        serializedVersion: 2
+        x: 1763
+        y: 0
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a7a7057b5043af4f8b718eba4f65302
+      internalID: 1072008943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_12'
+      rect:
+        serializedVersion: 2
+        x: 1922
+        y: 0
+        width: 98
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71eb1b5a0e6c46b4ea2569829ffeae6c
+      internalID: 2060620308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[EMPTYING] Shotgun_V1.02_13'
+      rect:
+        serializedVersion: 2
+        x: 2083
+        y: 0
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27314b68446cd6445b2c470ec0315273
+      internalID: -862926549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -138,7 +432,21 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      '[EMPTYING] Shotgun_V1.02_6': 445734978
+      '[EMPTYING] Shotgun_V1.02_5': -14164667
+      '[EMPTYING] Shotgun_V1.02_8': 106463103
+      '[EMPTYING] Shotgun_V1.02_0': -1962684563
+      '[EMPTYING] Shotgun_V1.02_4': 1811518639
+      '[EMPTYING] Shotgun_V1.02_10': -1781426531
+      '[EMPTYING] Shotgun_V1.02_7': -936807273
+      '[EMPTYING] Shotgun_V1.02_11': 1072008943
+      '[EMPTYING] Shotgun_V1.02_9': -1609564338
+      '[EMPTYING] Shotgun_V1.02_13': -862926549
+      '[EMPTYING] Shotgun_V1.02_12': 2060620308
+      '[EMPTYING] Shotgun_V1.02_3': -1327461820
+      '[EMPTYING] Shotgun_V1.02_2': 1132106442
+      '[EMPTYING] Shotgun_V1.02_1': 2008207111
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
