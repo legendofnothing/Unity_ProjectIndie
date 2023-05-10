@@ -7,7 +7,6 @@ namespace _src.Scripts.Bullet.Types {
     public class BulletScatter : BulletBase {
         [Header("Bullet Config")] 
         [SerializeField] private GameObject scatterPiece;
-        [SerializeField] private LayerMask scatterLayer;
         [Space] 
         [SerializeField] private int minScatter;
         [SerializeField] private int maxScatter;
@@ -15,9 +14,7 @@ namespace _src.Scripts.Bullet.Types {
         [SerializeField] private float minAngle;
         [SerializeField] private float maxAngle;
         
-        protected override void OnCollisionEnter2D(Collision2D col) {
-            if (!CheckLayerMask.IsInLayerMask(col.gameObject, scatterLayer)) return;
-            
+        protected override void OnBounce() {
             var randomAmount = Random.Range(minScatter - 1, maxScatter + 1);
             for (var i = 0; i < randomAmount; i++) {
                 var b = Instantiate(scatterPiece, transform.position, Quaternion.AngleAxis

@@ -7,19 +7,19 @@ namespace _src.Scripts.Bullet.Types {
 
         [Header("Config")] 
         [SerializeField] private float radius;
-        [SerializeField] private float splashDamage; 
-        
-        protected override void OnCollisionEnter2D(Collision2D col) {
-            if (!CheckLayerMask.IsInLayerMask(col.gameObject, destroyLayer)) return;
-            
-            var colliders = Physics2D.OverlapCircleAll(transform.position, radius);
-            foreach (var obj in colliders) {
-                if (obj.TryGetComponent(out EnemyBase enemy)) {
-                    var dist = Vector3.Distance(enemy.transform.position, transform.position);
-                    enemy.TakeDamage(Mathf.Lerp(splashDamage, 0, dist/radius));
-                }
+        [SerializeField] private float splashDamage;
+
+        protected override void OnBounce() {
+            var hits = new Collider2D[10];
+            var size = Physics2D.OverlapCircleNonAlloc(transform.position, radius, hits);
+
+            for (var i = 0; i < size; i++) {
+                var obj = hits[i];
+                if (!obj.TryGetComponent(out EnemyBase enemy)) continue;
+                var dist = Vector3.Distance(enemy.transform.position, transform.position);
+                enemy.TakeDamage(Mathf.Lerp(splashDamage, 0, dist/radius));
             }
-            
+
             Destroy(gameObject);
         }
     }

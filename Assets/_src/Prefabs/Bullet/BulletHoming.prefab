@@ -139,10 +139,11 @@ MonoBehaviour:
   damage: 100
   speed: 0.8
   thresholdBounces: 12
+  notBounce: 1
+  notDestroyAtBottomOfScreen: 0
   bounceLayer:
     serializedVersion: 2
-    m_Bits: 0
-  destroyLayer:
-    serializedVersion: 2
     m_Bits: 512
-  easeType: 17
+  easeType: 20
+  radius: 1.5
+  splashDamage: 50

@@ -139,9 +139,8 @@ MonoBehaviour:
   damage: 75
   speed: 7
   thresholdBounces: 0
+  notBounce: 1
+  notDestroyAtBottomOfScreen: 0
   bounceLayer:
     serializedVersion: 2
-    m_Bits: 512
-  destroyLayer:
-    serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 64

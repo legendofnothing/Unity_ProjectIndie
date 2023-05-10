@@ -8,6 +8,20 @@ using Unity.Collections;
 using UnityEngine.Serialization;
 
 namespace _src.Scripts.Player {
+    public class FloatScreenPosition {
+        public readonly float TopScreen    = 0f;
+        public readonly float RightScreen  = 0f;
+        public readonly float LeftScreen   = 0f;
+        public float BottomScreen = 0f;
+
+        public FloatScreenPosition(float t, float r, float l, float b) {
+            TopScreen = t;
+            RightScreen = r;
+            LeftScreen = l;
+            BottomScreen = b;
+        }
+    }
+    
     public class Player : Singleton<Player> {
         public float hp;
         
@@ -21,6 +35,7 @@ namespace _src.Scripts.Player {
         public BulletManager bulletManager;
         [Space] public float offsetToCamera;
         [HideInInspector] public Camera camera;
+        [HideInInspector] public FloatScreenPosition screenFloats; 
 
         /**
         * Desired specs
@@ -41,6 +56,12 @@ namespace _src.Scripts.Player {
 
         private void Start() {
             SetupStats();
+
+            screenFloats = new FloatScreenPosition(
+                camera.ViewportToWorldPoint(Vector3.one).y
+                ,camera.ViewportToWorldPoint(Vector3.one).x
+                ,camera.ViewportToWorldPoint(Vector3.zero).x
+                ,camera.ViewportToWorldPoint(Vector3.zero).y);
         }
 
         private void SetupStats() {

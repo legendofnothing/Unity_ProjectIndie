@@ -139,11 +139,9 @@ MonoBehaviour:
   damage: 25
   speed: 5
   thresholdBounces: 2
+  notBounce: 1
   bounceLayer:
     serializedVersion: 2
-    m_Bits: 0
-  destroyLayer:
-    serializedVersion: 2
-    m_Bits: 832
+    m_Bits: 576
   radius: 2
   splashDamage: 75

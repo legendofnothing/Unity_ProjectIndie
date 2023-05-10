@@ -139,16 +139,11 @@ MonoBehaviour:
   damage: 100
   speed: 6
   thresholdBounces: 12
+  notBounce: 0
   bounceLayer:
     serializedVersion: 2
-    m_Bits: 0
-  destroyLayer:
-    serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 576
   scatterPiece: {fileID: 811179696128422734, guid: f8aef2d87a166de489776a2f2abec13a, type: 3}
-  scatterLayer:
-    serializedVersion: 2
-    m_Bits: 832
   minScatter: 3
   maxScatter: 6
   minAngle: 20
