@@ -93,14 +93,14 @@ namespace _src.Scripts.Enemy {
                 Player.Player.instance.AddCoin(coinAddedOnHit);
                 Player.Player.instance.AddScore(scoreAddedOnHit);
                 
-                hpText.text = $"{(int) _currentHp}";
+                hpText.text = _currentHp.ToString("0.0");
                 healthBar.DOValue(_currentHp / _hp, _currentHp / _hp);
                 
                 _animator.SetTrigger(EnemyAnim.Hit);
             }
 
             else {
-                hpText.text = "0";
+                hpText.text = "0.0";
                 healthBar.value = 0;
                 
                 Player.Player.instance.AddCoin(coinAddedOnDestroy);

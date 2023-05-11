@@ -66,11 +66,12 @@ namespace _src.Scripts.Core {
         }
 
         public void SaveData(string sceneName) {
-            playerData.LevelData[sceneName] = new DataLevel() {
+            playerData.LevelData[sceneName] = new DataLevel {
                 TurnNumber = currentLevelData.TurnNumber,
                 Score = currentLevelData.Score
             };
             playerData.PreviousSceneName = sceneName;
+            PlayerPrefs.SetString(DataKey.Player, JsonConvert.SerializeObject(playerData));
         }
 
         private void OnDestroy() {
