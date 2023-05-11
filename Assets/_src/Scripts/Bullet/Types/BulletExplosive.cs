@@ -10,6 +10,7 @@ namespace _src.Scripts.Bullet.Types {
         [SerializeField] private float splashDamage;
 
         protected override void OnBounce() {
+            _player.DoCameraShake(0.32f, 1.2f);
             var hits = new Collider2D[10];
             var size = Physics2D.OverlapCircleNonAlloc(transform.position, radius, hits);
 

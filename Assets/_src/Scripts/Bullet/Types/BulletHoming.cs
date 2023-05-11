@@ -23,6 +23,7 @@ namespace _src.Scripts.Bullet.Types {
                 _currentTween = transform.DOMove(closestEnemy.transform.position, 1 / speed).SetEase(easeType)
                         .OnUpdate(() => { if (closestEnemy == null) OnTargetLost(); })
                         .OnComplete(() => {
+                            _player.DoCameraShake(0.2f, 1.2f);
                             var hits = new Collider2D[10];
                             var size = Physics2D.OverlapCircleNonAlloc(transform.position, radius, hits);
 

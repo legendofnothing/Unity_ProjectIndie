@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 2196972434905345101}
   - component: {fileID: 5188826464784090151}
   - component: {fileID: 7865179236852161269}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -686,7 +686,7 @@ GameObject:
   - component: {fileID: 2043412641519609425}
   - component: {fileID: 2658553342808294464}
   - component: {fileID: 5421051151922537863}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: EnemyUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -884,7 +884,7 @@ GameObject:
   - component: {fileID: 6120062253194929997}
   - component: {fileID: 3726984917341826304}
   - component: {fileID: 1371619045143788258}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -961,7 +961,7 @@ GameObject:
   - component: {fileID: 26260547924664781}
   - component: {fileID: 1434092216045517053}
   - component: {fileID: 5972415030988354059}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1067,7 +1067,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1371619045143788258}
   m_FillRect: {fileID: 6120062253194929997}
   m_HandleRect: {fileID: 0}

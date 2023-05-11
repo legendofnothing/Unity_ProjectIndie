@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _src.Scripts.Bullet;
 using _src.Scripts.Core;
@@ -19,18 +20,22 @@ namespace _src.Scripts.Player
         private float _startTime;
         private bool _canSetTime;
 
-        [Space] public LayerMask uiLayer;
+        [Space] 
+        public LayerMask uiLayer;
         
         [Space]
         public float maxAngle;
         
+        [Space]
         public GameObject firingPoint;
         public GameObject aimingGuide;
+        public LayerMask aimingGuideRaycastLayer;
 
         [Header("Refs")] 
         [SerializeField] private BulletManager _bulletManager;
-        private bool _canInput;
         
+        private bool _canInput;
+
         private enum TouchState {
             Aiming, 
             Shooting,
@@ -38,11 +43,11 @@ namespace _src.Scripts.Player
         }
 
         private TouchState _touchState = TouchState.Default;
-        private SpriteRenderer _spriteRendererGuide;
+        private SpriteRenderer[] _spriteRendererGuide;
 
         private void Start() {
             _canInput = true;
-            _spriteRendererGuide = aimingGuide.GetComponent<SpriteRenderer>();
+            _spriteRendererGuide = aimingGuide.GetComponentsInChildren<SpriteRenderer>();
         }
 
         private void Update() {
@@ -63,8 +68,16 @@ namespace _src.Scripts.Player
                 default:
                     break;
             }
-        }
 
+            var hit = Physics2D.Raycast(transform.position + transform.up
+                , transform.up
+                , 99f
+                ,aimingGuideRaycastLayer);
+            
+            aimingGuide.transform.position = hit.point;
+            aimingGuide.transform.localScale = new Vector3(0.1f, hit.distance);
+        }
+        
         private void HandleInput() {
             if (Input.GetMouseButton(0)) {
                 if (_touchState == TouchState.Default) {
@@ -101,12 +114,16 @@ namespace _src.Scripts.Player
                 Quaternion.Euler(new Vector3(0, 0, ClampAngle(angle, -maxAngle, maxAngle)));
             
             transform.rotation = Quaternion.Slerp(transform.rotation, angleRotateTo, 0.2f);
-                    
-            _spriteRendererGuide.enabled = true;
+
+            foreach (var guide in _spriteRendererGuide) {
+                guide.enabled = true;
+            }
         }
         
         private void Shoot(){
-            _spriteRendererGuide.enabled = false;
+            foreach (var guide in _spriteRendererGuide) {
+                guide.enabled = false;
+            }
             _touchState = TouchState.Default;
             this.SendMessage(EventType.SwitchToShooting);
             StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gameObject.transform.rotation));

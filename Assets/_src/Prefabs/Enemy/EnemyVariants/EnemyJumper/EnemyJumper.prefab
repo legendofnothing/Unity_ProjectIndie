@@ -90,10 +90,8 @@ MonoBehaviour:
     m_Bits: 128
   hpText: {fileID: 3153502303110240095}
   healthBar: {fileID: 3645311940171288483}
-  floatingCoins: {fileID: 2533072670318687323, guid: e960e7b0e44f4cb49888d13103216be4, type: 3}
   hasFinishedTurn: 0
   isEnemyDying: 0
-  bulletPrefab: {fileID: 5400054822447510656, guid: a142d3a03cac4fe4a9cede07c3b4fb45, type: 3}
 --- !u!95 &5566884330327827472
 Animator:
   serializedVersion: 4
@@ -209,7 +207,7 @@ GameObject:
   - component: {fileID: 2188874516083523326}
   - component: {fileID: 2489163019393489}
   - component: {fileID: 8105560032393796824}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,7 +367,7 @@ GameObject:
   - component: {fileID: 4790729277392673582}
   - component: {fileID: 1118403129628072284}
   - component: {fileID: 3153502303110240095}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,7 +503,7 @@ GameObject:
   - component: {fileID: 7388886823204857209}
   - component: {fileID: 4267804657958856522}
   - component: {fileID: 3645311940171288483}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -611,7 +609,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 8105560032393796824}
   m_FillRect: {fileID: 2188874516083523326}
   m_HandleRect: {fileID: 0}
@@ -720,7 +718,7 @@ GameObject:
   - component: {fileID: 7674348325951271624}
   - component: {fileID: 6344112583041287425}
   - component: {fileID: 1146140926991014274}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: EnemyUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}

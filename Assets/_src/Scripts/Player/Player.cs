@@ -4,6 +4,7 @@ using UnityEngine;
 using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
 using _src.Scripts.UI;
+using DG.Tweening;
 using Unity.Collections;
 using UnityEngine.Serialization;
 
@@ -35,7 +36,9 @@ namespace _src.Scripts.Player {
         public BulletManager bulletManager;
         [Space] public float offsetToCamera;
         [HideInInspector] public Camera camera;
-        [HideInInspector] public FloatScreenPosition screenFloats; 
+        [HideInInspector] public FloatScreenPosition screenFloats;
+
+        private Tween _currentCameraShakeTween;
 
         /**
         * Desired specs
@@ -84,6 +87,8 @@ namespace _src.Scripts.Player {
         public void TakeDamage(float amount) {
             _currentHp -= amount * _defendModifier;
             this.SendMessage(EventType.OnPlayerHpChange, _currentHp);
+            
+            DoCameraShake(0.5f, 1.2f);
 
             if (!(_currentHp <= 0)) return;
             _currentHp = 0;
@@ -109,6 +114,13 @@ namespace _src.Scripts.Player {
             SaveSystem.instance.currentLevelData.Score += amount 
                                                           * SaveSystem.instance.currentLevelData.TurnNumber;
             this.SendMessage(EventType.OnScoreChange, SaveSystem.instance.currentLevelData.Score);
+        }
+
+        public void DoCameraShake(float strength, float duration = 1f) {
+            _currentCameraShakeTween = camera.DOShakePosition(duration, strength).OnComplete(() => {
+                camera.transform.DOMove(new Vector3(0, 0, camera.transform.position.z), 0.8f)
+                    .OnComplete(() => _currentCameraShakeTween = null);
+            });
         }
     }
 }
