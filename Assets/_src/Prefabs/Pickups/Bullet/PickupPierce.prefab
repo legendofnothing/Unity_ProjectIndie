@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 631771417
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 73c7d6dd8e20953489b7fdd841d9d8df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8010625856054aa4d9f4563badb40d42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 7050580155347807668}
   - component: {fileID: -5538086478489508001}
   m_Layer: 11
-  m_Name: PickupBulletBasic
+  m_Name: PickupPierce
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,6 +202,6 @@ MonoBehaviour:
   pickupLayer:
     serializedVersion: 2
     m_Bits: 128
-  bullet: {fileID: 811179696128422734, guid: cf88e64f9d3b0c64882928d054b3c838, type: 3}
+  bullet: {fileID: 811179696128422734, guid: abbfce9777c9acb498060a0ec2356b0a, type: 3}
   sprite1: {fileID: 4558585118940709623}
   sprite2: {fileID: 7333014422391790737}

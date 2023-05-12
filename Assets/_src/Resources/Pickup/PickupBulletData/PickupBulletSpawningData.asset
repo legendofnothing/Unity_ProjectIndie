@@ -15,3 +15,13 @@ MonoBehaviour:
   pickupData:
   - prefab: {fileID: 3901560327570013151, guid: bd8767958bd55b148b085bc19d069259, type: 3}
     chance: 0.9
+  - prefab: {fileID: 3901560327570013151, guid: c2924ad65b37f314da1c63c669ca6c01, type: 3}
+    chance: 0.9
+  - prefab: {fileID: 3901560327570013151, guid: 3ab1c5c6f4a072f46a0d93baf925043a, type: 3}
+    chance: 0.9
+  - prefab: {fileID: 3901560327570013151, guid: 5e13729ff5451ae438bee4b5629c3b1c, type: 3}
+    chance: 0.9
+  - prefab: {fileID: 3901560327570013151, guid: 19d3020bb8967944ab8a8f7bb3bf18a1, type: 3}
+    chance: 0.9
+  - prefab: {fileID: 3901560327570013151, guid: 89e68603edc22bd4aaa78a4c3981e1b2, type: 3}
+    chance: 0.9
