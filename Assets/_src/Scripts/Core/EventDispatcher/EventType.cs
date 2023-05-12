@@ -21,6 +21,9 @@ public enum EventType {
     
     //Bullet Events
     BulletDestroyed,
+    
+    //Pickup Type
+    PickupDestroyed,
 
     //UI Events
     OnInitUI,

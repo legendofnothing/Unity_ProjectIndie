@@ -102,6 +102,7 @@ namespace _src.Scripts.Enemy {
             }
 
             else {
+                isEnemyDying = true;
                 hpText.text = "0.0";
                 healthBar.value = 0;
                 
@@ -109,7 +110,6 @@ namespace _src.Scripts.Enemy {
                 Player.Player.instance.AddScore(scoreAddedOnDestroy);
                 
                 _animator.SetTrigger(EnemyAnim.Die);
-                isEnemyDying = true;
             }
         }
 

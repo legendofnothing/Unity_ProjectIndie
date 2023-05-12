@@ -90,7 +90,8 @@ namespace _src.Scripts.Managers
         public void SpawnEnemyRandom(int amount) {
             //Capping amount 
             if (amount > _width * _spawnHeight) amount = _width * _spawnHeight;
-            
+            PickupManager.instance.DestroyPickup();
+
             //Pick a random amount of Tile to spawn in, no duplicates
             var rnd = new Random();
             var randomTileSpawners 
@@ -101,8 +102,7 @@ namespace _src.Scripts.Managers
                     .ToList();
             
             //Spawn enemy in each picked tiles
-            foreach (var spawner in randomTileSpawners)
-            {
+            foreach (var spawner in randomTileSpawners) {
                 var x = spawner.x;
                 var y = spawner.y;
                 var pos = spawner.transform.position;
@@ -120,9 +120,7 @@ namespace _src.Scripts.Managers
                 var enemyBase = enemyInst.GetComponent<EnemyBase>();
                 
                 //Increase enemy health every turn
-                var adjustedEnemyHp = enemyBase.hp;
-                if (SaveSystem.instance.currentLevelData.TurnNumber > 1) 
-                    adjustedEnemyHp = enemyBase.hp * SaveSystem.instance.currentLevelData.TurnNumber;
+                var adjustedEnemyHp = enemyBase.hp * SaveSystem.instance.currentLevelData.TurnNumber;
                 
                 enemyBase.Init(x,y, adjustedEnemyHp);
                 
@@ -133,7 +131,7 @@ namespace _src.Scripts.Managers
                 _gridManager.SetTileContainContent(x, y, Contains.Enemy);
             }
             
-            this.SendMessage(EventType.SpawnPickup);
+            PickupManager.instance.SpawnPickups();
         }
         
         private IEnumerator SwitchPlayerTurn() {

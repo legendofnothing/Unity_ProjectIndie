@@ -1527,7 +1527,7 @@ MonoBehaviour:
   lowHealthEffect: {fileID: 1140312244}
   lowHealthThreshold: 0.15
   lowHealthFadeAlpha: 0.55
-  lowHealthDuration: 0.12
+  lowHealthDuration: 1.2
   lowHealthEaseType: 10
 --- !u!1 &1077268144
 GameObject:
@@ -3864,7 +3864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353291, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: hp
-      value: 1
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353293, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: m_RootOrder
@@ -3917,7 +3917,7 @@ PrefabInstance:
     - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: bulletList.Array.data[0]
       value: 
-      objectReference: {fileID: 811179696128422734, guid: cf88e64f9d3b0c64882928d054b3c838, type: 3}
+      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
     - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: bulletList.Array.data[1]
       value: 

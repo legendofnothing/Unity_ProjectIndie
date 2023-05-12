@@ -62,6 +62,10 @@ namespace _src.Scripts.Core {
 
             else {
                 playerData = JsonConvert.DeserializeObject<PlayerData>(PlayerPrefs.GetString(DataKey.Player));
+                currentLevelData = new CurrentLevelData() {
+                    TurnNumber = 1,
+                    Score = 0
+                };
             }
         }
 
