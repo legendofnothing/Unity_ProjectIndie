@@ -28,8 +28,6 @@ namespace _src.Scripts.Player
         
         [Space]
         public GameObject firingPoint;
-        public GameObject aimingGuide;
-        public LayerMask aimingGuideRaycastLayer;
 
         [Header("Refs")] 
         [SerializeField] private BulletManager _bulletManager;
@@ -47,7 +45,6 @@ namespace _src.Scripts.Player
 
         private void Start() {
             _canInput = true;
-            _spriteRendererGuide = aimingGuide.GetComponentsInChildren<SpriteRenderer>();
         }
 
         private void Update() {
@@ -68,14 +65,6 @@ namespace _src.Scripts.Player
                 default:
                     break;
             }
-
-            var hit = Physics2D.Raycast(transform.position + transform.up
-                , transform.up
-                , 99f
-                ,aimingGuideRaycastLayer);
-            
-            aimingGuide.transform.position = hit.point;
-            aimingGuide.transform.localScale = new Vector3(0.1f, hit.distance);
         }
         
         private void HandleInput() {
@@ -114,16 +103,9 @@ namespace _src.Scripts.Player
                 Quaternion.Euler(new Vector3(0, 0, ClampAngle(angle, -maxAngle, maxAngle)));
             
             transform.rotation = Quaternion.Slerp(transform.rotation, angleRotateTo, 0.2f);
-
-            foreach (var guide in _spriteRendererGuide) {
-                guide.enabled = true;
-            }
         }
         
         private void Shoot(){
-            foreach (var guide in _spriteRendererGuide) {
-                guide.enabled = false;
-            }
             _touchState = TouchState.Default;
             this.SendMessage(EventType.SwitchToShooting);
             StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gameObject.transform.rotation));
