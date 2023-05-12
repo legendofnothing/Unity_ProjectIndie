@@ -1000,7 +1000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+  m_Color: {r: 0.122641504, g: 0.122063, b: 0.122063, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -1527,7 +1527,7 @@ MonoBehaviour:
   lowHealthEffect: {fileID: 1140312244}
   lowHealthThreshold: 0.15
   lowHealthFadeAlpha: 0.55
-  lowHealthDuration: 0.05
+  lowHealthDuration: 0.12
   lowHealthEaseType: 10
 --- !u!1 &1077268144
 GameObject:
@@ -1656,7 +1656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6, g: 0.6, b: 0.6, a: 1}
+  m_Color: {r: 0.6, g: 0.6, b: 0.6, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

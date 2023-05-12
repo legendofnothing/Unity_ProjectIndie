@@ -201,6 +201,8 @@ MonoBehaviour:
   gridPrefab: {fileID: 4700889268660111197, guid: 3a538a9c2e3c65e4298a5db532057dfd, type: 3}
   gridOffset: 0.8
   gridsParent: {fileID: 5081683451311133420}
+  lightTile: {fileID: -1453390739, guid: 3d8e1b807913c924cbfe447c797d324d, type: 3}
+  darkTile: {fileID: 765207920, guid: 3d8e1b807913c924cbfe447c797d324d, type: 3}
 --- !u!114 &4675394282842489709
 MonoBehaviour:
   m_ObjectHideFlags: 0

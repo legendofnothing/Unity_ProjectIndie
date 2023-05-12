@@ -61,7 +61,7 @@ namespace _src.Scripts.Bullet {
                 var reflected = Vector3.Reflect(vel, normal);
 
                 var angle = Vector3.Angle(reflected, _dir);
-                if (angle >= 10f) {
+                if (angle >= 25f) {
                     _dir = Quaternion.FromToRotation(_dir, reflected.normalized) * _dir;
                     transform.rotation = Quaternion.LookRotation(Vector3.forward, _dir);
                 }

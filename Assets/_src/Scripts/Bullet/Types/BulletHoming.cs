@@ -31,7 +31,9 @@ namespace _src.Scripts.Bullet.Types {
                                 var obj = hits[i];
                                 if (!obj.TryGetComponent(out EnemyBase enemy)) continue;
                                 var dist = Vector3.Distance(enemy.transform.position, transform.position);
-                                enemy.TakeDamage(Mathf.Lerp(splashDamage, 0, dist/radius));
+                                var desiredDamage = Mathf.Lerp(splashDamage, 0, dist / radius);
+                                if (desiredDamage < 1f) continue; 
+                                enemy.TakeDamage(desiredDamage);
                             }
                             Destroy(gameObject);
                         })

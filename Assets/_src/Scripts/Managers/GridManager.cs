@@ -17,6 +17,10 @@ namespace _src.Scripts.Managers {
 
         [Header("Store GridManager")] 
         public Transform gridsParent;
+
+        [Header("Tile Config")] 
+        public Sprite lightTile;
+        public Sprite darkTile;
         
         [Header("Debug Only")]
         [ReadOnly]
@@ -31,7 +35,9 @@ namespace _src.Scripts.Managers {
         /// <summary>
         /// Generates Grid and Init Tiles 
         /// </summary>
-        public void GenerateGrid(){
+        public void GenerateGrid() {
+            var currIndex = 0;
+
             for (var h = 0; h < height; h++)
             {
                 for (var w = 0; w < width; w++)
@@ -44,9 +50,15 @@ namespace _src.Scripts.Managers {
                     var gridInst = Instantiate(gridPrefab, pos, Quaternion.identity);
                     gridInst.transform.SetParent(gridsParent);
                     gridInst.name = $"GridManager [{w}:{h}]";
+
+                    Sprite spriteToSet;
+                    if (h % 2 == 0) spriteToSet = currIndex % 2 == 0 ? lightTile : darkTile;
+                    else spriteToSet = currIndex % 2 == 0 ? darkTile : lightTile;
                     
                     tiles[w, h] = gridInst.GetComponent<Tile>();
-                    tiles[w, h].Init(w, h, Contains.None);
+                    tiles[w, h].Init(spriteToSet, w, h, Contains.None);
+                    
+                    currIndex++;
                 }
             }
         }

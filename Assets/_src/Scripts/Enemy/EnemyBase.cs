@@ -88,6 +88,8 @@ namespace _src.Scripts.Enemy {
         }
 
         public void TakeDamage(float amount) {
+            if (isEnemyDying) return;
+             
             _currentHp -= amount;
             if (_currentHp > 0) {
                 Player.Player.instance.AddCoin(coinAddedOnHit);

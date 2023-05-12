@@ -13,7 +13,8 @@ namespace _src.Scripts.Managers {
         public int y;
         public Contains contains;
         
-        public void Init(int xCord, int yCord, Contains type){
+        public void Init(Sprite sprite, int xCord, int yCord, Contains type) {
+            gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
             x = xCord;
             y = yCord;
             contains = type;
