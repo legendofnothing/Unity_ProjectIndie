@@ -18,6 +18,9 @@ public enum EventType {
     EnemyTurn,
     EnemyKilled, 
     SpawnEnemy,
+    
+    //Bullet Events
+    BulletDestroyed,
 
     //UI Events
     OnInitUI,

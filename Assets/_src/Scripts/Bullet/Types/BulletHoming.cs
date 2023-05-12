@@ -23,7 +23,10 @@ namespace _src.Scripts.Bullet.Types {
                 _currentTween = transform.DOMove(closestEnemy.transform.position, 1 / speed).SetEase(easeType)
                         .OnUpdate(() => { if (closestEnemy == null) OnTargetLost(); })
                         .OnComplete(() => {
-                            _player.DoCameraShake(0.2f, 1.2f);
+                            _animator.SetTrigger("Explode");
+                            canMove = false;
+                            transform.DOScale(new Vector3(1f, 1f), 0.4f);
+                            _player.DoCameraShake(0.32f, 1.2f);
                             var hits = new Collider2D[10];
                             var size = Physics2D.OverlapCircleNonAlloc(transform.position, radius, hits);
 
@@ -35,13 +38,16 @@ namespace _src.Scripts.Bullet.Types {
                                 if (desiredDamage < 1f) continue; 
                                 enemy.TakeDamage(desiredDamage);
                             }
-                            Destroy(gameObject);
                         })
             ;
         }
 
         protected override void OnCollisionEnter2D(Collision2D other) {
             //
+        }
+        
+        public void DestroyOnAnimationFinish() {
+            OnDestroy();
         }
 
         private void OnTargetLost() {

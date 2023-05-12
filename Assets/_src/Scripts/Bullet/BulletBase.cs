@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 using _src.Scripts.Core;
+using _src.Scripts.Core.EventDispatcher;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -23,11 +24,16 @@ namespace _src.Scripts.Bullet {
 
         private int _bouncedTimes;
         private Vector3 _dir;
+
+        private bool _isBulletDestroyed;
         protected Player.Player _player;
+        protected bool canMove = true;
+        protected Animator _animator;
 
         protected void Start() {
             _bouncedTimes = 0;
             _player = Player.Player.instance;
+            _animator = GetComponent<Animator>();
             OnSpawn();
         }
 
@@ -36,12 +42,9 @@ namespace _src.Scripts.Bullet {
         }
 
         private void FixedUpdate() {
+            if (!canMove) return;
             ScreenBounce();
             transform.position += _dir * (speed * Time.fixedDeltaTime);
-        }
-
-        private void OnBecameInvisible() {
-            Destroy(gameObject);
         }
 
         private void ScreenBounce() {
@@ -68,12 +71,12 @@ namespace _src.Scripts.Bullet {
                 
                 _bouncedTimes++;
                 if (_bouncedTimes >= thresholdBounces) {
-                    Destroy(gameObject);
+                    OnDestroy();
                 }
             }
 
             else if (atBottomEdge) {
-                if (!notDestroyAtBottomOfScreen) Destroy(gameObject);
+                if (!notDestroyAtBottomOfScreen) OnDestroy();
                 else {
                     var vel = _dir * speed;
                     var normal = new Vector3(atLeftEdge ? 1 : atRightEdge ? -1 : 0,
@@ -85,10 +88,10 @@ namespace _src.Scripts.Bullet {
                         _dir = Quaternion.FromToRotation(_dir, reflected.normalized) * _dir;
                         transform.rotation = Quaternion.LookRotation(Vector3.forward, _dir);
                     }
-                
+                    
                     _bouncedTimes++;
                     if (_bouncedTimes >= thresholdBounces) {
-                        Destroy(gameObject);
+                        OnDestroy();
                     }
                 }
             }   
@@ -105,8 +108,15 @@ namespace _src.Scripts.Bullet {
         protected virtual void OnBounce() {
             _bouncedTimes++;
             if (_bouncedTimes >= thresholdBounces) {
-                Destroy(gameObject);
+                OnDestroy();
             }
+        }
+
+        protected void OnDestroy() {
+            if (_isBulletDestroyed) return;
+            _isBulletDestroyed = true;
+            EventDispatcher.instance.SendMessage(EventType.BulletDestroyed, gameObject);
+            Destroy(gameObject, 0.01f);
         }
     }
 }

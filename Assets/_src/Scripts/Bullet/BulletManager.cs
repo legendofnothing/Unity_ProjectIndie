@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _src.Scripts.Bullet {
     /// <summary>
@@ -21,35 +23,26 @@ namespace _src.Scripts.Bullet {
         //Store any new bullets being added
         private List<GameObject> _addedTempList;
 
-        private bool _canSwitchTurn;
         private void Awake(){
             _currentList = new List<GameObject>();
             _addedTempList = new List<GameObject>();
         }
 
-        private void Update(){
-            //Remove all destroyed bullet in the currentList
-            if (IsAllBulletsActive())
-            {
-                _currentList?.RemoveAll(destroyedBullet => destroyedBullet == null);
-            }
-            
-            //Switch Turn when all bullet in the scene is destroyed
-            if (_canSwitchTurn && !IsAllBulletsActive())
-            {
-                _canSwitchTurn = false;
-                
-                bulletList.AddRange(_addedTempList);
-                _addedTempList.Clear();
+        private void Start() {
+            EventDispatcher.instance.SubscribeListener(EventType.BulletDestroyed, bullet => OnBulletDestroyed((GameObject) bullet));
+        }
 
-                //Switch to Enemy Turn
-                this.SendMessage(EventType.SwitchToEnemy);
-            }
+        private void OnBulletDestroyed(GameObject bullet) {
+            _currentList.Remove(bullet);
+            if (_currentList.Count > 0) return;
+
+            bulletList.AddRange(_addedTempList);
+            _addedTempList.Clear();
+
+            //Switch to Enemy Turn
+            this.SendMessage(EventType.SwitchToEnemy);
         }
         
-        private bool IsAllBulletsActive(){
-            return _currentList.Count > 0;
-        }
         
         //Spawn Bullet, called in PlayerController
         public IEnumerator SpawnBullet(Vector3 position, Quaternion rotation)
@@ -70,7 +63,6 @@ namespace _src.Scripts.Bullet {
                 yield return new WaitForSeconds(0.2f);
             }
             
-            _canSwitchTurn = true;
             yield return null;
         }
         

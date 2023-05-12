@@ -69,7 +69,7 @@ namespace _src.Scripts.Enemy {
             _animator = gameObject.GetComponent<Animator>();
 
             DOVirtual.Float(0, currHp, 1.2f, value => {
-                hpText.text = $"{(int) value}";
+                hpText.text = value.ToString("0.0");
             });
             healthBar.DOValue(currHp, 1.2f);
         }
