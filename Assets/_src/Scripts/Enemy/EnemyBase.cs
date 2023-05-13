@@ -7,6 +7,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
+using EventDispatcher = _src.Scripts.Core.EventDispatcher.EventDispatcher;
 using Random = UnityEngine.Random;
 using Slider = UnityEngine.UI.Slider;
 using Vector3 = UnityEngine.Vector3;
@@ -80,7 +81,7 @@ namespace _src.Scripts.Enemy {
             if (isEnemyDying || !_canTakeDamage) return;
              
             _currentHp -= amount;
-            if (_currentHp > 0) {
+            if (_currentHp > 0f) {
                 Player.Player.instance.AddCoin(coinAddedOnHit);
                 Player.Player.instance.AddScore(scoreAddedOnHit);
                 
@@ -92,6 +93,7 @@ namespace _src.Scripts.Enemy {
 
             else {
                 isEnemyDying = true;
+                EventDispatcher.instance.SendMessage(EventType.OnEnemyDying, this);
                 hpText.text = "0.0";
                 healthBar.value = 0;
                 
@@ -104,7 +106,7 @@ namespace _src.Scripts.Enemy {
 
         public void OnFinishDeathAnimation() {
             GridManager.instance.SetTileContainContent(x, y, Contains.None);
-            this.SendMessage(EventType.EnemyKilled, this);
+            EventDispatcher.instance.SendMessage(EventType.EnemyKilled, this);
             Destroy(gameObject);
         }
 

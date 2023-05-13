@@ -3862,10 +3862,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 9013195813678353291, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: hp
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353293, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3912,12 +3908,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: bulletList.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: bulletList.Array.data[0]
       value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
+      objectReference: {fileID: 811179696128422734, guid: bfa4ca9fba6d18541a7095c0be810608, type: 3}
     - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: bulletList.Array.data[1]
       value: 
@@ -3932,6 +3928,10 @@ PrefabInstance:
       objectReference: {fileID: 811179696128422734, guid: bfa4ca9fba6d18541a7095c0be810608, type: 3}
     - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: bulletList.Array.data[4]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: bfa4ca9fba6d18541a7095c0be810608, type: 3}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[5]
       value: 
       objectReference: {fileID: 811179696128422734, guid: bfa4ca9fba6d18541a7095c0be810608, type: 3}
     m_RemovedComponents: []

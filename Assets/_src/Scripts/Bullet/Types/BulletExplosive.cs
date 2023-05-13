@@ -1,3 +1,4 @@
+using System;
 using _src.Scripts.Core;
 using _src.Scripts.Enemy;
 using DG.Tweening;
@@ -24,7 +25,7 @@ namespace _src.Scripts.Bullet.Types {
                 var desiredDamage = Mathf.Lerp(splashDamage, 0, dist / radius);
                 
                 if (desiredDamage < 1f) continue; 
-                enemy.TakeDamage(desiredDamage);
+                enemy.TakeDamage((float) Math.Round(desiredDamage, 1));
             }
         }
 

@@ -16,11 +16,15 @@ public enum EventType {
 
     //Enemy Manager Events
     EnemyTurn,
-    EnemyKilled, 
+    OnEnemyDying,
+    EnemyKilled,
     SpawnEnemy,
     
     //Bullet Events
     BulletDestroyed,
+    
+    //Target System Events
+    TargetSystemOnTargetHit,
     
     //Pickup Type
     PickupDestroyed,

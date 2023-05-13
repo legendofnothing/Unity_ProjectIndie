@@ -9,9 +9,11 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace _src.Scripts.Bullet {
-    /// <summary>
-    /// Base class for all Bullets, new BulletType will be derived from here
-    /// </summary>
+    public enum BulletSpecialTag {
+        None,
+        Homing
+    }
+    
     public class BulletBase : MonoBehaviour {
         [Header("Config")]
         public float damage = 100f;
@@ -20,6 +22,7 @@ namespace _src.Scripts.Bullet {
 
         [Header("Settings")] 
         public bool canBounce = true;
+        public BulletSpecialTag specialTag;
         
         [Header("Layer Configs")]
         public LayerMask layersToInteract;

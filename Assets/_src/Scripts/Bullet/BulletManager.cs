@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using _src.Scripts.Bullet.Types;
 using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
 using UnityEngine;
@@ -48,18 +49,19 @@ namespace _src.Scripts.Bullet {
         public IEnumerator SpawnBullet(Vector3 position, Quaternion rotation)
         {
             //Instantiate each bullet in the bulletList
-            foreach (var bulletInst in bulletList.Select(bullet => Instantiate(bullet, position, rotation)))
-            {
+            foreach (var bulletInst in bulletList.Select(bullet => Instantiate(bullet, position, rotation))) {
                 //Add all instantiated bullet into the currentList
                 _currentList.Add(bulletInst);
                 
                 //Set Bullet Damage w/ any modifiers
-                var bulletDamage = bulletInst.GetComponent<BulletBase>().damage;
-                var modifiedDamage = (Random.Range(0f, 1f) < _critChance)
-                    ? bulletDamage * 2 * _damageModifier
-                    : bulletDamage * _damageModifier;
+                var bulletComp = bulletInst.GetComponent<BulletBase>();
+                bulletComp.damage = Random.Range(0f, 1f) < _critChance
+                    ? bulletComp.damage * 2 * _damageModifier
+                    : bulletComp.damage * _damageModifier;
 
-                bulletInst.GetComponent<BulletBase>().damage = modifiedDamage;
+                if (bulletComp.specialTag == BulletSpecialTag.Homing) 
+                    TargetingSystem.instance.AddHomingBullet((BulletHoming) bulletComp);
+                
                 yield return new WaitForSeconds(0.2f);
             }
             
