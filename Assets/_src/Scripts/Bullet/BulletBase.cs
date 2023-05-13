@@ -33,6 +33,7 @@ namespace _src.Scripts.Bullet {
 
         private int _bouncedTimes;
         private bool _canRunBounceLogic = true;
+        private bool _hasDestroyed;
 
         protected Vector3 Dir;
         protected Player.Player Player;
@@ -106,8 +107,13 @@ namespace _src.Scripts.Bullet {
         }
 
         protected void OnBulletDestroy() {
+            _hasDestroyed = true;
             EventDispatcher.instance.SendMessage(EventType.BulletDestroyed, gameObject);
             Destroy(gameObject);
+        }
+
+        private void OnBecameVisible() {
+            if (!_hasDestroyed) OnBulletDestroy();
         }
     }
 }
