@@ -49,12 +49,11 @@ namespace _src.Scripts.Managers
             }
         }
     
-        private void Start()
-        {
+        private void Start() {
             //Subscribe Events 
-            this.SubscribeListener(EventType.EnemyTurn, _=>EnemyTurn());
-            this.SubscribeListener(EventType.EnemyKilled, param=>RemoveEnemy((EnemyBase) param));
-            this.SubscribeListener(EventType.SpawnEnemy, param => SpawnEnemyRandom((int) param));
+            EventDispatcher.instance.SubscribeListener(EventType.EnemyTurn, _=>EnemyTurn());
+            EventDispatcher.instance.SubscribeListener(EventType.EnemyKilled, param=>RemoveEnemy((EnemyBase) param));
+            EventDispatcher.instance.SubscribeListener(EventType.SpawnEnemy, param => SpawnEnemyRandom((int) param));
         }
 
         //Assign the tiles that will be spawning enemy 
@@ -119,7 +118,7 @@ namespace _src.Scripts.Managers
                 var enemyBase = enemyInst.GetComponent<EnemyBase>();
                 
                 //Increase enemy health every turn
-                var adjustedEnemyHp = enemyBase.hp * SaveSystem.instance.currentLevelData.TurnNumber;
+                var adjustedEnemyHp = enemyBase.hp * SaveSystem.currentLevelData.TurnNumber;
                 
                 enemyBase.Init(x,y, adjustedEnemyHp);
                 
@@ -152,7 +151,7 @@ namespace _src.Scripts.Managers
             SpawnEnemyRandom(randomNum);
 
             yield return new WaitForSeconds(0.8f);
-            this.SendMessage(EventType.SwitchToShop);
+            EventDispatcher.instance.SendMessage(EventType.SwitchToShop);
         }
         #endregion
     }

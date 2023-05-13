@@ -16,8 +16,8 @@ namespace _src.Scripts.UI.DeathScreenUI {
 
         private void Awake() {
             Time.timeScale = 1;
-            SaveSystem.instance.Init();
-            _playerData = SaveSystem.instance.playerData;
+            SaveSystem.Init();
+            _playerData = SaveSystem.playerData;
         }
 
         private void Start() {

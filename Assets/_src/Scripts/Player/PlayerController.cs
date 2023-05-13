@@ -107,7 +107,7 @@ namespace _src.Scripts.Player
         
         private void Shoot(){
             _touchState = TouchState.Default;
-            this.SendMessage(EventType.SwitchToShooting);
+            EventDispatcher.instance.SendMessage(EventType.SwitchToShooting);
             StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gameObject.transform.rotation));
         }
         #endregion

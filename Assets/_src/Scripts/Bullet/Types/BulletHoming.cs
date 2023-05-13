@@ -43,7 +43,7 @@ namespace _src.Scripts.Bullet.Types {
 
         public void DestroyOnAnimationFinish() {
             _currentTween.Kill();
-            OnDestroy();
+            OnBulletDestroy();
         }
         
         private void ExplodeLogic() {

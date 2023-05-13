@@ -86,7 +86,7 @@ namespace _src.Scripts.Bullet {
                     
                     _bouncedTimes++;
                     if (_bouncedTimes >= thresholdBounces) {
-                        OnDestroy();
+                        OnBulletDestroy();
                     }
                 }
 
@@ -101,11 +101,11 @@ namespace _src.Scripts.Bullet {
             }
             
             else if (CheckLayerMask.IsInLayerMask(hitObject, destroyLayer)) {
-                OnDestroy();
+                OnBulletDestroy();
             }
         }
 
-        protected void OnDestroy() {
+        protected void OnBulletDestroy() {
             EventDispatcher.instance.SendMessage(EventType.BulletDestroyed, gameObject);
             Destroy(gameObject);
         }

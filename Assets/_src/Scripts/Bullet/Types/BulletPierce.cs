@@ -15,7 +15,7 @@ namespace _src.Scripts.Bullet.Types {
             }
             
             if (CheckLayerMask.IsInLayerMask(other.gameObject, destroyLayer)) {
-                OnDestroy();
+                OnBulletDestroy();
             }
         }
     }

@@ -7,15 +7,13 @@ using UnityEngine.SceneManagement;
 namespace _src.Scripts.UI.Menu {
     public class MenuUI : MonoBehaviour {
         public TextMeshProUGUI coinDisplayText;
-        private SaveSystem _saveSystem;
         
         private void Awake() {
-            _saveSystem = SaveSystem.instance;
-            _saveSystem.Init();
+            SaveSystem.Init();
         }
 
         private void Start() {
-            coinDisplayText.text = "x" + _saveSystem.playerData.Coin;
+            coinDisplayText.text = "x" + SaveSystem.playerData.Coin;
         }
 
         #region Button Events

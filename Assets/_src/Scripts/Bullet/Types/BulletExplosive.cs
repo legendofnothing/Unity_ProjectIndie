@@ -30,7 +30,7 @@ namespace _src.Scripts.Bullet.Types {
         }
 
         public void DestroyOnAnimationFinish() {
-            OnDestroy();
+            OnBulletDestroy();
         }
     }
 }

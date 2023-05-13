@@ -35,7 +35,7 @@ namespace _src.Scripts.Managers
         private bool _canAddTurn;
 
         private void Awake() {
-            SaveSystem.instance.Init();
+            SaveSystem.Init();
             _gridManager = GetComponentInChildren<GridManager>();
             _enemyManager = GetComponentInChildren<EnemyManager>();
             
@@ -47,11 +47,11 @@ namespace _src.Scripts.Managers
             UpdateTurn(Turn.Start);
             
             //Subscribe Events w/ other scripts
-            this.SubscribeListener(EventType.SwitchToShooting, _=>UpdateTurn(Turn.Shooting));
-            this.SubscribeListener(EventType.SwitchToEnemy, _=>UpdateTurn(Turn.Enemy));
-            this.SubscribeListener(EventType.SwitchToPlayer, _=>UpdateTurn(Turn.Player));
-            this.SubscribeListener(EventType.SwitchToShop, _=>UpdateTurn(Turn.Shop));
-            this.SubscribeListener(EventType.SwitchToEnd, _=>UpdateTurn(Turn.End));
+            EventDispatcher.instance.SubscribeListener(EventType.SwitchToShooting, _=>UpdateTurn(Turn.Shooting));
+            EventDispatcher.instance.SubscribeListener(EventType.SwitchToEnemy, _=>UpdateTurn(Turn.Enemy));
+            EventDispatcher.instance.SubscribeListener(EventType.SwitchToPlayer, _=>UpdateTurn(Turn.Player));
+            EventDispatcher.instance.SubscribeListener(EventType.SwitchToShop, _=>UpdateTurn(Turn.Shop));
+            EventDispatcher.instance.SubscribeListener(EventType.SwitchToEnd, _=>UpdateTurn(Turn.End));
         }
         
         /// <summary>
@@ -66,15 +66,15 @@ namespace _src.Scripts.Managers
             {
                 case Turn.Start:
                     _enemyManager.SpawnEnemyRandom(3);
-                    this.SendMessage(EventType.OnTurnNumberChange, SaveSystem.instance.currentLevelData.TurnNumber);
+                    EventDispatcher.instance.SendMessage(EventType.OnTurnNumberChange, SaveSystem.currentLevelData.TurnNumber);
                     UpdateTurn(Turn.Player);
                     break;
 
                 case Turn.Player:
                     if (!_canAddTurn) _canAddTurn = true;
-                    else SaveSystem.instance.currentLevelData.TurnNumber++; 
+                    else SaveSystem.currentLevelData.TurnNumber++; 
                     
-                    this.SendMessage(EventType.OnTurnNumberChange, SaveSystem.instance.currentLevelData.TurnNumber);
+                    EventDispatcher.instance.SendMessage(EventType.OnTurnNumberChange, SaveSystem.currentLevelData.TurnNumber);
                     Player.Player.instance.input.CanInput(true);
                     break;
 
@@ -83,19 +83,19 @@ namespace _src.Scripts.Managers
                     break;
 
                 case Turn.Enemy:
-                    this.SendMessage(EventType.EnemyTurn);
+                    EventDispatcher.instance.SendMessage(EventType.EnemyTurn);
                     break;
                 
                 case Turn.Shop:
                     // if (SaveSystem.instance.currentLevelData.TurnNumber % 3 != 0) {
                     // }
-                    this.SendMessage(EventType.SwitchToPlayer);
+                    EventDispatcher.instance.SendMessage(EventType.SwitchToPlayer);
                     break;
                 
                 case Turn.End:
-                    SaveSystem.instance.SaveData(SceneManager.GetActiveScene().name);
+                    SaveSystem.SaveData(SceneManager.GetActiveScene().name);
                     Player.Player.instance.input.CanInput(false);
-                    this.SendMessage(EventType.OnPlayerDie);
+                    EventDispatcher.instance.SendMessage(EventType.OnPlayerDie);
                     break;
 
                 default:

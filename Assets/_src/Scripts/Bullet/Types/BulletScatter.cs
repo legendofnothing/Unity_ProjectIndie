@@ -22,7 +22,7 @@ namespace _src.Scripts.Bullet.Types {
                 BulletManager.instance.AddBulletOnScene(b);
             }
             
-            OnDestroy();
+            OnBulletDestroy();
         }
     }
 }

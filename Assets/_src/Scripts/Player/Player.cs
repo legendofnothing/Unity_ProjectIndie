@@ -68,7 +68,7 @@ namespace _src.Scripts.Player {
         }
 
         private void SetupStats() {
-            var playerStats = SaveSystem.instance.playerData.PlayerLevels;
+            var playerStats = SaveSystem.playerData.PlayerLevels;
 
             _currentHp = hp + (1.5f * playerStats[PlayerStatLevels.HP]);
             _defendModifier = 1 / (1 + 0.015f * playerStats[PlayerStatLevels.DEF]);
@@ -80,40 +80,39 @@ namespace _src.Scripts.Player {
             
             EventDispatcher.instance.SendMessage(EventType.OnInitUI, new UIInitData() {
                 PlayerHp = _currentHp,
-                PlayerCoins = SaveSystem.instance.playerData.Coin
+                PlayerCoins = SaveSystem.playerData.Coin
             });
         }
 
         public void TakeDamage(float amount) {
             _currentHp -= amount * _defendModifier;
-            this.SendMessage(EventType.OnPlayerHpChange, _currentHp);
+            EventDispatcher.instance.SendMessage(EventType.OnPlayerHpChange, _currentHp);
             
             DoCameraShake(0.5f, 1.2f);
 
             if (!(_currentHp <= 0)) return;
             _currentHp = 0;
-            this.SendMessage(EventType.SwitchToEnd);
+            EventDispatcher.instance.SendMessage(EventType.SwitchToEnd);
         }
         
         public void AddHealth(float amount) {
             _currentHp += amount;
-            this.SendMessage(EventType.OnPlayerHpChange, _currentHp);
+            EventDispatcher.instance.SendMessage(EventType.OnPlayerHpChange, _currentHp);
         }
 
         public void AddCoin(int amount) {
-            SaveSystem.instance.playerData.Coin += amount;
-            this.SendMessage(EventType.OnPlayerCoinChange, SaveSystem.instance.playerData.Coin);
+            SaveSystem.playerData.Coin += amount;
+            EventDispatcher.instance.SendMessage(EventType.OnPlayerCoinChange, SaveSystem.playerData.Coin);
         }
 
         public void ReduceCoin(int amount) {
-            SaveSystem.instance.playerData.Coin -= amount;
-            this.SendMessage(EventType.OnPlayerCoinChange, SaveSystem.instance.playerData.Coin);
+            SaveSystem.playerData.Coin -= amount;
+            EventDispatcher.instance.SendMessage(EventType.OnPlayerCoinChange, SaveSystem.playerData.Coin);
         }
         
         public void AddScore(int amount) {
-            SaveSystem.instance.currentLevelData.Score += amount 
-                                                          * SaveSystem.instance.currentLevelData.TurnNumber;
-            this.SendMessage(EventType.OnScoreChange, SaveSystem.instance.currentLevelData.Score);
+            SaveSystem.currentLevelData.Score += amount * SaveSystem.currentLevelData.TurnNumber;
+            EventDispatcher.instance.SendMessage(EventType.OnScoreChange, SaveSystem.currentLevelData.Score);
         }
 
         public void DoCameraShake(float strength, float duration = 1f) {

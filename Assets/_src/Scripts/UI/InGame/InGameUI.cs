@@ -124,7 +124,7 @@ namespace _src.Scripts.UI {
         }
 
         private void OnPlayerDie() {
-            SaveSystem.instance.SaveData(SceneManager.GetActiveScene().name);
+            SaveSystem.SaveData(SceneManager.GetActiveScene().name);
             _currLowHealthTweenSequence.Kill();
             lowHealthEffect.DOFade(1f, 0.8f).SetUpdate(true);
             endGameUI.TransitToDeathScene();
