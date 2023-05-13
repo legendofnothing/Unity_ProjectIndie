@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using _src.Scripts.Bullet;
 using _src.Scripts.Core;
@@ -81,6 +82,7 @@ namespace _src.Scripts.Enemy {
             if (isEnemyDying || !_canTakeDamage) return;
              
             _currentHp -= amount;
+            _currentHp = (float) Math.Round(_currentHp, 1);
             if (_currentHp > 0f) {
                 Player.Player.instance.AddCoin(coinAddedOnHit);
                 Player.Player.instance.AddScore(scoreAddedOnHit);

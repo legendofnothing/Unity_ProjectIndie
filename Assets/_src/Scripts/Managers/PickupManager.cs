@@ -67,9 +67,9 @@ namespace _src.Scripts.Managers
         }
         
         public void SpawnPickups() {
-            //if (SaveSystem.currentLevelData.TurnNumber % 3 != 0) return;
-            //var randomAmount = UnityRandom.Range(minAmountSpawn, maxAmountSpawn);
-            var randomAmount = UnityRandom.Range(1, 2);
+            if (SaveSystem.currentLevelData.TurnNumber % 3 != 0) return;
+            var randomAmount = UnityRandom.Range(minAmountSpawn, maxAmountSpawn);
+
             var rnd = new Random();
             var randomTileSpawners 
                 = _spawningTiles
