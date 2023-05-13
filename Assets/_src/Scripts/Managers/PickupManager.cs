@@ -67,29 +67,30 @@ namespace _src.Scripts.Managers
         }
         
         public void SpawnPickups() {
-            // if (SaveSystem.instance.currentLevelData.TurnNumber % 3 != 0) return;
-            // var randomAmount = UnityRandom.Range(minAmountSpawn, maxAmountSpawn);
-            // var rnd = new Random();
-            // var randomTileSpawners 
-            //     = _spawningTiles
-            //         .OrderBy(_ => rnd.Next())
-            //         .Take(randomAmount)
-            //         .Where(tile => tile.contains == Contains.None)
-            //         .ToList();
-            //
-            // //Spawn pickup on the picked Tiles
-            // foreach (var spawner in randomTileSpawners) {
-            //     var pos = spawner.transform.position;
-            //     var rndPickup = _weightedPickUpList.GetRandomItem().prefab;
-            //     var pickupInstance = Instantiate(rndPickup, pos, Quaternion.identity);
-            //
-            //     _gridManager.SetTileContainContent(spawner.x, spawner.y, Contains.Pickup);
-            //     
-            //     _bulletPickups?.Add(new PickupInformation {
-            //         pickup = pickupInstance.GetComponent<PickupBullet>(),
-            //         tile = spawner
-            //     });
-            // }
+            //if (SaveSystem.currentLevelData.TurnNumber % 3 != 0) return;
+            //var randomAmount = UnityRandom.Range(minAmountSpawn, maxAmountSpawn);
+            var randomAmount = UnityRandom.Range(1, 2);
+            var rnd = new Random();
+            var randomTileSpawners 
+                = _spawningTiles
+                    .OrderBy(_ => rnd.Next())
+                    .Take(randomAmount)
+                    .Where(tile => tile.contains == Contains.None)
+                    .ToList();
+            
+            //Spawn pickup on the picked Tiles
+            foreach (var spawner in randomTileSpawners) {
+                var pos = spawner.transform.position;
+                var rndPickup = _weightedPickUpList.GetRandomItem().prefab;
+                var pickupInstance = Instantiate(rndPickup, pos, Quaternion.identity);
+            
+                _gridManager.SetTileContainContent(spawner.x, spawner.y, Contains.Pickup);
+                
+                _bulletPickups?.Add(new PickupInformation {
+                    pickup = pickupInstance.GetComponent<PickupBullet>(),
+                    tile = spawner
+                });
+            }
         }
 
         public void DestroyPickup() {

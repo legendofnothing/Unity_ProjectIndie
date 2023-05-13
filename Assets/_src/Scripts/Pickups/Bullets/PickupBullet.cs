@@ -27,12 +27,12 @@ namespace _src.Scripts.Pickups.Bullets
         public override void OnPickupTriggerEnter(Collider2D col) {
             if (!CheckLayerMask.IsInLayerMask(col.gameObject, pickupLayer)) return;
             if (!_canPickup) return;
+            Player.Player.instance.bulletManager.AddBullet(bullet);
             _canPickup = false;
             Destroy();
         }
 
         public void Destroy() {
-            Player.Player.instance.bulletManager.AddBullet(bullet);
             _currSequence.Kill();
             _currSequence = DOTween.Sequence();
             _currSequence
