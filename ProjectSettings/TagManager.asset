@@ -19,7 +19,7 @@ TagManager:
   - Pickups
   - UINoRaycast
   - EnemyUI
-  - 
+  - EnemyDetection
   - 
   - 
   - 

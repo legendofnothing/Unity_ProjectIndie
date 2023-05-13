@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 327625065382535353}
   - component: {fileID: 5639634148054864902}
   - component: {fileID: 7999892913553104726}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Detection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,9 +318,6 @@ MonoBehaviour:
   scoreAddedOnDestroy: 20
   x: 0
   y: 0
-  bulletLayer:
-    serializedVersion: 2
-    m_Bits: 128
   hpText: {fileID: 3153502303110240095}
   healthBar: {fileID: 3645311940171288483}
   hasFinishedTurn: 0

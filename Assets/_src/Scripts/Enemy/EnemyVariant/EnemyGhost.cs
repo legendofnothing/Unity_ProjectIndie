@@ -34,6 +34,12 @@ namespace _src.Scripts.Enemy.EnemyVariant {
             }
         }
 
+        public override void TakeDamage(float amount) {
+            base.TakeDamage(amount);
+            if (!_isInvisible) return;
+            Change();
+        }
+        
         private IEnumerator DisappearCoroutine(float duration) {
             _animator.SetTrigger(EnemyGhostAnim.GhostDisappear);
             yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
@@ -58,7 +64,6 @@ namespace _src.Scripts.Enemy.EnemyVariant {
                 });
         }
         
-        
         protected override void Attack() {
             StartCoroutine(AttackCoroutine());
         }
@@ -70,15 +75,6 @@ namespace _src.Scripts.Enemy.EnemyVariant {
         
         public override void OnFinishAttackAnimation() {
             hasFinishedTurn = true;
-        }
-        
-
-        protected override void OnCollisionEnter2D(Collision2D col) {
-            base.OnCollisionEnter2D(col);
-            if (CheckLayerMask.IsInLayerMask(col.gameObject, bulletLayer)) {
-                if (!_isInvisible) return;
-                Change();
-            }
         }
 
         private void Change() {

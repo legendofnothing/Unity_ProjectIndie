@@ -140,14 +140,16 @@ MonoBehaviour:
   damage: 25
   speed: 9
   thresholdBounces: 5
-  notBounce: 1
-  notDestroyAtBottomOfScreen: 1
-  bounceLayer:
+  canBounce: 1
+  layersToInteract:
     serializedVersion: 2
-    m_Bits: 576
+    m_Bits: 832
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
+  destroyLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!95 &3677325449526560824
 Animator:
   serializedVersion: 4

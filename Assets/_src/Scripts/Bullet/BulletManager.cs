@@ -40,7 +40,7 @@ namespace _src.Scripts.Bullet {
             _addedTempList.Clear();
 
             //Switch to Enemy Turn
-            this.SendMessage(EventType.SwitchToEnemy);
+           this.SendMessage(EventType.SwitchToEnemy);
         }
         
         

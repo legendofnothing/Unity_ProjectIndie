@@ -14,7 +14,7 @@ namespace _src.Scripts.Bullet.Types {
         [SerializeField] private float minAngle;
         [SerializeField] private float maxAngle;
         
-        protected override void OnBounce() {
+        protected override void OnBounce(GameObject hitObject) {
             var randomAmount = Random.Range(minScatter - 1, maxScatter + 1);
             for (var i = 0; i < randomAmount; i++) {
                 var b = Instantiate(scatterPiece, transform.position, Quaternion.AngleAxis
@@ -22,7 +22,7 @@ namespace _src.Scripts.Bullet.Types {
                 BulletManager.instance.AddBulletOnScene(b);
             }
             
-            Destroy(gameObject);
+            OnDestroy();
         }
     }
 }

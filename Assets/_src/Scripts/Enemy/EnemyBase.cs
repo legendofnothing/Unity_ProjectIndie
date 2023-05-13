@@ -38,9 +38,6 @@ namespace _src.Scripts.Enemy {
         //Enemy Position on the grid
         [HideInInspector] public int x;
         [HideInInspector] public int y;
-        
-        [Header("Layers")]
-        public LayerMask bulletLayer;
 
         [Header("UI Related")] 
         public TextMeshProUGUI hpText;
@@ -78,17 +75,9 @@ namespace _src.Scripts.Enemy {
             hasFinishedTurn = false;
             Move();
         }
-        
-        protected virtual void OnCollisionEnter2D(Collision2D col) {
-            if (CheckLayerMask.IsInLayerMask(col.gameObject, bulletLayer)) {
-                if (!_canTakeDamage) return;
-                var damaged = col.gameObject.GetComponent<BulletBase>().damage;
-                TakeDamage(damaged);
-            }
-        }
 
-        public void TakeDamage(float amount) {
-            if (isEnemyDying) return;
+        public virtual void TakeDamage(float amount) {
+            if (isEnemyDying || !_canTakeDamage) return;
              
             _currentHp -= amount;
             if (_currentHp > 0) {

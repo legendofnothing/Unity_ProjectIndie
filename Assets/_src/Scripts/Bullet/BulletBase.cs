@@ -3,120 +3,108 @@ using System.Linq;
 using System.Security.Cryptography;
 using _src.Scripts.Core;
 using _src.Scripts.Core.EventDispatcher;
+using _src.Scripts.Enemy;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Vector2 = System.Numerics.Vector2;
 
 namespace _src.Scripts.Bullet {
     /// <summary>
     /// Base class for all Bullets, new BulletType will be derived from here
     /// </summary>
     public class BulletBase : MonoBehaviour {
+        [Header("Config")]
         public float damage = 100f;
         public float speed = 3f;
-        public int thresholdBounces = 12; //threshold to detect if the bullet keep bouncing left/right constantly
+        public int thresholdBounces = 12;
 
-        [FormerlySerializedAs("canBounce")] [Space] 
-        public bool notBounce;
-        public bool notDestroyAtBottomOfScreen;
-        public LayerMask bounceLayer;
+        [Header("Settings")] 
+        public bool canBounce = true;
+        
+        [Header("Layer Configs")]
+        public LayerMask layersToInteract;
+
+        [Space]
+        public LayerMask enemyLayer;
+        public LayerMask destroyLayer;
 
         private int _bouncedTimes;
-        private Vector3 _dir;
+        private bool _canRunBounceLogic = true;
 
-        private bool _isBulletDestroyed;
-        protected Player.Player _player;
-        protected bool canMove = true;
-        protected Animator _animator;
+        protected Vector3 Dir;
+        protected Player.Player Player;
+        protected Animator Animator;
+        protected bool CanMove = true;
 
         protected void Start() {
             _bouncedTimes = 0;
-            _player = Player.Player.instance;
-            _animator = GetComponent<Animator>();
+            Player = Scripts.Player.Player.instance;
+            Animator = GetComponent<Animator>();
+            
             OnSpawn();
         }
 
         protected virtual void OnSpawn() {
-            _dir = transform.up;
+            Dir = transform.up;
         }
 
-        private void FixedUpdate() {
-            if (!canMove) return;
-            ScreenBounce();
-            transform.position += _dir * (speed * Time.fixedDeltaTime);
-        }
-
-        private void ScreenBounce() {
-            var projectedPos = transform.position + _dir * (speed * Time.fixedDeltaTime);
+        protected virtual void FixedUpdate() {
+            // This close to increasing physic render step for bounce logic
+            // x-x
+            // I LOVE CALCULATING REFLECTED VECTOR BY HAND AND HANDLING NINE THOUSANDS EDGE CASES
+            /*
+             * I set the raycast distance as high as possible because when you cast the ray, there's a chance that your
+             * incoming angle is too shallow, therefore the raycast don't actually reach if you set it to a reasonable
+             * number like 0.1f or some sort.
+             */
             
-            var atLeftEdge   = projectedPos.x < _player.screenFloats.LeftScreen;
-            var atRightEdge  = projectedPos.x > _player.screenFloats.RightScreen;
-            var atTopEdge    = projectedPos.y > _player.screenFloats.TopScreen;
-            var atBottomEdge = projectedPos.y < _player.screenFloats.BottomScreen + 0.2f;
+            if (!CanMove) return;
+            var result = Physics2D.Raycast(
+                transform.position
+                , Dir
+                , 500f 
+                , layersToInteract);
 
-            if (atLeftEdge || atRightEdge || atTopEdge) {
-                if (notBounce) return;
-                
-                var vel = _dir * speed;
-                var normal = new Vector3(atLeftEdge ? 1 : atRightEdge ? -1 : 0,
-                    atTopEdge ? -1 : atBottomEdge ? 1 : 0);
-                var reflected = Vector3.Reflect(vel, normal);
-
-                var angle = Vector3.Angle(reflected, _dir);
-                if (angle >= 25f) {
-                    _dir = Quaternion.FromToRotation(_dir, reflected.normalized) * _dir;
-                    transform.rotation = Quaternion.LookRotation(Vector3.forward, _dir);
-                }
-                
-                _bouncedTimes++;
-                if (_bouncedTimes >= thresholdBounces) {
-                    OnDestroy();
-                }
+            if (result.collider == null) return;
+            if (result.distance >= 0.5f) { //fine tune threshold let it be
+                if (!_canRunBounceLogic) _canRunBounceLogic = true;
+                transform.position += Dir * (speed * Time.fixedDeltaTime);
             }
 
-            else if (atBottomEdge) {
-                if (!notDestroyAtBottomOfScreen) OnDestroy();
-                else {
-                    var vel = _dir * speed;
-                    var normal = new Vector3(atLeftEdge ? 1 : atRightEdge ? -1 : 0,
-                        atTopEdge ? -1 : atBottomEdge ? 1 : 0);
-                    var reflected = Vector3.Reflect(vel, normal);
-
-                    var angle = Vector3.Angle(reflected, _dir);
-                    if (angle >= 10f) {
-                        _dir = Quaternion.FromToRotation(_dir, reflected.normalized) * _dir;
-                        transform.rotation = Quaternion.LookRotation(Vector3.forward, _dir);
-                    }
+            else {
+                if (!_canRunBounceLogic) return;
+                _canRunBounceLogic = false;
+                
+                if (canBounce) {
+                    var reflected = Vector3.Reflect(Dir, result.normal);
+                
+                    Dir = reflected;
+                    transform.rotation = Quaternion.FromToRotation(Vector3.up, reflected);
                     
                     _bouncedTimes++;
                     if (_bouncedTimes >= thresholdBounces) {
                         OnDestroy();
                     }
                 }
-            }   
+
+                OnBounce(result.transform.gameObject);
+            }
         }
 
-        protected virtual void OnCollisionEnter2D(Collision2D other) {
-            if (!CheckLayerMask.IsInLayerMask(other.gameObject, bounceLayer)) return;
-            var reflected = Vector3.Reflect(_dir, other.contacts[0].normal);
-            _dir = reflected;
-            transform.rotation = Quaternion.FromToRotation(Vector3.up, _dir);
-            OnBounce();
-        }
-
-        protected virtual void OnBounce() {
-            _bouncedTimes++;
-            if (_bouncedTimes >= thresholdBounces) {
+        protected virtual void OnBounce(GameObject hitObject) {
+            if (CheckLayerMask.IsInLayerMask(hitObject, enemyLayer)) {
+                var enemyComp = hitObject.GetComponent<EnemyBase>();
+                enemyComp.TakeDamage(damage);
+            }
+            
+            else if (CheckLayerMask.IsInLayerMask(hitObject, destroyLayer)) {
                 OnDestroy();
             }
         }
 
         protected void OnDestroy() {
-            if (_isBulletDestroyed) return;
-            _isBulletDestroyed = true;
             EventDispatcher.instance.SendMessage(EventType.BulletDestroyed, gameObject);
-            Destroy(gameObject, 0.01f);
+            Destroy(gameObject);
         }
     }
 }

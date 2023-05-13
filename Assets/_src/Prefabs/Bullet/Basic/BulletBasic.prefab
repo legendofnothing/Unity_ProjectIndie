@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6247140825687169368}
   - component: {fileID: 8409408063893082575}
-  - component: {fileID: 435119241146052851}
   - component: {fileID: 343647307332037276}
   - component: {fileID: -1083875765605599227}
   - component: {fileID: 8966074352453048564}
@@ -89,27 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &435119241146052851
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811179696128422734}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!58 &343647307332037276
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -141,14 +119,16 @@ MonoBehaviour:
   damage: 100
   speed: 8
   thresholdBounces: 25
-  notBounce: 0
-  notDestroyAtBottomOfScreen: 0
-  bounceLayer:
+  canBounce: 1
+  layersToInteract:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 832
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
+  destroyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!95 &8966074352453048564
 Animator:
   serializedVersion: 4

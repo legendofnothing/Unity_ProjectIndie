@@ -119,7 +119,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -140,15 +140,18 @@ MonoBehaviour:
   damage: 100
   speed: 0.8
   thresholdBounces: 12
-  notBounce: 1
-  notDestroyAtBottomOfScreen: 0
-  bounceLayer:
+  canBounce: 0
+  layersToInteract:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 832
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
+  destroyLayer:
+    serializedVersion: 2
+    m_Bits: 768
   easeType: 20
+  switchTargetEaseType: 1
   radius: 1.5
   splashDamage: 50
 --- !u!95 &4737149991238354409

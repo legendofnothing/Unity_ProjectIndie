@@ -83,18 +83,17 @@ namespace _src.Scripts.Enemy.EnemyVariant {
                 : EnemySpecialOneAnim.AttackRange);
         }
 
-        protected override void OnCollisionEnter2D(Collision2D col) {
-            if (!CheckLayerMask.IsInLayerMask(col.gameObject, bulletLayer)) return;
+        public override void TakeDamage(float amount) {
             var chance = Random.Range(0.0f, 1.0f);
             if (chance >= 0.4f) {
-                base.OnCollisionEnter2D(col);
+                base.TakeDamage(amount);
             }
-
+            
             else {
                 _animator.SetTrigger(EnemySpecialOneAnim.Deflect);
             }
         }
-        
+
         public override void OnFinishAttackAnimation() {
             hasFinishedTurn = true;
         }
