@@ -145,6 +145,9 @@ MonoBehaviour:
   bounceLayer:
     serializedVersion: 2
     m_Bits: 512
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
   easeType: 20
   radius: 1.5
   splashDamage: 50

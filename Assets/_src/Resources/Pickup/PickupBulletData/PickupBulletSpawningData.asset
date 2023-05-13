@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: PickupBulletSpawningData
   m_EditorClassIdentifier: 
   pickupData:
-  - prefab: {fileID: 3901560327570013151, guid: bd8767958bd55b148b085bc19d069259, type: 3}
+  - prefab: {fileID: 421071348074568155, guid: bd8767958bd55b148b085bc19d069259, type: 3}
     chance: 0.9
-  - prefab: {fileID: 3901560327570013151, guid: c2924ad65b37f314da1c63c669ca6c01, type: 3}
+  - prefab: {fileID: 421071348074568155, guid: 35ee04c18c5e3a347b5188cd18372d98, type: 3}
     chance: 0.9
-  - prefab: {fileID: 3901560327570013151, guid: 3ab1c5c6f4a072f46a0d93baf925043a, type: 3}
+  - prefab: {fileID: 421071348074568155, guid: faf629ce887cc2749af9cfffaf68e310, type: 3}
     chance: 0.9
-  - prefab: {fileID: 3901560327570013151, guid: 5e13729ff5451ae438bee4b5629c3b1c, type: 3}
+  - prefab: {fileID: 421071348074568155, guid: 2f366e1fe20547940b5bedd9c16b06c9, type: 3}
     chance: 0.9
-  - prefab: {fileID: 3901560327570013151, guid: 19d3020bb8967944ab8a8f7bb3bf18a1, type: 3}
+  - prefab: {fileID: 421071348074568155, guid: 97a86913ab0e0ff43a96a7ae98ee0f0d, type: 3}
     chance: 0.9
-  - prefab: {fileID: 3901560327570013151, guid: 89e68603edc22bd4aaa78a4c3981e1b2, type: 3}
+  - prefab: {fileID: 421071348074568155, guid: 1e819c07b5ec7b54799924b90c525f37, type: 3}
     chance: 0.9

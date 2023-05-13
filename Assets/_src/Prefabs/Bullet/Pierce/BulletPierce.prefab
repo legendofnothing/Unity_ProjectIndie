@@ -145,6 +145,9 @@ MonoBehaviour:
   bounceLayer:
     serializedVersion: 2
     m_Bits: 64
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!95 &2337690558083419306
 Animator:
   serializedVersion: 4

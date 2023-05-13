@@ -14,6 +14,7 @@ namespace _src.Scripts.Pickups.Bullets
         public SpriteRenderer sprite2;
         
         private Sequence _currSequence;
+        private bool _canPickup = true;
 
         private void Start() {
             _currSequence = DOTween.Sequence();
@@ -25,11 +26,13 @@ namespace _src.Scripts.Pickups.Bullets
 
         public override void OnPickupTriggerEnter(Collider2D col) {
             if (!CheckLayerMask.IsInLayerMask(col.gameObject, pickupLayer)) return;
-            Player.Player.instance.bulletManager.AddBullet(bullet);
+            if (!_canPickup) return;
+            _canPickup = false;
             Destroy();
         }
 
         public void Destroy() {
+            Player.Player.instance.bulletManager.AddBullet(bullet);
             _currSequence.Kill();
             _currSequence = DOTween.Sequence();
             _currSequence

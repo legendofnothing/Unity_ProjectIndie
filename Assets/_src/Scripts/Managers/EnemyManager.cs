@@ -90,7 +90,6 @@ namespace _src.Scripts.Managers
         public void SpawnEnemyRandom(int amount) {
             //Capping amount 
             if (amount > _width * _spawnHeight) amount = _width * _spawnHeight;
-            PickupManager.instance.DestroyPickup();
 
             //Pick a random amount of Tile to spawn in, no duplicates
             var rnd = new Random();
@@ -138,6 +137,8 @@ namespace _src.Scripts.Managers
             yield return new WaitUntil(() => {
                 return enemies.FindAll(enemy => enemy.isEnemyDying).Count <= 0;
             });
+            
+            PickupManager.instance.DestroyPickup();
             
             foreach (var enemy in enemies) { enemy.OnEnemyTurn(); }
             

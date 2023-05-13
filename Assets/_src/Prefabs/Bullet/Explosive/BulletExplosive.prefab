@@ -145,6 +145,9 @@ MonoBehaviour:
   bounceLayer:
     serializedVersion: 2
     m_Bits: 576
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
   radius: 2
   splashDamage: 75
 --- !u!95 &3343747745508927874
