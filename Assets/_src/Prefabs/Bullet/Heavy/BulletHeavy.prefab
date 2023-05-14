@@ -122,7 +122,7 @@ MonoBehaviour:
   specialTag: 0
   layersToInteract:
     serializedVersion: 2
-    m_Bits: 896
+    m_Bits: 832
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512

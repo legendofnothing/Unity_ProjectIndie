@@ -112,7 +112,7 @@ namespace _src.Scripts.Bullet {
             Destroy(gameObject);
         }
 
-        private void OnBecameVisible() {
+        private void OnBecameInvisible() {
             if (!_hasDestroyed) OnBulletDestroy();
         }
     }
