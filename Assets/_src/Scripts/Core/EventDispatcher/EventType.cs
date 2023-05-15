@@ -28,6 +28,9 @@ public enum EventType {
     
     //Pickup Type
     PickupDestroyed,
+    
+    //Shop Event
+    OpenShop,
 
     //UI Events
     OnInitUI,

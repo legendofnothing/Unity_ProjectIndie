@@ -87,9 +87,12 @@ namespace _src.Scripts.Managers
                     break;
                 
                 case Turn.Shop:
-                    // if (SaveSystem.instance.currentLevelData.TurnNumber % 3 != 0) {
-                    // }
-                    EventDispatcher.instance.SendMessage(EventType.SwitchToPlayer);
+                    EventDispatcher.instance.SendMessage(EventType.OpenShop);
+                    
+                    // EventDispatcher.instance.SendMessage(SaveSystem.currentLevelData.TurnNumber % 3 != 0
+                    //     ? EventType.OpenShop
+                    //     : EventType.SwitchToPlayer);
+                    
                     break;
                 
                 case Turn.End:
