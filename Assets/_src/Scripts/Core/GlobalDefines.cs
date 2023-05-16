@@ -8,3 +8,13 @@ public class GlobalDefines {
         public float chance; 
     }
 }
+
+public class FloatPair {
+    public float float1;
+    public float float2;
+
+    public FloatPair(float float1, float float2) {
+        this.float1 = float1;
+        this.float2 = float2;
+    }
+}

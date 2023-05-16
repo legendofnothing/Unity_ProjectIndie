@@ -15,6 +15,11 @@ namespace _src.Scripts.UI {
         public float PlayerHp;
         public float PlayerCoins;
     }
+
+    public enum PlayerHealthStateUI {
+        Normal,
+        Overcharged
+    }
     
     public class InGameUI : MonoBehaviour {
         [Header("Refs")] 
@@ -22,9 +27,14 @@ namespace _src.Scripts.UI {
         
         [Header("Configs")] 
         public float startupDuration;
+
+        public Color originalHealthBarColor;
+        public Color overchargedHealthBarColor;
         
         [Header("In-game Elements")] 
         public Slider healthBar;
+        public Image healthBarRect;
+        [Space]
         public TextMeshProUGUI healthDisplay;
         public TextMeshProUGUI scoreDisplay;
         public TextMeshProUGUI coinDisplay;
@@ -44,6 +54,8 @@ namespace _src.Scripts.UI {
         private float _previousScore;
         private float _previousCoins;
 
+        private PlayerHealthStateUI _playerHealthState;
+
         private void Start() {
             EventDispatcher.instance.SubscribeListener(EventType.OnInitUI, hp => InitUI((UIInitData) hp));
             
@@ -56,6 +68,7 @@ namespace _src.Scripts.UI {
             
             EventDispatcher.instance.SubscribeListener(EventType.OnPlayerDie, _=>OnPlayerDie());
 
+            healthBarRect.color = originalHealthBarColor;
             var hpColor = lowHealthEffect.color;
             lowHealthEffect.color = new Color(hpColor.r, hpColor.g, hpColor.b, 0);
         }
@@ -79,17 +92,50 @@ namespace _src.Scripts.UI {
         }
 
         private void OnPlayerHpChange(float currentHp) {
-            healthBar.DOValue(currentHp / _originalPlayerHp, startupDuration).SetUpdate(true);
-            DOVirtual.Float(_currentPlayerHp, currentHp, startupDuration, value => {
-                if (_currentPlayerHp <= 0) {
-                    _currentPlayerHp = 0;
-                    healthDisplay.text = "0.0/" + _originalPlayerHp.ToString("0.0");
+
+            if (currentHp > _originalPlayerHp) {
+                if (_playerHealthState != PlayerHealthStateUI.Overcharged) {
+                    _playerHealthState = PlayerHealthStateUI.Overcharged;
+                    healthBarRect.DOColor(overchargedHealthBarColor, 0.4f);
+                    healthBar.DOValue(1, startupDuration);
                 }
-                else {
-                    _currentPlayerHp = value;
-                    healthDisplay.text = value.ToString("0.0") + "/" + _originalPlayerHp.ToString("0.0");
+            }
+
+            else {
+                if (_playerHealthState != PlayerHealthStateUI.Normal) {
+                    _playerHealthState = PlayerHealthStateUI.Normal;
+                    healthBarRect.DOColor(originalHealthBarColor, 0.4f);
                 }
-            }).SetUpdate(true);
+            }
+
+            switch (_playerHealthState) {
+                case PlayerHealthStateUI.Normal:
+                    healthBar.DOValue(currentHp / _originalPlayerHp, startupDuration).SetUpdate(true);
+                    DOVirtual.Float(_currentPlayerHp, currentHp, startupDuration, value => {
+                        if (_currentPlayerHp <= 0) {
+                            _currentPlayerHp = 0;
+                            healthDisplay.text = "0.0/" + _originalPlayerHp.ToString("0.0");
+                        }
+                        else {
+                            _currentPlayerHp = value;
+                            healthDisplay.text = value.ToString("0.0") + "/" + _originalPlayerHp.ToString("0.0");
+                        }
+                    }).SetUpdate(true);
+                    break;
+                
+                case PlayerHealthStateUI.Overcharged:
+                    DOVirtual.Float(_currentPlayerHp, currentHp, startupDuration, value => {
+                        if (_currentPlayerHp <= 0) {
+                            _currentPlayerHp = 0;
+                            healthDisplay.text = "0.0/" + _originalPlayerHp.ToString("0.0");
+                        }
+                        else {
+                            _currentPlayerHp = value;
+                            healthDisplay.text = value.ToString("0.0") + "/" + _originalPlayerHp.ToString("0.0");
+                        }
+                    }).SetUpdate(true);
+                    break;
+            }
         }
 
         private void OnCoinChange(int currentCoins) {

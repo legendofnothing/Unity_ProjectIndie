@@ -243,6 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b0e34dcbe5d564f98a631a070e0b60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxBuyCount: 3
 --- !u!1 &5081683451617540020
 GameObject:
   m_ObjectHideFlags: 0

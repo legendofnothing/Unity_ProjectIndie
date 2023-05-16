@@ -31,7 +31,12 @@ public enum EventType {
     
     //Shop Event
     OpenShop,
+    CloseShop,
+    ReOpenUI,
+    OnBuyCountChange,
     OnItemBought,
+    OnEffectItem,
+    OnEffectFinish,
 
     //UI Events
     OnInitUI,

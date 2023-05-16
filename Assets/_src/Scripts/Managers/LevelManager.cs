@@ -67,7 +67,7 @@ namespace _src.Scripts.Managers
                 case Turn.Start:
                     _enemyManager.SpawnEnemyRandom(3);
                     EventDispatcher.instance.SendMessage(EventType.OnTurnNumberChange, SaveSystem.currentLevelData.TurnNumber);
-                    UpdateTurn(Turn.Player);
+                    //UpdateTurn(Turn.Player);
                     break;
 
                 case Turn.Player:

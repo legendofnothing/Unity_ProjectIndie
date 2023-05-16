@@ -235,8 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletList:
-  - {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
-  - {fileID: 811179696128422734, guid: bfa4ca9fba6d18541a7095c0be810608, type: 3}
+  - {fileID: 811179696128422734, guid: abbfce9777c9acb498060a0ec2356b0a, type: 3}
 --- !u!114 &589023073
 MonoBehaviour:
   m_ObjectHideFlags: 0

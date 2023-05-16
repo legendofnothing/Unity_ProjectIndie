@@ -19,6 +19,7 @@ MonoBehaviour:
       itemCost: 1
       itemName: Basic Bullet
       itemDescriptor: x1
+      itemValue: 0
       itemSprite: {fileID: 603055541, guid: e58cb8714471e194db15054ab8606e96, type: 3}
       prefab: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
   - chanceToAppear: 1
@@ -27,6 +28,7 @@ MonoBehaviour:
       itemCost: 2
       itemName: Heavy Bullet
       itemDescriptor: x1
+      itemValue: 0
       itemSprite: {fileID: -1582397652, guid: 4bfca636f86a51b43afb23abc17f4759, type: 3}
       prefab: {fileID: 811179696128422734, guid: cbd6cf73894957b4db23e521b4f99f3f, type: 3}
   - chanceToAppear: 1
@@ -35,6 +37,7 @@ MonoBehaviour:
       itemCost: 3
       itemName: Homing Bullet
       itemDescriptor: x1
+      itemValue: 0
       itemSprite: {fileID: 400703055, guid: 31d2086bbcaa7b04fa88e2c010d6c6d2, type: 3}
       prefab: {fileID: 811179696128422734, guid: bfa4ca9fba6d18541a7095c0be810608, type: 3}
   - chanceToAppear: 1
@@ -43,6 +46,7 @@ MonoBehaviour:
       itemCost: 4
       itemName: Explosive Bullet
       itemDescriptor: x1
+      itemValue: 0
       itemSprite: {fileID: -2013629003, guid: f59a05515f6229745851c9adb9b43cca, type: 3}
       prefab: {fileID: 811179696128422734, guid: c486c55e63c83b5479a1cef06d41bc22, type: 3}
   - chanceToAppear: 1
@@ -51,6 +55,7 @@ MonoBehaviour:
       itemCost: 4
       itemName: Scatter Bullet
       itemDescriptor: x1
+      itemValue: 0
       itemSprite: {fileID: -326733326, guid: f3fcac9a85ad16940b3d0ea8f7e06c5e, type: 3}
       prefab: {fileID: 811179696128422734, guid: cf88e64f9d3b0c64882928d054b3c838, type: 3}
   - chanceToAppear: 1
@@ -59,6 +64,7 @@ MonoBehaviour:
       itemCost: 1
       itemName: HealthPack
       itemDescriptor: +500 HP
+      itemValue: 100
       itemSprite: {fileID: 21300000, guid: 156ef9e8cf8e675408a263bc7e8ed30d, type: 3}
       prefab: {fileID: 0}
   - chanceToAppear: 1
@@ -67,14 +73,16 @@ MonoBehaviour:
       itemCost: 1
       itemName: Advanced HealthPack
       itemDescriptor: +800 HP
+      itemValue: 500
       itemSprite: {fileID: 21300000, guid: 0b15e712b225c0e45adeb0969d99cb2e, type: 3}
       prefab: {fileID: 0}
-  - chanceToAppear: 1
+  - chanceToAppear: 5
     shopItem:
       itemTag: 3
       itemCost: 1
       itemName: Air Strike
       itemDescriptor: That is a Super Hornet
+      itemValue: 0
       itemSprite: {fileID: 1428597582, guid: fe6568f1dab43d542a31ad98ba861dc7, type: 3}
       prefab: {fileID: 0}
   - chanceToAppear: 1
@@ -83,6 +91,7 @@ MonoBehaviour:
       itemCost: 1
       itemName: Legalize Nuclear Bomb
       itemDescriptor: Mom I got 30 kills!!
+      itemValue: 0
       itemSprite: {fileID: 21300000, guid: 0890366f3a0ec9042bc140d6e6529040, type: 3}
       prefab: {fileID: 0}
   - chanceToAppear: 1
@@ -91,5 +100,6 @@ MonoBehaviour:
       itemCost: 999999
       itemName: what if instead of chess
       itemDescriptor: its band girls with social anxiety
+      itemValue: 0
       itemSprite: {fileID: 21300000, guid: 4d467c6128cabd64fb6ea4e2855bb0e8, type: 3}
       prefab: {fileID: 0}

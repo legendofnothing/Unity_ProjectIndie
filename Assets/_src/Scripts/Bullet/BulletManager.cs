@@ -69,7 +69,8 @@ namespace _src.Scripts.Bullet {
         }
         
         public void AddBullet(GameObject bullet) { 
-            _addedTempList.Add(bullet);
+            if (_currentList.Count <= 0) bulletList.Add(bullet);
+            else _addedTempList.Add(bullet);
         }
         
         public void AddBulletOnScene(GameObject bullet) { 

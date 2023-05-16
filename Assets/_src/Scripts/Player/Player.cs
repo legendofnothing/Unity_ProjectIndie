@@ -69,8 +69,9 @@ namespace _src.Scripts.Player {
 
         private void SetupStats() {
             var playerStats = SaveSystem.playerData.PlayerLevels;
+            hp += 1.5f * playerStats[PlayerStatLevels.HP];
 
-            _currentHp = hp + (1.5f * playerStats[PlayerStatLevels.HP]);
+            _currentHp = hp;
             _defendModifier = 1 / (1 + 0.015f * playerStats[PlayerStatLevels.DEF]);
             _attackModifier = 1 * (1 + 0.005f * playerStats[PlayerStatLevels.ATK]);
             _critChance = 0.005f * playerStats[PlayerStatLevels.CRIT];
@@ -99,6 +100,13 @@ namespace _src.Scripts.Player {
             _currentHp += amount;
             EventDispatcher.instance.SendMessage(EventType.OnPlayerHpChange, _currentHp);
         }
+        
+        public void SetHealth(float amount) {
+            _currentHp = amount;
+            EventDispatcher.instance.SendMessage(EventType.OnPlayerHpChange, _currentHp);
+        }
+
+        public float GetHealth => _currentHp;
 
         public void AddCoin(int amount) {
             SaveSystem.playerData.Coin += amount;

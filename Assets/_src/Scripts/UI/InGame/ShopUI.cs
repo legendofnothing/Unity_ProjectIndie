@@ -30,6 +30,9 @@ namespace _src.Scripts.UI.InGame {
         public string itemName;
         public string itemDescriptor;
 
+        [Space] 
+        public float itemValue;
+
         [Header("Refs")] 
         public Sprite itemSprite;
         public GameObject prefab;
@@ -47,12 +50,16 @@ namespace _src.Scripts.UI.InGame {
 
         private Sequence _currAuraSequence;
         private readonly WeightedList<ShopItem> _weightedShopItems = new();
-        private int buyCount; 
 
         private void Start() {
             container.SetActive(false);
             EventDispatcher.instance.SubscribeListener(EventType.OpenShop, _=>OpenShop());
-            EventDispatcher.instance.SubscribeListener(EventType.OnItemBought, _=>OnItemBuy());
+            EventDispatcher.instance.SubscribeListener(EventType.CloseShop, _=>OnProceed());
+            EventDispatcher.instance
+                .SubscribeListener(EventType.OnBuyCountChange, obj => {
+                    var data = (FloatPair)obj;
+                    OnBuyCountChange(data.float1, data.float2);
+                });
 
             foreach (var item in shopData.shopItems) {
                 _weightedShopItems.AddElement(item.shopItem, item.chanceToAppear);
@@ -72,25 +79,13 @@ namespace _src.Scripts.UI.InGame {
                 .SetLoops(-1, LoopType.Yoyo);
         }
 
-        private void OnItemBuy() {
-            buyCount++;
-            if (buyCount >= 3) OnProceed();
-            else {
-                buyCountText.text = $"Purchases Left: {3 - buyCount}/3";
-            }
+        private void OnBuyCountChange(float currBuyCount, float maxBuyCount) {
+            buyCountText.text = $"Purchases Left: {maxBuyCount - currBuyCount}/{maxBuyCount}";
         }
 
         public void OnProceed() {
             _currAuraSequence.Kill();
             container.SetActive(false);
-            EventDispatcher.instance.SendMessage(EventType.SwitchToPlayer);
-            StartCoroutine(DelayInput());
-        }
-
-        private IEnumerator DelayInput() {
-            Player.Player.instance.input.CanInput(false);
-            yield return new WaitForSeconds(0.4f);
-            Player.Player.instance.input.CanInput(true);
         }
     }
 }
