@@ -85,14 +85,14 @@ MonoBehaviour:
       itemValue: 0
       itemSprite: {fileID: 1428597582, guid: fe6568f1dab43d542a31ad98ba861dc7, type: 3}
       prefab: {fileID: 0}
-  - chanceToAppear: 1
+  - chanceToAppear: 10
     shopItem:
       itemTag: 4
       itemCost: 1
       itemName: Legalize Nuclear Bomb
       itemDescriptor: Mom I got 30 kills!!
       itemValue: 0
-      itemSprite: {fileID: 21300000, guid: 0890366f3a0ec9042bc140d6e6529040, type: 3}
+      itemSprite: {fileID: -1162095809, guid: 0ff7634c1218e0646935b577963e182a, type: 3}
       prefab: {fileID: 0}
   - chanceToAppear: 1
     shopItem:

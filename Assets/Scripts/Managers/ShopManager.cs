@@ -7,13 +7,14 @@ using UnityEngine;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
 namespace Scripts.Managers {
-    public class ShopManager : MonoBehaviour {
+    public class ShopManager : Singleton<ShopManager> {
         public int maxBuyCount;
+        [HideInInspector] public bool isAwaitingForFinish;
         
         private int _currentBuyCount;
         private Player.Player _player;
         private bool _hasEffectFinished;
-        
+
         private void Start() {
             _player = Player.Player.instance;
             EventDispatcher.instance
@@ -81,17 +82,27 @@ namespace Scripts.Managers {
         }
 
         private IEnumerator AwaitEffectFinish() {
+            isAwaitingForFinish = true;
             EventDispatcher.instance.SendMessage(EventType.CloseShop);
             yield return new WaitUntil(() => _hasEffectFinished);
             StartCoroutine(DelayInput());
         }
         
-        private IEnumerator DelayInput() {
+        public IEnumerator DelayInput() {
             Player.Player.instance.input.CanInput(false);
             yield return new WaitForSeconds(0.4f);
-            EventDispatcher.instance.SendMessage(EnemyManager.instance.enemies.Count <= 0
-                ? EventType.SwitchToEnemy
-                : EventType.SwitchToPlayer);
+
+            if (EnemyManager.instance.enemies.Count <= 0) {
+                EventDispatcher.instance.SendMessage(EventType.SwitchToEnemy);
+                SaveSystem.currentLevelData.TurnNumber++;
+                EventDispatcher.instance.SendMessage(EventType.OnTurnNumberChange, SaveSystem.currentLevelData.TurnNumber);
+            }
+
+            else {
+                EventDispatcher.instance.SendMessage(EventType.SwitchToPlayer);
+            }
+
+            isAwaitingForFinish = false;
         }
     }
 }

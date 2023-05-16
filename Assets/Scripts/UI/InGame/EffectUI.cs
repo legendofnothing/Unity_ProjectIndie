@@ -13,6 +13,7 @@ namespace Scripts.UI.InGame {
 
         [Header("Effects")] 
         public AirStrikeUI airStrikeUI;
+        public NuclearUI nuclearUI;
 
         private void Start() {
             EventDispatcher
@@ -21,6 +22,10 @@ namespace Scripts.UI.InGame {
                 .instance.SubscribeListener(EventType.ReOpenUI, _ => ReOpenUI());
             
             airStrikeUI.PreInitAirStrikeUI();
+            nuclearUI.PreInitNuclearUI();
+            
+            airStrikeUI.gameObject.SetActive(false);
+            nuclearUI.gameObject.SetActive(false);
         }
         
         private void OpenEffect(ShopItemTag itemTag) {
@@ -34,6 +39,8 @@ namespace Scripts.UI.InGame {
                             airStrikeUI.InitAirStrikeUI();
                             break;
                         case ShopItemTag.Nuke:
+                            nuclearUI.gameObject.SetActive(true);
+                            nuclearUI.InitNuclearUI();
                             break;
                         case ShopItemTag.HitoriGotoh:
                             break;

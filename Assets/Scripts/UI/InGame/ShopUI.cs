@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Scripts.Core;
 using Scripts.Core.Collections;
+using Scripts.Managers;
 using Scripts.ScriptableObjects;
 using TMPro;
 using UnityEngine;
@@ -71,7 +72,6 @@ namespace Scripts.UI.InGame {
             }
             
             container.SetActive(true);
-            buyCountText.text = "Purchase Left: 3/3";
             _currAuraSequence = DOTween.Sequence();
             _currAuraSequence
                 .Append(aura.transform.DOScale(new Vector3(1.1f, 1.2f), 1.4f))
@@ -85,6 +85,7 @@ namespace Scripts.UI.InGame {
         public void OnProceed() {
             _currAuraSequence.Kill();
             container.SetActive(false);
+            if (!ShopManager.instance.isAwaitingForFinish) StartCoroutine(ShopManager.instance.DelayInput());
         }
     }
 }
