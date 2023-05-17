@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Managers;
 using Scripts.Core.Collections;
-using Scripts.Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Scripts.Enemy.EnemyVariant {
+namespace Enemy.EnemyVariant {
     public enum SpecialOneMoves {
         Range,
         Melee

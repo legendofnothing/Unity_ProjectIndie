@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Scripts.UI.Menu {
+namespace UI.Menu {
     public class MenuUI : MonoBehaviour {
         public TextMeshProUGUI coinDisplayText;
         

@@ -1,12 +1,12 @@
 using System.Collections;
 using DG.Tweening;
+using Managers;
 using Scripts.Core.EventDispatcher;
-using Scripts.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
-namespace Scripts.UI.InGame.ItemEffects {
+namespace UI.InGame.ItemEffects {
     public class NuclearUI : MonoBehaviour {
         [Header("Ref")] 
         public RectTransform plane;

@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using Enemy;
 using Scripts.Core.EventDispatcher;
-using Scripts.Enemy;
 using UnityEngine;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 

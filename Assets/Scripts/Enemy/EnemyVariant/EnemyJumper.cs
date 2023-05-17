@@ -1,9 +1,9 @@
 using DG.Tweening;
-using Scripts.Managers;
+using Managers;
 using Random = UnityEngine.Random;
 using SystemRandom = System.Random;
 
-namespace Scripts.Enemy.EnemyVariant {
+namespace Enemy.EnemyVariant {
     public class EnemyJumper : EnemyBase {
         protected override void Move() {
             var emptyTiles = GridManager.GetEmptyTiles();

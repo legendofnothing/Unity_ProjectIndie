@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Scripts.UI.InGame {
+namespace UI.InGame {
     public class EndGameUI : MonoBehaviour {
         private Animator _animator;
         

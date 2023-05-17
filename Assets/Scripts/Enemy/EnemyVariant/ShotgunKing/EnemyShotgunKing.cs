@@ -2,12 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Managers;
 using Scripts.Core.Collections;
-using Scripts.Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Scripts.Enemy.EnemyVariant.ShotgunKing {
+namespace Enemy.EnemyVariant.ShotgunKing {
     public enum ShotgunKingAttackType {
         None = -1,
         RangeShotgunOnly = 0,

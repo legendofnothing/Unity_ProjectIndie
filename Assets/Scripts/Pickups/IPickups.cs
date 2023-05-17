@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scripts.Pickups
+namespace Pickups
 {
     //Interface for Pickups
     public interface IPickups {

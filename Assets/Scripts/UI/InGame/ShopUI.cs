@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Managers;
+using ScriptableObjects;
 using Scripts.Core;
 using Scripts.Core.Collections;
-using Scripts.Managers;
-using Scripts.ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using EventDispatcher = Scripts.Core.EventDispatcher.EventDispatcher;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
-namespace Scripts.UI.InGame {
+namespace UI.InGame {
     public enum ShopItemTag {
         Bullet,
         Health,

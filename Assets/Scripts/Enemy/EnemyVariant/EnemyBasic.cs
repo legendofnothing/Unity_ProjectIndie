@@ -1,4 +1,4 @@
-namespace Scripts.Enemy.EnemyVariant
+namespace Enemy.EnemyVariant
 {
     /// <summary>
     /// Basic Enemy, using all EnemyBase behavior

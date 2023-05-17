@@ -1,11 +1,11 @@
+using ScriptableObjects;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
-using Scripts.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
-namespace Scripts.Managers
+namespace Managers
 {
     /// <summary>
     /// Main Game Manager, communicate between managers 

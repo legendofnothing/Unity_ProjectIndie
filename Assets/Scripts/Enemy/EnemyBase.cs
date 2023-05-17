@@ -1,6 +1,6 @@
 using System;
 using DG.Tweening;
-using Scripts.Managers;
+using Managers;
 using TMPro;
 using UnityEngine;
 using EventDispatcher = Scripts.Core.EventDispatcher.EventDispatcher;
@@ -8,7 +8,7 @@ using EventType = Scripts.Core.EventDispatcher.EventType;
 using Random = UnityEngine.Random;
 using Slider = UnityEngine.UI.Slider;
 
-namespace Scripts.Enemy {
+namespace Enemy {
     public class EnemyAnim {
         public const string IsMoving = "isMoving";
         public const string Attack = "Attack";

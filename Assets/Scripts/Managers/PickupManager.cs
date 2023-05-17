@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
+using Pickups.Bullets;
 using Scripts.Core;
 using Scripts.Core.Collections;
 using Scripts.Core.EventDispatcher;
-using Scripts.Pickups.Bullets;
 using UnityEngine;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
 using Random = System.Random;
 using UnityRandom = UnityEngine.Random;
 
-namespace Scripts.Managers
+namespace Managers
 {
     public class PickupInformation {
         public PickupBullet pickup;

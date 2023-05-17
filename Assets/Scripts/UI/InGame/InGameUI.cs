@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
-namespace Scripts.UI.InGame {
+namespace UI.InGame {
     public class UIInitData {
         public float PlayerHp;
         public float PlayerCoins;

@@ -1,13 +1,13 @@
 using System.Collections;
 using DG.Tweening;
+using Enemy;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
-using Scripts.Enemy;
 using UnityEngine;
 using UnityEngine.UI;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
-namespace Scripts.UI.InGame.ItemEffects {
+namespace UI.InGame.ItemEffects {
     public class AirStrikeUI : MonoBehaviour {
         [Header("Config")]
         public float baseDamage;

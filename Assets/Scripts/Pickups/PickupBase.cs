@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scripts.Pickups
+namespace Pickups
 {
     public abstract class PickupBase : MonoBehaviour, IPickups {
         public LayerMask pickupLayer; 

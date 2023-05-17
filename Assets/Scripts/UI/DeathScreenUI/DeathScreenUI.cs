@@ -4,7 +4,7 @@ using Scripts.Core;
 using TMPro;
 using UnityEngine;
 
-namespace Scripts.UI.DeathScreenUI { 
+namespace UI.DeathScreenUI { 
     public class DeathScreenUI : MonoBehaviour {
         public TextMeshProUGUI previousSceneName;
         public List<TextMeshProUGUI> statTexts;

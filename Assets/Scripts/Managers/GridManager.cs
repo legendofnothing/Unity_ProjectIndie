@@ -3,7 +3,7 @@ using Scripts.Core;
 using Unity.Collections;
 using UnityEngine;
 
-namespace Scripts.Managers {
+namespace Managers {
     public class GridManager : Singleton<GridManager> {
         /// <summary>
         /// Manager for grid and tiles 

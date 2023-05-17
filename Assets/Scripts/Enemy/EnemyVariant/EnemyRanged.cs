@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Scripts.Enemy.EnemyVariant
+namespace Enemy.EnemyVariant
 {
     /// <summary>
     /// Enemy thats shoot

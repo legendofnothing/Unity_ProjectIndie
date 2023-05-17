@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Enemy;
+using Managers;
 using Scripts.Bullet.Types;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
-using Scripts.Enemy;
-using Scripts.Managers;
 using UnityEngine;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 

@@ -4,7 +4,7 @@ using Scripts.Core.EventDispatcher;
 using UnityEngine;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
-namespace Scripts.Pickups.Bullets
+namespace Pickups.Bullets
 {
     public class PickupBullet : PickupBase {
         public GameObject bullet;

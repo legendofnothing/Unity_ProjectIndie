@@ -3,7 +3,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-namespace Scripts.Enemy
+namespace Enemy
 {
     /// <summary>
     /// Spawns a floating text displaying how much coin the player earns 

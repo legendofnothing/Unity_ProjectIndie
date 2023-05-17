@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Enemy;
 using Scripts.Core;
 using Scripts.Core.Collections;
 using Scripts.Core.EventDispatcher;
-using Scripts.Enemy;
 using UnityEngine;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 using Random = System.Random;
 using RandomUnity = UnityEngine.Random;
 
-namespace Scripts.Managers
+namespace Managers
 {
     /// <summary>
     /// Handles all enemies in the scene 

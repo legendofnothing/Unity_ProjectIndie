@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Scripts.UI.InGame;
+using UI.InGame;
 using UnityEngine;
 
-namespace Scripts.ScriptableObjects {
+namespace ScriptableObjects {
     [Serializable]
     public struct ShopItemSO {
         public float chanceToAppear;

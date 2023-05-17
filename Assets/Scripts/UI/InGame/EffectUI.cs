@@ -1,11 +1,11 @@
 using DG.Tweening;
 using Scripts.Core.EventDispatcher;
-using Scripts.UI.InGame.ItemEffects;
+using UI.InGame.ItemEffects;
 using UnityEngine;
 using UnityEngine.UI;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
-namespace Scripts.UI.InGame {
+namespace UI.InGame {
     public class EffectUI : MonoBehaviour {
         [Header("Refs")]
         public CanvasGroup mainUI;

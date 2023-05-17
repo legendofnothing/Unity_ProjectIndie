@@ -1,6 +1,6 @@
+using Enemy;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
-using Scripts.Enemy;
 using UnityEngine;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
@@ -38,7 +38,7 @@ namespace Scripts.Bullet {
 
         protected void Start() {
             _bouncedTimes = 0;
-            Player = Scripts.Player.Player.instance;
+            Player = global::Player.Player.instance;
             Animator = GetComponent<Animator>();
             
             OnSpawn();

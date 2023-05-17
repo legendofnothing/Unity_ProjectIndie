@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scripts.Managers {
+namespace Managers {
     public enum Contains
     {
         None,

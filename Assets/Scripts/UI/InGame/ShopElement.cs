@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
-namespace Scripts.UI.InGame {
+namespace UI.InGame {
     public class ShopElement : MonoBehaviour {
         [Header("Refs")] 
         public TextMeshProUGUI itemName;

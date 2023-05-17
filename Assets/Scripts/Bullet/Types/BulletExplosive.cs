@@ -1,6 +1,6 @@
 using System;
 using DG.Tweening;
-using Scripts.Enemy;
+using Enemy;
 using UnityEngine;
 
 namespace Scripts.Bullet.Types {

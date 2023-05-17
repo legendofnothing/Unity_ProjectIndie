@@ -2,11 +2,11 @@ using System.Collections;
 using Scripts.Bullet;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
-using Scripts.UI.InGame;
+using UI.InGame;
 using UnityEngine;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
-namespace Scripts.Managers {
+namespace Managers {
     public class ShopManager : Singleton<ShopManager> {
         public int maxBuyCount;
         [HideInInspector] public bool isAwaitingForFinish;

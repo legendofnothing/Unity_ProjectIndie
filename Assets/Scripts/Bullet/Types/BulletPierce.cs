@@ -1,5 +1,5 @@
+using Enemy;
 using Scripts.Core;
-using Scripts.Enemy;
 using UnityEngine;
 
 namespace Scripts.Bullet.Types {

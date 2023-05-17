@@ -2,7 +2,7 @@ using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
-namespace Scripts.Enemy.EnemyWeapon
+namespace Enemy.EnemyWeapon
 {
     /// <summary>
     /// Enemy Bullet Behavior

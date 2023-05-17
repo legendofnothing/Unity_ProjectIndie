@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
-namespace Scripts.Player
+namespace Player
 {
     /// <summary>
     /// Handles Player Controller

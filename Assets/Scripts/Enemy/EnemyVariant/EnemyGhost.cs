@@ -1,11 +1,11 @@
 using System.Collections;
 using DG.Tweening;
-using Scripts.Managers;
+using Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using SystemRandom = System.Random;
 
-namespace Scripts.Enemy.EnemyVariant {
+namespace Enemy.EnemyVariant {
     public class EnemyGhostAnim : EnemyAnim {
         public const string IsGhost = "isGhost";
         public const string GhostDisappear = "GhostDisappear";
