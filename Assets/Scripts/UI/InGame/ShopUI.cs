@@ -7,6 +7,7 @@ using Scripts.Core;
 using Scripts.Core.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using EventDispatcher = Scripts.Core.EventDispatcher.EventDispatcher;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
@@ -44,7 +45,8 @@ namespace UI.InGame {
         public TextMeshProUGUI buyCountText;
         
         [Header("Refs")]
-        public GameObject container;
+        public Canvas canvas;
+        public GraphicRaycaster input;
         public ShopItemData shopData;
         public List<ShopElement> shopElements;
 
@@ -52,7 +54,7 @@ namespace UI.InGame {
         private readonly WeightedList<ShopItem> _weightedShopItems = new();
 
         private void Start() {
-            container.SetActive(false);
+            canvas.enabled = false;
             EventDispatcher.instance.SubscribeListener(EventType.OpenShop, _=>OpenShop());
             EventDispatcher.instance.SubscribeListener(EventType.CloseShop, _=>OnProceed());
             EventDispatcher.instance
@@ -64,6 +66,8 @@ namespace UI.InGame {
             foreach (var item in shopData.shopItems) {
                 _weightedShopItems.AddElement(item.shopItem, item.chanceToAppear);
             }
+
+            input.enabled = false;
         }
 
         private void OpenShop() {
@@ -71,7 +75,12 @@ namespace UI.InGame {
                 element.Init(_weightedShopItems.GetRandomItem());
             }
             
-            container.SetActive(true);
+            EventDispatcher.instance.SendMessage(EventType.DimBackground);
+            
+            canvas.enabled = true;
+            input.enabled = true;
+            
+            if (!SaveSystem.UseFancyUI) return;
             _currAuraSequence = DOTween.Sequence();
             _currAuraSequence
                 .Append(aura.transform.DOScale(new Vector3(1.1f, 1.2f), 1.4f))
@@ -79,12 +88,14 @@ namespace UI.InGame {
         }
 
         private void OnBuyCountChange(float currBuyCount, float maxBuyCount) {
-            buyCountText.text = $"Purchases Left: {maxBuyCount - currBuyCount}/{maxBuyCount}";
+            buyCountText.SetText($"Purchases Left: {maxBuyCount - currBuyCount}/{maxBuyCount}");
         }
 
         public void OnProceed() {
-            _currAuraSequence.Kill();
-            container.SetActive(false);
+            if (SaveSystem.UseFancyUI) _currAuraSequence.Kill();
+            canvas.enabled = false;
+            input.enabled = false;
+            EventDispatcher.instance.SendMessage(EventType.DimBackground);
             if (!ShopManager.instance.isAwaitingForFinish) StartCoroutine(ShopManager.instance.DelayInput());
         }
     }

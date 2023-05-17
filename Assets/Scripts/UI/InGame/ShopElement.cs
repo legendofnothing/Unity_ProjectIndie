@@ -16,11 +16,13 @@ namespace UI.InGame {
 
         [Space] 
         public CanvasGroup priceTag;
-        public CanvasGroup soldTag;
+        public Image soldTag;
+        public TextMeshProUGUI soldText;
 
         private ShopItem _currShopItem;
         private Image priceTagImage;
         private Sequence currPriceTagSequence;
+        private bool _hasBuy;
 
         private void Start() {
             priceTagImage = priceTag.GetComponent<Image>();
@@ -29,18 +31,22 @@ namespace UI.InGame {
         public void Init(ShopItem item) {
             _currShopItem = item;
             priceTag.alpha = 1;
-            soldTag.alpha = 0;
+            soldTag.color -= new Color(0f, 0f, 0f, 1f);
+            soldText.SetText(" ");
 
             itemName.text = item.itemName;
             itemCost.text = item.itemCost.ToString();
             itemDescriptor.text = item.itemDescriptor;
             itemSprite.sprite = item.itemSprite;
+            _hasBuy = false;
         }
 
         public void OnBuy() {
+            if (_hasBuy) return;
+            
             if (SaveSystem.playerData.Coin - _currShopItem.itemCost < 0) {
                 if (currPriceTagSequence != null) return;
-                
+
                 currPriceTagSequence = DOTween.Sequence();
                 currPriceTagSequence
                     .Append(priceTagImage.DOColor(new Color(255, 0, 0), 0.1f))
@@ -50,8 +56,16 @@ namespace UI.InGame {
             }
 
             else {
-                priceTag.DOFade(0, 0.2f);
-                soldTag.DOFade(1, 0.8f);
+                _hasBuy = true;
+                if (SaveSystem.UseFancyUI) {
+                    priceTag.DOFade(0, 0.2f);
+                    soldTag.DOFade(1, 0.8f).OnComplete(() => soldText.SetText("SOLD"));
+                }
+                else {
+                    priceTag.alpha = 0;
+                    soldTag.color += new Color(0f, 0f, 0f, 1f);
+                    soldText.SetText("SOLD");
+                }
                 Player.Player.instance.ReduceCoin(_currShopItem.itemCost);
                 EventDispatcher.instance.SendMessage(EventType.OnItemBought, _currShopItem);
             }

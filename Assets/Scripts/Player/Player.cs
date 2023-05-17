@@ -122,6 +122,9 @@ namespace Player {
         }
 
         public void DoCameraShake(float strength, float duration = 1f) {
+            
+            if (!SaveSystem.UseFancyUI) return;
+            
             _currentCameraShakeTween = camera.DOShakePosition(duration, strength).OnComplete(() => {
                 camera.transform.DOMove(new Vector3(0, 0, camera.transform.position.z), 0.8f)
                     .OnComplete(() => _currentCameraShakeTween = null);

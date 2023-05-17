@@ -66,7 +66,7 @@ namespace Managers
             switch (_currentTurn)
             {
                 case Turn.Start:
-                    _enemyManager.SpawnEnemyRandom(3);
+                    _enemyManager.SpawnEnemyRandom(5);
                     EventDispatcher.instance.SendMessage(EventType.OnTurnNumberChange, SaveSystem.currentLevelData.TurnNumber);
                     //UpdateTurn(Turn.Player);
                     break;
@@ -88,10 +88,12 @@ namespace Managers
                 
                 case Turn.Shop:
 
-                    EventDispatcher.instance.SendMessage(SaveSystem.currentLevelData.TurnNumber % 3 == 0
+                    EventDispatcher.instance.SendMessage(SaveSystem.currentLevelData.TurnNumber % 1 == 0
                         ? EventType.OpenShop
                         : EventType.SwitchToPlayer);
-                    
+
+                    //EventDispatcher.instance.SendMessage(EventType.SwitchToPlayer);
+
                     break;
                 
                 case Turn.End:

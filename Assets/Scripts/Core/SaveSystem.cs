@@ -36,6 +36,7 @@ namespace Scripts.Core {
     public static class SaveSystem{
         public static PlayerData playerData;
         public static CurrentLevelData currentLevelData;
+        public static bool UseFancyUI = false;
         
         private static bool _init;
         public static void Init() {

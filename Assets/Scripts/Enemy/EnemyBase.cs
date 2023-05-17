@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using DG.Tweening;
 using Managers;
 using TMPro;
@@ -62,10 +63,8 @@ namespace Enemy {
             GridManager = GridManager.instance;
             _animator = gameObject.GetComponent<Animator>();
 
-            DOVirtual.Float(0, currHp, 1.2f, value => {
-                hpText.text = value.ToString("0.0");
-            });
-            healthBar.DOValue(currHp, 1.2f);
+            hpText.text = currHp.ToString("0.0");
+            healthBar.value = 1;
         }
         
         public void OnEnemyTurn() {
@@ -81,9 +80,9 @@ namespace Enemy {
             if (_currentHp > 0f) {
                 Player.Player.instance.AddCoin(coinAddedOnHit);
                 Player.Player.instance.AddScore(scoreAddedOnHit);
-                
+
                 hpText.text = _currentHp.ToString("0.0");
-                healthBar.DOValue(_currentHp / _hp, _currentHp / _hp);
+                healthBar.value = _currentHp / _hp;
                 
                 _animator.SetTrigger(EnemyAnim.Hit);
             }
