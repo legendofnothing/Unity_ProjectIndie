@@ -88,11 +88,10 @@ namespace Scripts.Managers
                     break;
                 
                 case Turn.Shop:
-                    EventDispatcher.instance.SendMessage(EventType.OpenShop);
-                    
-                    // EventDispatcher.instance.SendMessage(SaveSystem.currentLevelData.TurnNumber % 3 != 0
-                    //     ? EventType.OpenShop
-                    //     : EventType.SwitchToPlayer);
+
+                    EventDispatcher.instance.SendMessage(SaveSystem.currentLevelData.TurnNumber % 3 != 0
+                        ? EventType.OpenShop
+                        : EventType.SwitchToPlayer);
                     
                     break;
                 

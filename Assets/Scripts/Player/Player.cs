@@ -77,7 +77,7 @@ namespace Scripts.Player {
             bulletManager.ChangeDamageModifier(_attackModifier);
             bulletManager.ChangeCritModifier(_critChance);
             
-            EventDispatcher.instance.SendMessage(EventType.OnInitUI, new UIInitData() {
+            EventDispatcher.instance.SendMessage(EventType.OnInitUI, new UIInitData() { 
                 PlayerHp = _currentHp,
                 PlayerCoins = SaveSystem.playerData.Coin
             });
