@@ -72,8 +72,7 @@ namespace Scripts.Managers
                     break;
 
                 case Turn.Player:
-                    if (!_canAddTurn) _canAddTurn = true;
-                    else SaveSystem.currentLevelData.TurnNumber++; 
+                    SaveSystem.currentLevelData.TurnNumber++; 
                     
                     EventDispatcher.instance.SendMessage(EventType.OnTurnNumberChange, SaveSystem.currentLevelData.TurnNumber);
                     Player.Player.instance.input.CanInput(true);
@@ -89,7 +88,7 @@ namespace Scripts.Managers
                 
                 case Turn.Shop:
 
-                    EventDispatcher.instance.SendMessage(SaveSystem.currentLevelData.TurnNumber % 3 != 0
+                    EventDispatcher.instance.SendMessage(SaveSystem.currentLevelData.TurnNumber % 3 == 0
                         ? EventType.OpenShop
                         : EventType.SwitchToPlayer);
                     
