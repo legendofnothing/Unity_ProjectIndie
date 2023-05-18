@@ -11,48 +11,36 @@ namespace UI.InGame {
     public struct Overlays {
         public Canvas canvas;
         public Image image;
-        [HideInInspector] public bool isActive;
     }
 
-    public class OverlayHandler : MonoBehaviour {
+    public class OverlayHandler : Singleton<OverlayHandler> {
         [Header("Refs")] 
         public Overlays dimBackground;
 
         private void Start() {
-            EventDispatcher.instance.SubscribeListener(EventType.DimBackground, _ => OnDim());
             dimBackground.canvas.enabled = false;
             dimBackground.image.color -= new Color(0, 0, 0, 1);
         }
 
-        private void OnDim() {
+        public void OnDim(float alpha , float duration = 0.8f) {
             if (SaveSystem.UseFancyUI) {
-                if (!dimBackground.canvas.enabled) {
-                    dimBackground.canvas.enabled = true;
-                    SetOverlayDim(dimBackground.image
-                        , dimBackground.isActive ? 0f : 0.6f
-                        ,0.8f
-                        , () => {
-                            dimBackground.isActive = !dimBackground.isActive;
-                        });
-                }
-
-                else {
-                    SetOverlayDim(dimBackground.image
-                        , dimBackground.isActive ? 0f : 0.6f
-                        ,0.8f
-                        , () => {
-                            dimBackground.isActive = !dimBackground.isActive;
-                            dimBackground.canvas.enabled = false;
-                        });
-                }
+                dimBackground.canvas.enabled = true;
+                SetOverlayDim(dimBackground.image
+                    , alpha
+                    , duration
+                    , () => {
+                        if (alpha > 0) dimBackground.canvas.enabled = true;
+                    }
+                    , () => {
+                        if (alpha <= 0) dimBackground.canvas.enabled = false;
+                    });
             }
 
             else {
-                dimBackground.isActive = !dimBackground.isActive;
-                dimBackground.canvas.enabled = !dimBackground.isActive;
-                SetOverlayDim(dimBackground.image
-                    , dimBackground.isActive ? 0f : 0.6f);
+                dimBackground.canvas.enabled = alpha > 0;
+                dimBackground.image.color = new Color(0, 0, 0, alpha); 
             }
+
         }
 
         #region Helper Function
@@ -65,11 +53,12 @@ namespace UI.InGame {
             else image.color = color;
         }
         
-        private static void SetOverlayDim(Image image, float alpha, float tweenDuration = 0f, TweenCallback callback = null) {
+        private static void SetOverlayDim(Image image, float alpha, float tweenDuration = 0f, TweenCallback callbackStart = null, TweenCallback callbackEnd = null) {
             if (SaveSystem.UseFancyUI) {
                 image
                     .DOFade(alpha, tweenDuration)
-                    .OnComplete(callback);
+                    .OnStart(callbackStart)
+                    .OnComplete(callbackEnd);
             }
 
             else {

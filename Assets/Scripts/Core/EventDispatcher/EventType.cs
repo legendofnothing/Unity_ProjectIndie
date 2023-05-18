@@ -46,7 +46,5 @@ namespace Scripts.Core.EventDispatcher {
         OnTurnNumberChange,
         OnScoreChange,
         OnPlayerCoinChange,
-        
-        DimBackground,
     }
 }

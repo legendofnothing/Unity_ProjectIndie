@@ -88,7 +88,7 @@ namespace Managers
                 
                 case Turn.Shop:
 
-                    EventDispatcher.instance.SendMessage(SaveSystem.currentLevelData.TurnNumber % 1 == 0
+                    EventDispatcher.instance.SendMessage(SaveSystem.currentLevelData.TurnNumber % 3 == 0
                         ? EventType.OpenShop
                         : EventType.SwitchToPlayer);
 

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Scripts.Core;
 using Scripts.Core.EventDispatcher;
 using UI.InGame.ItemEffects;
 using UnityEngine;
@@ -7,6 +8,10 @@ using EventType = Scripts.Core.EventDispatcher.EventType;
 
 namespace UI.InGame {
     public class EffectUI : MonoBehaviour {
+        [Header("Canvas")] 
+        public Canvas airStrikeCanvas;
+        public Canvas nukeCanvas;
+        
         [Header("Refs")]
         public CanvasGroup mainUI;
         public GraphicRaycaster shopRaycaster;
@@ -23,37 +28,74 @@ namespace UI.InGame {
             
             airStrikeUI.PreInitAirStrikeUI();
             nuclearUI.PreInitNuclearUI();
-            
-            airStrikeUI.gameObject.SetActive(false);
-            nuclearUI.gameObject.SetActive(false);
+
+            airStrikeCanvas.enabled = false;
+            nukeCanvas.enabled = false;
         }
         
         private void OpenEffect(ShopItemTag itemTag) {
             shopRaycaster.enabled = false;
-            mainUI
-                .DOFade(0, 0.8f)
-                .OnComplete(() => {
-                    switch (itemTag) {
-                        case ShopItemTag.AirStrike:
-                            airStrikeUI.gameObject.SetActive(true);
-                            airStrikeUI.InitAirStrikeUI();
-                            break;
-                        case ShopItemTag.Nuke:
-                            nuclearUI.gameObject.SetActive(true);
-                            nuclearUI.InitNuclearUI();
-                            break;
-                        case ShopItemTag.HitoriGotoh:
-                            break;
-                    }
-                });
+            mainUI.blocksRaycasts = false;
+            OverlayHandler.instance.OnDim(0);
+
+            if (SaveSystem.UseFancyUI) {
+                mainUI
+                    .DOFade(0, 0.8f)
+                    .OnComplete(() => {
+                        switch (itemTag) {
+                            case ShopItemTag.AirStrike:
+                                airStrikeCanvas.enabled = true;
+                                airStrikeUI.InitAirStrikeUI();
+                                break;
+                            case ShopItemTag.Nuke:
+                                nukeCanvas.enabled = true;
+                                nuclearUI.InitNuclearUI();
+                                break;
+                            case ShopItemTag.HitoriGotoh:
+                                break;
+                        }
+                    });
+            }
+            else {
+                mainUI.alpha = 0;
+                switch (itemTag) {
+                    case ShopItemTag.AirStrike:
+                        airStrikeCanvas.enabled = true;
+                        airStrikeUI.InitAirStrikeUI();
+                        break;
+                    case ShopItemTag.Nuke:
+                        nukeCanvas.enabled = true;
+                        nuclearUI.InitNuclearUI();
+                        break;
+                    case ShopItemTag.HitoriGotoh:
+                        break;
+                }
+            }
         }
 
         private void ReOpenUI() {
-            mainUI.DOFade(1, 0.8f).OnComplete(() => {
-                airStrikeUI.gameObject.SetActive(false);
-                shopRaycaster.enabled = false;
-                EventDispatcher.instance.SendMessage(EventType.OnEffectFinish);
-            });
+            if (SaveSystem.UseFancyUI) {
+                mainUI.DOFade(1, 0.8f).OnComplete(() => {
+                    airStrikeCanvas.enabled = false;
+                    nukeCanvas.enabled = false;
+                    shopRaycaster.enabled = true;
+                    mainUI.blocksRaycasts = true;
+                    OverlayHandler.instance.OnDim(0.6f);
+                    EventDispatcher.instance.SendMessage(EventType.OnEffectFinish);
+                });
+            }
+
+            else {
+                DOVirtual.DelayedCall(0.8f, () => {
+                    mainUI.alpha = 1;
+                    airStrikeCanvas.enabled = false;
+                    nukeCanvas.enabled = false;
+                    shopRaycaster.enabled = true;
+                    mainUI.blocksRaycasts = true;
+                    OverlayHandler.instance.OnDim(0.6f);
+                    EventDispatcher.instance.SendMessage(EventType.OnEffectFinish);
+                });
+            }
         }
     }
 }

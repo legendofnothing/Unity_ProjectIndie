@@ -75,7 +75,7 @@ namespace UI.InGame {
                 element.Init(_weightedShopItems.GetRandomItem());
             }
             
-            EventDispatcher.instance.SendMessage(EventType.DimBackground);
+            OverlayHandler.instance.OnDim(0.6f);
             
             canvas.enabled = true;
             input.enabled = true;
@@ -95,7 +95,7 @@ namespace UI.InGame {
             if (SaveSystem.UseFancyUI) _currAuraSequence.Kill();
             canvas.enabled = false;
             input.enabled = false;
-            EventDispatcher.instance.SendMessage(EventType.DimBackground);
+            OverlayHandler.instance.OnDim(0);
             if (!ShopManager.instance.isAwaitingForFinish) StartCoroutine(ShopManager.instance.DelayInput());
         }
     }

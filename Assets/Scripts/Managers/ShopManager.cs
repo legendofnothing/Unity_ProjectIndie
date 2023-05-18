@@ -58,8 +58,8 @@ namespace Managers {
                     else _player.AddHealth(item.itemValue);
                     break;
                 default:
-                    //EventDispatcher.instance.SendMessage(EventType.OnEffectItem, item.itemTag);
-                    //AddBuyCount(false);
+                    EventDispatcher.instance.SendMessage(EventType.OnEffectItem, item.itemTag);
+                    AddBuyCount(false);
                     break;
             }
         }
@@ -90,6 +90,11 @@ namespace Managers {
         
         public IEnumerator DelayInput() {
             Player.Player.instance.input.CanInput(false);
+            
+            //weird edge case
+            if (!SaveSystem.UseFancyUI && OverlayHandler.instance.dimBackground.canvas.enabled) {
+                OverlayHandler.instance.OnDim(0);
+            }
             
             yield return new WaitForSeconds(0.4f);
             if (EnemyManager.instance.enemies.Count <= 0) {

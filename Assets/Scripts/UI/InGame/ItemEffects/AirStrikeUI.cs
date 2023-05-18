@@ -53,8 +53,6 @@ namespace UI.InGame.ItemEffects {
         public void InitAirStrikeUI() {
             airStrikeGuide.SetActive(true);
             aimingZone.gameObject.SetActive(false);
-            _canInput = true;
-            _canAttack = true;
             plane.anchoredPosition = new Vector2(0, 0);
             var col = _aimingZoneSprite.color;
             _aimingZoneSprite.color = new Color(col.r, col.g, col.b, 0.2f);
@@ -63,6 +61,19 @@ namespace UI.InGame.ItemEffects {
                 .Append(airStrikeGesture.transform.DOMoveX(-airStrikeGesture.transform.position.x, 2.8f))
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetEase(Ease.Linear);
+            if (SaveSystem.UseFancyUI) {
+                _canInput = true;
+                _canAttack = true;
+            }
+            else {
+                StartCoroutine(Delay());
+            }
+        }
+
+        private IEnumerator Delay() {
+            yield return new WaitForSeconds(0.2f);
+            _canInput = true;
+            _canAttack = true;
         }
         
         private void Update() {
