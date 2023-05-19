@@ -46,7 +46,7 @@ namespace Player
             _canInput = true;
         }
 
-        private void Update() {
+        private void FixedUpdate() {
             if (_canInput) HandleInput();
 
             switch (_touchState) {

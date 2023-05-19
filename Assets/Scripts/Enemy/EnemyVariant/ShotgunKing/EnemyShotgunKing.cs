@@ -44,14 +44,28 @@ namespace Enemy.EnemyVariant.ShotgunKing {
         }
         
         protected override void Move() {
-            var randomAttack = _attackWeighted.GetRandomItem();
+            _currAttack = _attackWeighted.GetRandomItem();
+            var emptyTiles = GridManager.GetEmptyTiles();
 
-            switch (randomAttack) {
-                case ShotgunKingAttackType.MeleeShotgunAndKnife:
-                    MoveBehavior(false, randomAttack);
+            switch (emptyTiles.Count <= 0) {
+                case true:
+                    _currAttack = y > 0 
+                        ? _currAttack
+                        : _attackWeighted.GetRandomItem(ShotgunKingAttackType.MeleeShotgunAndKnife);
                     break;
+
                 default:
-                    MoveBehavior(true, randomAttack);
+                    var tileToMoveTo = emptyTiles.Find(tile => {
+                        var condition = _currAttack == ShotgunKingAttackType.MeleeShotgunAndKnife
+                            ? tile.y == 0
+                            : tile.y > 2;
+                    
+                        if (!condition) return false;
+                        return tile.contains == Contains.None;
+                    });
+                    
+                    UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
+                    transform.DOMove(tileToMoveTo.transform.position, 2.2f).OnComplete(Attack);
                     break;
             }
         }
@@ -66,12 +80,14 @@ namespace Enemy.EnemyVariant.ShotgunKing {
         }
 
         public void Evade() {
+            var emptyTiles = GridManager.GetEmptyTiles();
+            
+            if (emptyTiles.Count <= 0) return;
+            
             var chance = Random.Range(0.0f, 1.01f);
             if (chance > evadeChance) return;
 
             StartCoroutine(EvadeRoutine());
-            
-            var emptyTiles = GridManager.GetEmptyTiles();
             var tileToMoveTo = emptyTiles.Find(tile => {
                 if (tile.y <= 2) return false;
                 if (Vector2.Distance(transform.position, tile.transform.position) <= 1f) return false;
@@ -79,11 +95,8 @@ namespace Enemy.EnemyVariant.ShotgunKing {
             });
             
             _animator.SetTrigger(ShotgunKingAnim.Evade);
-            GridManager.SetTileContainContent(tileToMoveTo.x, tileToMoveTo.y, Contains.Enemy);
-            transform.DOMove(tileToMoveTo.transform.position, 0.1f).OnComplete(() => {
-                GridManager.ResetTileContainContent(x, y);
-                UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
-            });
+            UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
+            transform.DOMove(tileToMoveTo.transform.position, 0.1f);
         }
 
         private IEnumerator EvadeRoutine() {
@@ -93,36 +106,5 @@ namespace Enemy.EnemyVariant.ShotgunKing {
             _col.enabled = true;
             _canTakeDamage = true;
         }
-
-        #region Helper Functions
-
-        private void MoveBehavior(bool isRanged, ShotgunKingAttackType type) {
-            _currAttack = type;
-            var emptyTiles = GridManager.GetEmptyTiles();
-            Tile tileToMoveTo;
-            
-            if (isRanged) {
-                tileToMoveTo = emptyTiles.Find(tile => {
-                    if (tile.y <= 2) return false;
-                    return tile.contains == Contains.None;
-                });
-            }
-
-            else {
-                tileToMoveTo = emptyTiles.Find(tile => {
-                    if (tile.y != 0) return false;
-                    return tile.contains == Contains.None;
-                });
-            }
-            
-            GridManager.SetTileContainContent(tileToMoveTo.x, tileToMoveTo.y, Contains.Enemy);
-            transform.DOMove(tileToMoveTo.transform.position, 2.2f).OnComplete(() => {
-                GridManager.ResetTileContainContent(x, y);
-                UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
-                Attack();
-            });
-        }
-
-        #endregion
     }
 }

@@ -123,13 +123,12 @@ namespace Enemy {
                 return;
             }
             _animator.SetBool(EnemyAnim.IsMoving, true);
-            GridManager.SetTileContainContent(x, updatedY,Contains.Enemy);
+            UpdatePosition(x, updatedY);
+            
             var newPos = GridManager.tiles[x, updatedY].transform.position;
             var randomDuration = Random.Range(0.7f, 1f);
             
             transform.DOMove(newPos, randomDuration).OnComplete(() => {
-                GridManager.ResetTileContainContent(x, y);
-                UpdatePosition(x, updatedY);
                 _animator.SetBool(EnemyAnim.IsMoving, false);
                 Attack();
             });
@@ -146,8 +145,10 @@ namespace Enemy {
         }
 
         protected void UpdatePosition(int newX, int newY) {
+            GridManager.SetTileContainContent(newX, newY,Contains.Enemy);
+            GridManager.ResetTileContainContent(x, y);
             x = newX;
-            y = newY; 
+            y = newY;
         }
     }
 }

@@ -60,7 +60,7 @@ namespace Managers
         private void InitSpawnerGrids() {
             for (var h = 0; h < _height; h++) {
                 for (var w = 0; w < _width; w++) {
-                    if (h < _height - _spawnHeight) continue;
+                    //if (h < _height - _spawnHeight) continue;
                     _spawnerTiles.Add(_gridManager.tiles[w, h]);
                 }
             }
@@ -92,13 +92,15 @@ namespace Managers
 
             //Pick a random amount of Tile to spawn in, no duplicates
             var rnd = new Random();
-            var randomTileSpawners 
-                = _spawnerTiles
-                    .FindAll(tile => tile.contains == Contains.None)
-                    .OrderBy(_ => rnd.Next())
-                    .Take(amount)
-                    .ToList();
+            var randomTileSpawners
+                = _spawnerTiles.FindAll(tile => tile.contains == Contains.None);
+            if (_spawnerTiles == null) return;
             
+            randomTileSpawners = _spawnerTiles
+                .OrderBy(_ => rnd.Next())
+                .Take(10)
+                .ToList();
+
             //Spawn enemy in each picked tiles
             foreach (var spawner in randomTileSpawners) {
                 var x = spawner.x;

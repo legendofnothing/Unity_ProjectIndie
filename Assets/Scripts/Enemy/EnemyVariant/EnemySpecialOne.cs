@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using DG.Tweening;
 using Managers;
 using Scripts.Core.Collections;
@@ -42,36 +43,39 @@ namespace Enemy.EnemyVariant {
         protected override void Move() {
             var randomAttack = _weightedMove.GetRandomItem();
             _currentMove = randomAttack.move;
+            
+            var emptyTiles = GridManager.GetEmptyTiles();
+            if (emptyTiles.Count <= 0) {
+                _currentMove = emptyTiles.Count > 0
+                    ? _currentMove
+                    : y <= 0 ? SpecialOneMoves.Melee : SpecialOneMoves.Range;
+                
+                Attack();
+            }
 
-            switch (randomAttack.move) {
-                case SpecialOneMoves.Melee:
-                    var emptyTiles = GridManager.GetEmptyTiles();
-                    var tileToMoveTo = emptyTiles.Find(tile => {
-                        if (tile.y != 0) return false;
-                        return tile.contains == Contains.None;
-                    });
+            else {
+                var tileToMoveTo = emptyTiles.Find(tile => {
+                    var condition = _currentMove == SpecialOneMoves.Melee
+                        ? tile.y == 0
+                        : tile.y > 1;
                     
-                    GridManager.SetTileContainContent(tileToMoveTo.x, tileToMoveTo.y, Contains.Enemy);
-                    transform.DOMove(tileToMoveTo.transform.position, 1.4f).OnComplete(() => {
-                        GridManager.ResetTileContainContent(x, y);
+                    if (!condition) return false;
+                    return tile.contains == Contains.None;
+                });
+
+                switch (tileToMoveTo) {
+                    case null:
+                        _currentMove = emptyTiles.Count > 0 
+                            ? _currentMove 
+                            : y <= 0 ? SpecialOneMoves.Melee : SpecialOneMoves.Range;
+                        Attack();
+                        break;
+                    
+                    default:
                         UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
-                        Attack();
-                    });
-                    break;
-                case SpecialOneMoves.Range:
-                    var emptyTiles2 = GridManager.GetEmptyTiles();
-                    var tileToMoveTo2 = emptyTiles2.Find(tile => {
-                        if (tile.y <= 1) return false;
-                        return tile.contains == Contains.None;
-                    });
-                    
-                    GridManager.SetTileContainContent(tileToMoveTo2.x, tileToMoveTo2.y, Contains.Enemy);
-                    transform.DOMove(tileToMoveTo2.transform.position, 1.4f).OnComplete(() => {
-                        GridManager.ResetTileContainContent(x, y);
-                        UpdatePosition(tileToMoveTo2.x, tileToMoveTo2.y);
-                        Attack();
-                    });
-                    break;
+                        transform.DOMove(tileToMoveTo.transform.position, 1.4f).OnComplete(Attack);
+                        break;
+                }
             }
         }
         

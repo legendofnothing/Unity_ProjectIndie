@@ -12,7 +12,7 @@ namespace Scripts.Core.Collections
     public class WeightedList<T>
     {
         [Serializable]
-        private struct Element {
+        public struct Element {
             public T obj;
             public double weight;
             public Element(T obj, double weight = 0f) {
@@ -32,6 +32,12 @@ namespace Scripts.Core.Collections
         public T GetRandomItem() {
             double randWeight = _rand.NextDouble() * _sumWeight;
             return _elements.FirstOrDefault(x => x.weight >= randWeight).obj;
+        }
+        
+        public T GetRandomItem(T ignoredElement) {
+            double randWeight = _rand.NextDouble() * _sumWeight;
+            return _elements
+                .FirstOrDefault(x => x.weight >= randWeight && !x.obj.Equals(ignoredElement)).obj;
         }
         
         /// <summary>

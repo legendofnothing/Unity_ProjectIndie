@@ -37,27 +37,33 @@ namespace Enemy.EnemyVariant {
         }
         
         private IEnumerator DisappearCoroutine(float duration) {
-            _animator.SetTrigger(EnemyGhostAnim.GhostDisappear);
-            yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
-            _isInvisible = true;
-            
             var emptyTiles = GridManager.GetEmptyTiles();
-            var tileToMoveTo = emptyTiles[new SystemRandom().Next(emptyTiles.Count)];
-            GridManager.SetTileContainContent(tileToMoveTo.x, tileToMoveTo.y, Contains.Enemy);
-
-            transform   
-                .DOMove(tileToMoveTo.transform.position, duration)
-                .OnStart(() => {
-                    _animator.SetTrigger(EnemyGhostAnim.GhostMove);
-                    _animator.speed = duration / _animator.GetCurrentAnimatorClipInfo(0).Length;
-                    _animator.SetBool(EnemyGhostAnim.IsGhost, true);
-                })
-                .OnComplete(() => {
-                    GridManager.ResetTileContainContent(x, y);
+            
+            switch (emptyTiles.Count <= 0) {
+                case true:
+                    Attack();
+                    break;
+                
+                default:
+                    _animator.SetTrigger(EnemyGhostAnim.GhostDisappear);
+                    yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
+                    _isInvisible = true;
+                    var tileToMoveTo = emptyTiles[new SystemRandom().Next(emptyTiles.Count)];
                     UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
-                    _animator.speed = 1;
-                    hasFinishedTurn = true;
-                });
+
+                    transform   
+                        .DOMove(tileToMoveTo.transform.position, duration)
+                        .OnStart(() => {
+                            _animator.SetTrigger(EnemyGhostAnim.GhostMove);
+                            _animator.speed = duration / _animator.GetCurrentAnimatorClipInfo(0).Length;
+                            _animator.SetBool(EnemyGhostAnim.IsGhost, true);
+                        })
+                        .OnComplete(() => {
+                            _animator.speed = 1;
+                            hasFinishedTurn = true;
+                        });
+                    break;
+            }
         }
         
         protected override void Attack() {
