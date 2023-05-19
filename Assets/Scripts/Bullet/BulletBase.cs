@@ -1,8 +1,12 @@
+using System;
+using System.Linq;
 using Enemy;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
 using UnityEngine;
+using UnityEngine.Serialization;
 using EventType = Scripts.Core.EventDispatcher.EventType;
+using Random = UnityEngine.Random;
 
 namespace Scripts.Bullet {
     public enum BulletSpecialTag {
@@ -15,6 +19,7 @@ namespace Scripts.Bullet {
         public float damage = 100f;
         public float speed = 3f;
         public int thresholdBounces = 12;
+        public float bulletRadius = 0.4f;
 
         [Header("Settings")] 
         public bool canBounce = true;
@@ -28,8 +33,8 @@ namespace Scripts.Bullet {
         public LayerMask destroyLayer;
 
         private int _bouncedTimes;
-        private bool _canRunBounceLogic = true;
         private bool _hasDestroyed;
+        private RaycastHit2D[] _hits;
 
         protected Vector3 Dir;
         protected Player.Player Player;
@@ -49,45 +54,42 @@ namespace Scripts.Bullet {
         }
 
         protected virtual void FixedUpdate() {
-            // This close to increasing physic render step for bounce logic
-            // x-x
-            // I LOVE CALCULATING REFLECTED VECTOR BY HAND AND HANDLING NINE THOUSANDS EDGE CASES
-            /*
-             * I set the raycast distance as high as possible because when you cast the ray, there's a chance that your
-             * incoming angle is too shallow, therefore the raycast don't actually reach if you set it to a reasonable
-             * number like 0.1f or some sort.
-             */
-            
             if (!CanMove) return;
-            var result = Physics2D.Raycast(
-                transform.position
-                , Dir
-                , 500f 
-                , layersToInteract);
+            transform.position += Dir * (speed * Time.fixedDeltaTime);
+            _hits = Physics2D.CircleCastAll(
+                transform.position,
+                bulletRadius,
+                Vector2.zero,
+                0,
+                layersToInteract
+            );
 
-            if (result.collider == null) return;
-            if (result.distance >= 0.5f) { //fine tune threshold let it be
-                if (!_canRunBounceLogic) _canRunBounceLogic = true;
-                transform.position += Dir * (speed * Time.fixedDeltaTime);
-            }
-
-            else {
-                if (!_canRunBounceLogic) return;
-                _canRunBounceLogic = false;
-                
-                if (canBounce) {
-                    var reflected = Vector3.Reflect(Dir, result.normal);
-                
-                    Dir = reflected;
-                    transform.rotation = Quaternion.FromToRotation(Vector3.up, reflected);
-                    
-                    _bouncedTimes++;
-                    if (_bouncedTimes >= thresholdBounces) {
-                        OnBulletDestroy();
-                    }
+            if (_hits.Length <= 0) return;
+            var obj = _hits.Length == 1
+                ? _hits[0]
+                : _hits.OrderBy(hit => (hit.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
+            
+            if (canBounce) {
+                var reflected = Vector3.Reflect(Dir, obj.normal);
+                var angleFromSurface = Vector3.Angle(reflected, obj.normal);
+                if (angleFromSurface <= 10f) {
+                    var reflectedAngle = Mathf.Atan2( reflected.y , reflected.x );
+                    reflectedAngle += Random.Range(-10.0f, 15.0f) * Mathf.Deg2Rad;
+                    reflected = new Vector3((float)Math.Cos(reflectedAngle), (float) Math.Sin(reflectedAngle));
                 }
 
-                OnBounce(result.transform.gameObject);
+                Dir = reflected;
+                transform.rotation = Quaternion.FromToRotation(Vector3.up, reflected);
+
+                _bouncedTimes++;
+                if (_bouncedTimes >= thresholdBounces) {
+                    OnBulletDestroy();
+                }
+
+            }
+
+            foreach (var hit in _hits) {
+                OnBounce(hit.transform.gameObject);
             }
         }
 

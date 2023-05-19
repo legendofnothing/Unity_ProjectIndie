@@ -118,6 +118,7 @@ MonoBehaviour:
   damage: 25
   speed: 9
   thresholdBounces: 5
+  bulletRadius: 0.1
   canBounce: 1
   specialTag: 0
   layersToInteract:
