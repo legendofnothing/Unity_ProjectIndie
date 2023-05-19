@@ -85,7 +85,7 @@ namespace UI.InGame.ItemEffects {
                     .ScreenPointToLocalPointInRectangle(
                         _parentCanvasRectTransform
                         ,Input.mousePosition
-                        ,Player.Player.instance.camera
+                        ,Player.Player.instance.playerCamera
                         ,out var vector );
 
                 aimingZone.anchoredPosition = Vector3.Lerp(
@@ -109,7 +109,7 @@ namespace UI.InGame.ItemEffects {
                             .ScreenPointToLocalPointInRectangle(
                                 _parentCanvasRectTransform
                                 ,pos
-                                ,Player.Player.instance.camera
+                                ,Player.Player.instance.playerCamera
                                 ,out var dest );
                         
                         //60 is rect width too lazy to create a ref
@@ -121,7 +121,7 @@ namespace UI.InGame.ItemEffects {
                                     if (!_canAttack) return;
                                     _canAttack = false;
 
-                                    var origin = Player.Player.instance.camera.ScreenToWorldPoint(pos);
+                                    var origin = Player.Player.instance.playerCamera.ScreenToWorldPoint(pos);
                                     origin.z = 0;
 
                                     effectRect.anchoredPosition = dest;

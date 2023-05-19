@@ -4,6 +4,7 @@ using Scripts.Core;
 using Scripts.Core.EventDispatcher;
 using UI.InGame;
 using UnityEngine;
+using UnityEngine.Serialization;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
 namespace Player {
@@ -32,8 +33,8 @@ namespace Player {
         [Space]
         public PlayerController input;
         public BulletManager bulletManager;
-        [Space] public float offsetToCamera;
-        [HideInInspector] public Camera camera;
+        [FormerlySerializedAs("camera")] [Space]
+        public Camera playerCamera;
         [HideInInspector] public FloatScreenPosition screenFloats;
 
         private Tween _currentCameraShakeTween;
@@ -44,14 +45,12 @@ namespace Player {
          * Res: 1080x1920
         */
         private void Awake() {
-            camera = Camera.main;
-
             var windowAspect = Screen.width / (float)Screen.height;
             const float desiredAspect = 1080f / 1920f;
             var scaleHeight = windowAspect / desiredAspect;
 
             if (scaleHeight < 1.0f) {  
-                camera.orthographicSize /= scaleHeight;
+                playerCamera.orthographicSize /= scaleHeight;
             }
         }
 
@@ -59,10 +58,10 @@ namespace Player {
             SetupStats();
 
             screenFloats = new FloatScreenPosition(
-                camera.ViewportToWorldPoint(Vector3.one).y
-                ,camera.ViewportToWorldPoint(Vector3.one).x
-                ,camera.ViewportToWorldPoint(Vector3.zero).x
-                ,camera.ViewportToWorldPoint(Vector3.zero).y);
+                playerCamera.ViewportToWorldPoint(Vector3.one).y
+                ,playerCamera.ViewportToWorldPoint(Vector3.one).x
+                ,playerCamera.ViewportToWorldPoint(Vector3.zero).x
+                ,playerCamera.ViewportToWorldPoint(Vector3.zero).y);
         }
 
         private void SetupStats() {
@@ -125,8 +124,8 @@ namespace Player {
             
             if (!SaveSystem.UseFancyUI) return;
             
-            _currentCameraShakeTween = camera.DOShakePosition(duration, strength).OnComplete(() => {
-                camera.transform.DOMove(new Vector3(0, 0, camera.transform.position.z), 0.8f)
+            _currentCameraShakeTween = playerCamera.DOShakePosition(duration, strength).OnComplete(() => {
+                playerCamera.transform.DOMove(new Vector3(0, 0, playerCamera.transform.position.z), 0.8f)
                     .OnComplete(() => _currentCameraShakeTween = null);
             });
         }

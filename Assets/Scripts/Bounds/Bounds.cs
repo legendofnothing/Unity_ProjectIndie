@@ -1,34 +1,71 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scripts.Bounds {
-    
+
     /// <summary>
     /// Create bounds that wraps around the Camera
     /// </summary>
-    public class Bounds : MonoBehaviour {
-        [SerializeField] private Camera camera;
-        [SerializeField] private EdgeCollider2D edgeCollider;
-        
-        private void Awake(){
-            GenerateBounds();
+    public class Bounds : MonoBehaviour { 
+        [Serializable]
+        public struct ColliderInfo {
+            public ColliderPosition position;
+            public BoxCollider2D collider;
+        }
+        public enum ColliderPosition {
+            Top,
+            Bottom,
+            Right,
+            Left
         }
 
-        public void GenerateBounds(){
-            //Weird calculation to convert screen pixels into world space height and width, the 0.5f is a must have offset
-            var w = 1 / (camera.WorldToViewportPoint(new Vector3(1, 1, 0)).x - .5f);
-            var h = 1 / (camera.WorldToViewportPoint(new Vector3(1, 1, 0)).y - .5f);
+        public List<ColliderInfo> colliders;
+        public Camera boundCamera;
 
-            var pointA = new Vector2(w / 2, h / 2);     //Top-left corner 
-            var pointB = new Vector2(w / 2, -h / 2);    //Bottom-left corner
-            var pointC = new Vector2(-w / 2, -h / 2);   //Bottom-right corner
-            var pointD = new Vector2(-w / 2, h / 2);    //Top-right corner
+        private void Awake() {
+            var cameraPos = boundCamera.transform.position;
+            var screenSize = boundCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
 
-            var array = new[] {
-                pointC, pointD, pointA, pointB //From Bottom-Right -> Top-Right -> Top-Left -> Top-Right
-            };
+            foreach (var obj in colliders) {
+                //the 1f is little offset so the thing overlaps to make sure no edge cases 
+                obj.collider.transform.localScale = obj.position switch {
+                    ColliderPosition.Top => new Vector3(screenSize.x * 2 + 1f, 1, 1),
+                    ColliderPosition.Bottom => new Vector3(screenSize.x * 2 + 1f, 1, 1),
+                    ColliderPosition.Right => new Vector3(1, screenSize.y * 2 + 1f, 1),
+                    ColliderPosition.Left => new Vector3(1, screenSize.y * 2 + 1f, 1),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
 
-            //Assign edge collider points
-            edgeCollider.points = array;
+                obj.collider.transform.position = obj.position switch {
+                    ColliderPosition.Top => new Vector3(
+                            cameraPos.x
+                        , screenSize.y + obj.collider.transform.localScale.y * 0.5f
+                        , 0),
+                    
+                    ColliderPosition.Bottom => new Vector3(
+                        cameraPos.x
+                        , -screenSize.y - obj.collider.transform.localScale.y * 0.5f
+                        , 0),
+                    
+                    ColliderPosition.Right => new Vector3(
+                        screenSize.x + obj.collider.transform.localScale.x * 0.5f
+                        , cameraPos.y
+                        , 0),
+                    
+                    ColliderPosition.Left => new Vector3(
+                         -screenSize.x - obj.collider.transform.localScale.x * 0.5f
+                        , cameraPos.y
+                        , 0),
+                    
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
         }
     }
 }
+
+
+
+

@@ -93,7 +93,7 @@ namespace Player
         #region TouchEvents
 
         private void RotatePlayer(){
-            var touchPos = Player.instance.camera.ScreenToWorldPoint(Input.mousePosition);
+            var touchPos = Player.instance.playerCamera.ScreenToWorldPoint(Input.mousePosition);
             var position = transform.position;
 
             var angle = Mathf.Atan2(touchPos.y - position.y, touchPos.x - position.x) * Mathf.Rad2Deg - 90f;
