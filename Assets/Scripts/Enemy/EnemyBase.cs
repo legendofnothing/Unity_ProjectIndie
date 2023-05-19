@@ -24,6 +24,7 @@ namespace Enemy {
     public abstract class EnemyBase : MonoBehaviour {
         public float hp = 100; //BaseHp
         public float damage = 10;
+        public EnemySpawnType spawnType;
         
         [Space]
         public int coinAddedOnHit = 50;
@@ -118,10 +119,8 @@ namespace Enemy {
         protected virtual void Move() {
             if (y <= 0) return; 
             var updatedY = y - 1;
-            if (GridManager.tiles[x, updatedY].contains == Contains.Enemy) {
-                hasFinishedTurn = true;
-                return;
-            }
+            
+            if (GridManager.tiles[x, updatedY].contains == Contains.Enemy) Attack();
             _animator.SetBool(EnemyAnim.IsMoving, true);
             UpdatePosition(x, updatedY);
             

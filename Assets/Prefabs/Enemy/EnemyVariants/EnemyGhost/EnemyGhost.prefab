@@ -162,6 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 200
   damage: 10
+  spawnType: 1
   coinAddedOnHit: 50
   coinAddedOnDestroy: 100
   scoreAddedOnHit: 10

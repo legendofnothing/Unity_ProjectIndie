@@ -10,11 +10,12 @@ using EventType = Scripts.Core.EventDispatcher.EventType;
 using Random = System.Random;
 using RandomUnity = UnityEngine.Random;
 
-namespace Managers
-{
-    /// <summary>
-    /// Handles all enemies in the scene 
-    /// </summary>
+namespace Managers {
+    public enum EnemySpawnType {
+        Default,
+        Random,
+    }
+    
     public class EnemyManager : Singleton<EnemyManager> {
         private readonly WeightedList<GlobalDefines.SpawnData> _weightedEnemyList = new(); 
         
@@ -74,63 +75,41 @@ namespace Managers
             StartCoroutine(SwitchPlayerTurn());
         }
         
-        /// <summary>
-        /// Remove Enemy from the scene
-        /// </summary>
-        /// <param name="enemyToRemove"></param>
         private void RemoveEnemy(EnemyBase enemyToRemove) {
             enemies.Remove(enemyToRemove);
         }
         
-        /// <summary>
-        /// Spawn an amount of enemy
-        /// </summary>
-        /// <param name="amount">Amount to spawn</param>
         public void SpawnEnemyRandom(int amount) {
-            //Capping amount 
-            if (amount > _width * _spawnHeight) amount = _width * _spawnHeight;
+            var emptyTiles = _gridManager.GetEmptyTiles().FindAll(tile => tile.contains == Contains.None);
+            if (emptyTiles.Count <= 0) return;
 
-            //Pick a random amount of Tile to spawn in, no duplicates
             var rnd = new Random();
-            var randomTileSpawners
-                = _spawnerTiles.FindAll(tile => tile.contains == Contains.None);
-            if (_spawnerTiles == null) return;
-            
-            randomTileSpawners = _spawnerTiles
-                .OrderBy(_ => rnd.Next())
-                .Take(10)
-                .ToList();
 
-            //Spawn enemy in each picked tiles
-            foreach (var spawner in randomTileSpawners) {
-                var x = spawner.x;
-                var y = spawner.y;
-                var pos = spawner.transform.position;
-
+            for (var i = 0; i < amount; i++) {
                 var randomEnemy = _weightedEnemyList.GetRandomItem().prefab;
-                
-                //Spawn Enemy
+                var enemyBase = randomEnemy.GetComponent<EnemyBase>();
+
+                var randomTile = emptyTiles
+                    .OrderBy(_=>rnd.Next())
+                    .FirstOrDefault(tile => enemyBase.spawnType == EnemySpawnType.Default
+                        ? tile.y == _gridManager.height - 1
+                        : tile.y > 0 || tile.y < _gridManager.height - 2);
+
+                emptyTiles.Remove(randomTile);
+
+                if (randomTile == null) continue;
                 var enemyInst = Instantiate(
                     randomEnemy
-                    , pos
+                    , randomTile.transform.position
                     , Quaternion.identity);
                 
-                enemyInst.transform.SetParent(enemyStore);
-                    
-                var enemyBase = enemyInst.GetComponent<EnemyBase>();
-                
-                //Increase enemy health every turn
+                enemyBase = enemyInst.GetComponent<EnemyBase>();
                 var adjustedEnemyHp = enemyBase.hp * SaveSystem.currentLevelData.TurnNumber;
-                
-                enemyBase.Init(x,y, adjustedEnemyHp);
-                
-                //Add To list
+                enemyBase.Init(randomTile.x, randomTile.y, adjustedEnemyHp);
                 enemies.Add(enemyBase);
-                
-                //Set Tiles Contents 
-                _gridManager.SetTileContainContent(x, y, Contains.Enemy);
+                _gridManager.SetTileContainContent(randomTile.x, randomTile.y, Contains.Enemy);
             }
-            
+
             PickupManager.instance.SpawnPickups();
         }
         
