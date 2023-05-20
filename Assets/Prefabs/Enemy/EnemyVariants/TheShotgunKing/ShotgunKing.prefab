@@ -313,12 +313,15 @@ MonoBehaviour:
   hp: 100
   damage: 10
   spawnType: 1
+  moveType: 1
+  movePriority: 5
   coinAddedOnHit: 50
   coinAddedOnDestroy: 100
   scoreAddedOnHit: 10
   scoreAddedOnDestroy: 20
   x: 0
   y: 0
+  currentDestination: {fileID: 0}
   hpText: {fileID: 4060919256622081429}
   healthBar: {fileID: 6115946034122343061}
   hasFinishedTurn: 0

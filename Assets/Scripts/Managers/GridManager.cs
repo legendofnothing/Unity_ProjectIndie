@@ -20,21 +20,16 @@ namespace Managers {
         [Header("Tile Config")] 
         public Sprite lightTile;
         public Sprite darkTile;
+
+        [Header("Debug Only")] 
+        [ReadOnly] public Tile[,] tiles;
         
-        [Header("Debug Only")]
-        [ReadOnly]
-        public Tile[,] tiles;
-        
-        private void Awake()
-        {
+        private void Awake() {
             tiles = new Tile[width, height];
             GenerateGrid();
         }
 
-        /// <summary>
-        /// Generates Grid and Init Tiles 
-        /// </summary>
-        public void GenerateGrid() {
+        private void GenerateGrid() {
             var currIndex = 0;
 
             for (var h = 0; h < height; h++)
@@ -62,9 +57,6 @@ namespace Managers {
             }
         }
         
-        /// <summary>
-        /// Update Contain Type of a specific Tile and its overrides 
-        /// </summary>
         public void SetTileContainContent(int newX, int newY, Contains newType) {
             tiles[newX, newY].UpdateTile(newType);
         }

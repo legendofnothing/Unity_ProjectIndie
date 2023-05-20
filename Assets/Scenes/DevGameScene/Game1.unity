@@ -5349,6 +5349,10 @@ PrefabInstance:
       propertyPath: boundCamera
       value: 
       objectReference: {fileID: 86832608}
+    - target: {fileID: 8524453288133860664, guid: fb413e549962aac49a7cb1e22bbeaddb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb413e549962aac49a7cb1e22bbeaddb, type: 3}
 --- !u!1001 &9013195812980675104
@@ -5364,7 +5368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353291, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: hp
-      value: 99999
+      value: 900
       objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353291, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: playerCamera

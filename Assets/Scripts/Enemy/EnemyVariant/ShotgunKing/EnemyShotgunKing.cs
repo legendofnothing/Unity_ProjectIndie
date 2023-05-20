@@ -32,12 +32,10 @@ namespace Enemy.EnemyVariant.ShotgunKing {
         
         private WeightedList<ShotgunKingAttackType> _attackWeighted = new();
         private ShotgunKingAttackType _currAttack;
-        private BoxCollider2D _col;
 
         public override void Init(int xCord, int yCord, float currHp) {
             base.Init(xCord, yCord, currHp);
-
-            _col = gameObject.GetComponent<BoxCollider2D>();
+            
             foreach (var attack in attacks) {
                 _attackWeighted.AddElement(attack.attackType, attack.chance);
             }
@@ -63,9 +61,18 @@ namespace Enemy.EnemyVariant.ShotgunKing {
                         if (!condition) return false;
                         return tile.contains == Contains.None;
                     });
-                    
-                    UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
-                    transform.DOMove(tileToMoveTo.transform.position, 2.2f).OnComplete(Attack);
+
+                    if (tileToMoveTo == null) {
+                        _currAttack = y > 0
+                            ? _attackWeighted.GetRandomItem(ShotgunKingAttackType.MeleeShotgunAndKnife)
+                            : ShotgunKingAttackType.MeleeShotgunAndKnife;
+                        Attack();
+                    }
+
+                    else {
+                        UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
+                        transform.DOMove(tileToMoveTo.transform.position, 2.2f).OnComplete(Attack);
+                    }
                     break;
             }
         }
@@ -83,11 +90,10 @@ namespace Enemy.EnemyVariant.ShotgunKing {
             var emptyTiles = GridManager.GetEmptyTiles();
             
             if (emptyTiles.Count <= 0) return;
-            
             var chance = Random.Range(0.0f, 1.01f);
             if (chance > evadeChance) return;
 
-            StartCoroutine(EvadeRoutine());
+            StartCoroutine(Iframe(2.4f));
             var tileToMoveTo = emptyTiles.Find(tile => {
                 if (tile.y <= 2) return false;
                 if (Vector2.Distance(transform.position, tile.transform.position) <= 1f) return false;
@@ -99,12 +105,13 @@ namespace Enemy.EnemyVariant.ShotgunKing {
             transform.DOMove(tileToMoveTo.transform.position, 0.1f);
         }
 
-        private IEnumerator EvadeRoutine() {
+        protected override IEnumerator Iframe(float delay) {
             _col.enabled = false;
             _canTakeDamage = false;
-            yield return new WaitForSeconds(2.4f);
+            yield return new WaitForSeconds(delay);
             _col.enabled = true;
             _canTakeDamage = true;
         }
+        
     }
 }

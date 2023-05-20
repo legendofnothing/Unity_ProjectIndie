@@ -162,12 +162,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   damage: 10
+  spawnType: 0
+  moveType: 0
+  movePriority: 1
   coinAddedOnHit: 100
   coinAddedOnDestroy: 200
   scoreAddedOnHit: 10
   scoreAddedOnDestroy: 20
   x: 0
   y: 0
+  currentDestination: {fileID: 0}
   hpText: {fileID: 1586827307648932575}
   healthBar: {fileID: 8844778334578490847}
   hasFinishedTurn: 0

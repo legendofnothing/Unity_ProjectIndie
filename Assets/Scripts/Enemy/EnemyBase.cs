@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Globalization;
 using DG.Tweening;
 using Managers;
@@ -24,7 +25,9 @@ namespace Enemy {
     public abstract class EnemyBase : MonoBehaviour {
         public float hp = 100; //BaseHp
         public float damage = 10;
+        [Space]
         public EnemySpawnType spawnType;
+        public int movePriority;
         
         [Space]
         public int coinAddedOnHit = 50;
@@ -37,32 +40,29 @@ namespace Enemy {
         //Enemy Position on the grid
         [HideInInspector] public int x;
         [HideInInspector] public int y;
+        [HideInInspector] public Tile currentDestination;
 
         [Header("UI Related")] 
         public TextMeshProUGUI hpText;
         public Slider healthBar;
 
         private float _hp;
-        private float _currentHp;
+        protected float currentHp;
         [HideInInspector] public bool hasFinishedTurn;
         [HideInInspector] public bool isEnemyDying;
+        protected BoxCollider2D _col;
         protected GridManager GridManager;
         protected Animator _animator;
         protected bool _canTakeDamage = true;
-
-        /// <summary>
-        /// Init function,call everytime a new enemy is instantiated 
-        /// </summary>
-        /// <param name="xCord">X Position on the Grid</param>
-        /// <param name="yCord">Y Position on the Grid</param>
-        /// <param name="currHp">Set Enemy HP w/ any modifiers</param>
+        
         public virtual void Init(int xCord, int yCord, float currHp) {
             x = xCord;
             y = yCord;
-            _currentHp = currHp;
+            currentHp = currHp;
             _hp = currHp;
             GridManager = GridManager.instance;
             _animator = gameObject.GetComponent<Animator>();
+            _col = gameObject.GetComponent<BoxCollider2D>();
 
             hpText.text = currHp.ToString("0.0");
             healthBar.value = 1;
@@ -74,22 +74,15 @@ namespace Enemy {
         }
 
         public virtual void TakeDamage(float amount) {
-            if (isEnemyDying || !_canTakeDamage) return;
-             
-            _currentHp -= amount;
-            _currentHp = (float) Math.Round(_currentHp, 1);
-            if (_currentHp > 0f) {
-                Player.Player.instance.AddCoin(coinAddedOnHit);
-                Player.Player.instance.AddScore(scoreAddedOnHit);
+            if (!_canTakeDamage) return;
+            StartCoroutine(Iframe(0.1f));
 
-                hpText.text = _currentHp.ToString("0.0");
-                healthBar.value = _currentHp / _hp;
-                
-                _animator.SetTrigger(EnemyAnim.Hit);
-            }
-
-            else {
+            if (currentHp - amount < 0) {
+                currentHp = -1;
+                _canTakeDamage = false;
+                _col.enabled = false;
                 isEnemyDying = true;
+                
                 EventDispatcher.instance.SendMessage(EventType.OnEnemyDying, this);
                 hpText.text = "0.0";
                 healthBar.value = 0;
@@ -97,6 +90,27 @@ namespace Enemy {
                 Player.Player.instance.AddCoin(coinAddedOnDestroy);
                 Player.Player.instance.AddScore(scoreAddedOnDestroy);
                 
+                _animator.SetTrigger(EnemyAnim.Die);
+                
+                //Desperate check
+                StartCoroutine(DesperateCheckIfEnemyDie());
+            }
+
+            else {
+                currentHp -= amount;
+                Player.Player.instance.AddCoin(coinAddedOnHit);
+                Player.Player.instance.AddScore(scoreAddedOnHit);
+
+                hpText.text = currentHp.ToString("0.0");
+                healthBar.value = currentHp / _hp;
+                
+                _animator.SetTrigger(EnemyAnim.Hit);
+            }
+        }
+
+        private IEnumerator DesperateCheckIfEnemyDie() {
+            yield return new WaitForSeconds(1.4f);
+            if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Idle") {
                 _animator.SetTrigger(EnemyAnim.Die);
             }
         }
@@ -121,16 +135,18 @@ namespace Enemy {
             var updatedY = y - 1;
             
             if (GridManager.tiles[x, updatedY].contains == Contains.Enemy) Attack();
-            _animator.SetBool(EnemyAnim.IsMoving, true);
-            UpdatePosition(x, updatedY);
+            else {
+                UpdatePosition(x, updatedY);
+                _animator.SetBool(EnemyAnim.IsMoving, true);
             
-            var newPos = GridManager.tiles[x, updatedY].transform.position;
-            var randomDuration = Random.Range(0.7f, 1f);
+                var newPos = GridManager.tiles[x, updatedY].transform.position;
+                var randomDuration = Random.Range(0.7f, 1f);
             
-            transform.DOMove(newPos, randomDuration).OnComplete(() => {
-                _animator.SetBool(EnemyAnim.IsMoving, false);
-                Attack();
-            });
+                transform.DOMove(newPos, randomDuration).OnComplete(() => {
+                    _animator.SetBool(EnemyAnim.IsMoving, false);
+                    Attack();
+                });
+            }
         }
         
         protected virtual void Attack() {
@@ -148,6 +164,12 @@ namespace Enemy {
             GridManager.ResetTileContainContent(x, y);
             x = newX;
             y = newY;
+        }
+
+        protected virtual IEnumerator Iframe(float delay) {
+            _canTakeDamage = false;
+            yield return new WaitForSeconds(delay);
+            _canTakeDamage = true;
         }
     }
 }

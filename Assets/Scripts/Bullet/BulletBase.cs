@@ -69,7 +69,20 @@ namespace Scripts.Bullet {
                 ? _hits[0]
                 : _hits.OrderBy(hit => (hit.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
             
+            //check direction
+            var checkDir = Physics2D.BoxCast(
+                transform.position
+                , new Vector2(bulletRadius / 2f, bulletRadius / 2f)
+                , 0
+                , Dir);
+            
+            if (checkDir.collider == null) return;
+            
             if (canBounce) {
+                if (_hits[0].transform.gameObject.layer != LayerMask.NameToLayer("Bounds")) {
+                    if (Math.Abs(Vector3.Dot(Dir, obj.point.normalized)) < 0.5f) return;
+                }
+                
                 var reflected = Vector3.Reflect(Dir, obj.normal);
                 var angleFromSurface = Vector3.Angle(reflected, obj.normal);
                 if (angleFromSurface <= 10f) {
@@ -78,8 +91,12 @@ namespace Scripts.Bullet {
                     reflected = new Vector3((float)Math.Cos(reflectedAngle), (float) Math.Sin(reflectedAngle));
                 }
 
-                Dir = reflected;
-                transform.rotation = Quaternion.FromToRotation(Vector3.up, reflected);
+                Dir = reflected.normalized;
+                transform.rotation = Quaternion.FromToRotation(Vector3.up, reflected.normalized);
+                
+                foreach (var hit in _hits) {
+                    OnBounce(hit.transform.gameObject);
+                }
 
                 _bouncedTimes++;
                 if (_bouncedTimes >= thresholdBounces) {
@@ -88,8 +105,10 @@ namespace Scripts.Bullet {
 
             }
 
-            foreach (var hit in _hits) {
-                OnBounce(hit.transform.gameObject);
+            else {
+                foreach (var hit in _hits) {
+                    OnBounce(hit.transform.gameObject);
+                }
             }
         }
 

@@ -32,7 +32,7 @@ namespace Enemy.EnemyVariant {
 
         public override void TakeDamage(float amount) {
             base.TakeDamage(amount);
-            if (!_isInvisible) return;
+            if (!_isInvisible && currentHp - amount < 0) return;
             Change();
         }
         

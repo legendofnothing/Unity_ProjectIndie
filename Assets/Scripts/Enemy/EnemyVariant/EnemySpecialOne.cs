@@ -28,6 +28,7 @@ namespace Enemy.EnemyVariant {
     public class EnemySpecialOne : EnemyBase {
         [Header("Enemy Config")] 
         public List<EnemySpecialOneMoves> moves = new();
+        public float deflectChance = 0.2f;
 
         private WeightedList<EnemySpecialOneMoves> _weightedMove = new();
         private SpecialOneMoves _currentMove; 
@@ -86,13 +87,12 @@ namespace Enemy.EnemyVariant {
         }
 
         public override void TakeDamage(float amount) {
-            var chance = Random.Range(0.0f, 1.0f);
-            if (chance >= 0.4f) {
-                base.TakeDamage(amount);
+            if (Random.value <= deflectChance && currentHp - amount > 0) {
+                _animator.SetTrigger(EnemySpecialOneAnim.Deflect);
             }
             
             else {
-                _animator.SetTrigger(EnemySpecialOneAnim.Deflect);
+                base.TakeDamage(amount);
             }
         }
 

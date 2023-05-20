@@ -46,7 +46,7 @@ namespace Player
             _canInput = true;
         }
 
-        private void FixedUpdate() {
+        private void Update() {
             if (_canInput) HandleInput();
 
             switch (_touchState) {
@@ -101,7 +101,7 @@ namespace Player
             var angleRotateTo = 
                 Quaternion.Euler(new Vector3(0, 0, ClampAngle(angle, -maxAngle, maxAngle)));
             
-            transform.rotation = Quaternion.Slerp(transform.rotation, angleRotateTo, 0.2f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, angleRotateTo, 10f * Time.fixedDeltaTime);
         }
         
         private void Shoot(){

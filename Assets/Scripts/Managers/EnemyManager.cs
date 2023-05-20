@@ -6,6 +6,7 @@ using Scripts.Core;
 using Scripts.Core.Collections;
 using Scripts.Core.EventDispatcher;
 using UnityEngine;
+using UnityEngine.Serialization;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 using Random = System.Random;
 using RandomUnity = UnityEngine.Random;
@@ -16,36 +17,17 @@ namespace Managers {
         Random,
     }
     
+    
     public class EnemyManager : Singleton<EnemyManager> {
-        private readonly WeightedList<GlobalDefines.SpawnData> _weightedEnemyList = new(); 
-        
-        //Empty GameObject to store all enemies in the scene 
-        public Transform enemyStore;
-        
-       [HideInInspector] public List<EnemyBase> enemies;
-        private List<Tile> _spawnerTiles;
+        private readonly WeightedList<GlobalDefines.SpawnData> _weightedEnemyList = new();
+        [HideInInspector] public List<EnemyBase> enemies = new ();
         private GridManager _gridManager;
+        [HideInInspector] public List<Tile> emptyTilesInst = new ();
 
-        //Private grid width, height
-        private int _width;
-        private int _height;
-        
-        private int _spawnHeight; //Number to spawn at like y:7 
-        
-        private void Awake()
-        {
-            enemies = new List<EnemyBase>();
-            _spawnerTiles = new List<Tile>();
+        private void Awake() {
             _gridManager = gameObject.GetComponent<GridManager>();
-
-            _width = _gridManager.width;
-            _height = _gridManager.height;
-            _spawnHeight = 1;
-
-            InitSpawnerGrids();
-
-            foreach (var enemy in LevelManager.instance.enemySpawningData.enemyData)
-            {
+            
+            foreach (var enemy in LevelManager.instance.enemySpawningData.enemyData) {
                 _weightedEnemyList.AddElement(enemy, enemy.chance);
             }
         }
@@ -56,21 +38,9 @@ namespace Managers {
             EventDispatcher.instance.SubscribeListener(EventType.EnemyKilled, param=>RemoveEnemy((EnemyBase) param));
             EventDispatcher.instance.SubscribeListener(EventType.SpawnEnemy, param => SpawnEnemyRandom((int) param));
         }
-
-        //Assign the tiles that will be spawning enemy 
-        private void InitSpawnerGrids() {
-            for (var h = 0; h < _height; h++) {
-                for (var w = 0; w < _width; w++) {
-                    //if (h < _height - _spawnHeight) continue;
-                    _spawnerTiles.Add(_gridManager.tiles[w, h]);
-                }
-            }
-        }
         
+
         #region Dispatcher Events
-        /// <summary>
-        /// Execute EnemyTurn in EnemyBase foreach enemies in the scene 
-        /// </summary>
         private void EnemyTurn() {
             StartCoroutine(SwitchPlayerTurn());
         }
@@ -79,10 +49,44 @@ namespace Managers {
             enemies.Remove(enemyToRemove);
         }
         
-        public void SpawnEnemyRandom(int amount) {
-            var emptyTiles = _gridManager.GetEmptyTiles().FindAll(tile => tile.contains == Contains.None);
-            if (emptyTiles.Count <= 0) return;
+        private IEnumerator SwitchPlayerTurn() {
+            yield return new WaitUntil(() => {
+                return enemies.FindAll(enemy => enemy.isEnemyDying).Count <= 0;
+            });
+            
+            PickupManager.instance.DestroyPickup();
+            yield return new WaitForSeconds(0.4f);
+     
+            emptyTilesInst = _gridManager.GetEmptyTiles();
+            var enemySorted = enemies.OrderByDescending(enemy => enemy.movePriority);
+            foreach (var enemy in enemySorted) {
+                enemy.OnEnemyTurn();
+            }
+            
+            emptyTilesInst.Clear();
+            yield return new WaitUntil(() => {
+                return enemies.FindAll(enemy => enemy.hasFinishedTurn).Count >= enemies.Count;
+            });
+        
+            yield return new WaitForSeconds(0.4f);
+            
+            var randomNum = RandomUnity.Range(10, 20);
+            SpawnEnemyRandom(randomNum);
 
+            yield return new WaitForSeconds(0.8f);
+            EventDispatcher.instance.SendMessage(EventType.SwitchToShop);
+        }
+        #endregion
+
+        #region Helper Functions
+        public void SpawnEnemyRandom(int amount) {
+            var emptyTiles = _gridManager.GetEmptyTiles();
+            if (emptyTiles.Count <= 0 && enemies.Count >= 30) return;
+
+            if (enemies.Count + amount >= 30) {
+                amount = 30 - enemies.Count;
+            }
+            
             var rnd = new Random();
 
             for (var i = 0; i < amount; i++) {
@@ -93,7 +97,7 @@ namespace Managers {
                     .OrderBy(_=>rnd.Next())
                     .FirstOrDefault(tile => enemyBase.spawnType == EnemySpawnType.Default
                         ? tile.y == _gridManager.height - 1
-                        : tile.y > 0 || tile.y < _gridManager.height - 2);
+                        : tile.y > 0 && tile.y < _gridManager.height - 2);
 
                 emptyTiles.Remove(randomTile);
 
@@ -113,27 +117,7 @@ namespace Managers {
             PickupManager.instance.SpawnPickups();
         }
         
-        private IEnumerator SwitchPlayerTurn() {
-            yield return new WaitUntil(() => {
-                return enemies.FindAll(enemy => enemy.isEnemyDying).Count <= 0;
-            });
-            
-            PickupManager.instance.DestroyPickup();
-            
-            foreach (var enemy in enemies) { enemy.OnEnemyTurn(); }
-            
-            yield return new WaitUntil(() => {
-                return enemies.FindAll(enemy => enemy.hasFinishedTurn).Count >= enemies.Count;
-            });
-        
-            yield return new WaitForSeconds(0.4f);
-            
-            var randomNum = RandomUnity.Range(1, _width - 2);
-            SpawnEnemyRandom(randomNum);
-
-            yield return new WaitForSeconds(0.8f);
-            EventDispatcher.instance.SendMessage(EventType.SwitchToShop);
-        }
         #endregion
+        
     }
 }
