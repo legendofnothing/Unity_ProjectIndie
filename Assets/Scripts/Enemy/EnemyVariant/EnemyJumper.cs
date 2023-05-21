@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Linq;
 using DG.Tweening;
 using Managers;
 using Random = UnityEngine.Random;
@@ -15,19 +16,28 @@ namespace Enemy.EnemyVariant {
                     break;
                 
                 default:
-                    var tileToMoveTo = emptyTiles[new SystemRandom().Next(emptyTiles.Count)];
-                    var randomDuration = Random.Range(0.7f, 1f);
-                    UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
+                    var rnd = new SystemRandom();
+                    var tileToMoveTo = 
+                        emptyTiles
+                            .OrderBy(_=>rnd.Next())
+                            .FirstOrDefault(tile => tile.y > 0 && tile.y < GridManager.height - 1 && tile.contains == Contains.None);
                     
-                    transform.DOMove(tileToMoveTo.transform.position, randomDuration).OnStart(() => { 
-                        _animator.speed = randomDuration / _animator.GetCurrentAnimatorClipInfo(0).Length;
-                        _animator.SetBool(EnemyAnim.IsMoving, true);
-                    })
-                    .OnComplete(() => {
-                        _animator.speed = 1;
-                        _animator.SetBool(EnemyAnim.IsMoving, false);
-                        Attack();
-                    });
+                    if (tileToMoveTo == null) Attack();
+                    else {
+                        var randomDuration = Random.Range(0.7f, 1f);
+                        UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
+                    
+                        transform.DOMove(tileToMoveTo.transform.position, randomDuration)
+                            .OnStart(() => { 
+                                _animator.speed = randomDuration / _animator.GetCurrentAnimatorClipInfo(0).Length;
+                                _animator.SetBool(EnemyAnim.IsMoving, true);
+                            })
+                            .OnComplete(() => {
+                                _animator.speed = 1;
+                                _animator.SetBool(EnemyAnim.IsMoving, false);
+                                Attack();
+                            });   
+                    }
                     break;
             }
         }

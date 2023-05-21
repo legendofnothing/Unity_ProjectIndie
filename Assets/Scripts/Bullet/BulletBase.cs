@@ -19,8 +19,7 @@ namespace Scripts.Bullet {
         public float damage = 100f;
         public float speed = 3f;
         public int thresholdBounces = 12;
-        public float bulletRadius = 0.4f;
-
+        
         [Header("Settings")] 
         public bool canBounce = true;
         public BulletSpecialTag specialTag;
@@ -66,15 +65,7 @@ namespace Scripts.Bullet {
                     layersToInteract);
 
             if (hit.collider == null) return;
-            
-            var objs = Physics2D.CircleCastAll(
-                transform.position,
-                bulletRadius,
-                Vector2.zero,
-                0,
-                layersToInteract
-            );
-            
+
             if (canBounce) {
                 var reflected = Vector3.Reflect(Dir, hit.normal);
                 var angleFromSurface = Vector3.Angle(reflected, hit.normal);
@@ -92,10 +83,7 @@ namespace Scripts.Bullet {
                     OnBulletDestroy();
                 }
             }
-
-            foreach (var obj in objs) {
-                OnBounce(obj.transform.gameObject);
-            }
+            OnBounce(hit.transform.gameObject);
         }
 
         protected virtual void OnBounce(GameObject hitObject) {

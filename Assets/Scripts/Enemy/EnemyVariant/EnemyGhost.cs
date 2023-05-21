@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using DG.Tweening;
 using Managers;
 using UnityEngine;
@@ -38,32 +39,40 @@ namespace Enemy.EnemyVariant {
         
         private IEnumerator DisappearCoroutine(float duration) {
             var emptyTiles = GridManager.GetEmptyTiles();
-            
-            switch (emptyTiles.Count <= 0) {
-                case true:
-                    Attack();
-                    break;
-                
-                default:
-                    _animator.SetTrigger(EnemyGhostAnim.GhostDisappear);
-                    yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
-                    _isInvisible = true;
-                    var tileToMoveTo = emptyTiles[new SystemRandom().Next(emptyTiles.Count)];
-                    UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
 
-                    transform   
-                        .DOMove(tileToMoveTo.transform.position, duration)
-                        .OnStart(() => {
-                            _animator.SetTrigger(EnemyGhostAnim.GhostMove);
-                            _animator.speed = duration / _animator.GetCurrentAnimatorClipInfo(0).Length;
-                            _animator.SetBool(EnemyGhostAnim.IsGhost, true);
-                        })
-                        .OnComplete(() => {
-                            _animator.speed = 1;
-                            hasFinishedTurn = true;
-                        });
-                    break;
+            if (emptyTiles.Count < 0) {
+                hasFinishedTurn = true;
+                yield break;
             }
+            
+            var rnd = new SystemRandom();
+            var tileToMoveTo = 
+                emptyTiles
+                    .OrderBy(_=>rnd.Next())
+                    .FirstOrDefault(tile => tile.y > 0 && tile.y < GridManager.height - 1 && tile.contains == Contains.None);
+
+            if (tileToMoveTo == null) {
+                hasFinishedTurn = true;
+                yield break;
+            }
+            
+            _animator.SetTrigger(EnemyGhostAnim.GhostDisappear);
+            yield return new WaitUntil(() => _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
+            _isInvisible = true;
+
+            UpdatePosition(tileToMoveTo.x, tileToMoveTo.y);
+
+            transform   
+                .DOMove(tileToMoveTo.transform.position, duration)
+                .OnStart(() => {
+                    _animator.SetTrigger(EnemyGhostAnim.GhostMove);
+                    _animator.speed = duration / _animator.GetCurrentAnimatorClipInfo(0).Length;
+                    _animator.SetBool(EnemyGhostAnim.IsGhost, true);
+                })
+                .OnComplete(() => {
+                    _animator.speed = 1;
+                    hasFinishedTurn = true;
+                });
         }
         
         protected override void Attack() {
