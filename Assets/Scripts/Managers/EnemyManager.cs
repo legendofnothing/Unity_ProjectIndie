@@ -70,7 +70,7 @@ namespace Managers {
         
             yield return new WaitForSeconds(0.4f);
             
-            var randomNum = RandomUnity.Range(5, 7);
+            var randomNum = RandomUnity.Range(10, 30);
             SpawnEnemyRandom(randomNum);
 
             yield return new WaitForSeconds(0.8f);

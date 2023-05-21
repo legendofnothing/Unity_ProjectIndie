@@ -65,7 +65,7 @@ namespace Scripts.Bullet {
                     (transform.position - prevPosition).magnitude,
                     layersToInteract);
 
-            if (!hit) return;
+            if (hit.collider == null) return;
             
             var objs = Physics2D.CircleCastAll(
                 transform.position,
@@ -101,6 +101,7 @@ namespace Scripts.Bullet {
         protected virtual void OnBounce(GameObject hitObject) {
             if (CheckLayerMask.IsInLayerMask(hitObject, enemyLayer)) {
                 var enemyComp = hitObject.GetComponent<EnemyBase>();
+                if (enemyComp.isEnemyDying) return;
                 enemyComp.TakeDamage(damage);
             }
             

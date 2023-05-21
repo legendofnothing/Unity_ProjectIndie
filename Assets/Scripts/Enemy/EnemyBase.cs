@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Globalization;
+using System.Linq;
 using DG.Tweening;
 using Managers;
 using TMPro;
@@ -78,10 +79,10 @@ namespace Enemy {
             StartCoroutine(Iframe(0.1f));
 
             if (currentHp - amount < 0) {
+                isEnemyDying = true;
                 currentHp = -1;
                 _canTakeDamage = false;
                 _col.enabled = false;
-                isEnemyDying = true;
                 
                 EventDispatcher.instance.SendMessage(EventType.OnEnemyDying, this);
                 hpText.text = "0.0";
@@ -109,8 +110,9 @@ namespace Enemy {
         }
 
         private IEnumerator DesperateCheckIfEnemyDie() {
-            yield return new WaitForSeconds(1.4f);
-            if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Idle") {
+            var clip = _animator.runtimeAnimatorController.animationClips.FirstOrDefault(c => c.name == EnemyAnim.Die);
+            if (clip != null) yield return new WaitForSeconds(clip.length + 0.8f);
+            if (gameObject.activeInHierarchy) {
                 _animator.SetTrigger(EnemyAnim.Die);
             }
         }
