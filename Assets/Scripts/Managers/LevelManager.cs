@@ -66,7 +66,7 @@ namespace Managers
             switch (_currentTurn)
             {
                 case Turn.Start:
-                    _enemyManager.SpawnEnemyRandom(10);
+                    _enemyManager.SpawnEnemyRandom(1);
                     EventDispatcher.instance.SendMessage(EventType.OnTurnNumberChange, SaveSystem.currentLevelData.TurnNumber);
                     //UpdateTurn(Turn.Player);
                     break;

@@ -163,7 +163,6 @@ MonoBehaviour:
   hp: 200
   damage: 10
   spawnType: 1
-  moveType: 1
   movePriority: 2
   coinAddedOnHit: 50
   coinAddedOnDestroy: 100

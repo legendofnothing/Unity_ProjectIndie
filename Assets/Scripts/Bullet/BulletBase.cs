@@ -34,6 +34,7 @@ namespace Scripts.Bullet {
 
         private int _bouncedTimes;
         private bool _hasDestroyed;
+        private bool _canRegisterHit;
 
         protected Vector3 Dir;
         protected Player.Player Player;
@@ -66,6 +67,7 @@ namespace Scripts.Bullet {
                     layersToInteract);
 
             if (!hit) return;
+            _canRegisterHit = false;
             
             var objs = Physics2D.CircleCastAll(
                 transform.position,
@@ -95,6 +97,10 @@ namespace Scripts.Bullet {
 
             foreach (var obj in objs) {
                 OnBounce(obj.transform.gameObject);
+            }
+
+            if (!hit) {
+                _canRegisterHit = true;
             }
         }
 
