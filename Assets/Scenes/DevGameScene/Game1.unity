@@ -2236,6 +2236,7 @@ GameObject:
   - component: {fileID: 964306945}
   - component: {fileID: 964306944}
   - component: {fileID: 964306947}
+  - component: {fileID: 964306948}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -2332,6 +2333,18 @@ MonoBehaviour:
   scoreDisplay: {fileID: 437905882}
   coinDisplay: {fileID: 2113878327}
   turnDisplay: {fileID: 326766978}
+--- !u!225 &964306948
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964306942}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &976054828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5367,10 +5380,6 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353291, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: hp
-      value: 900
-      objectReference: {fileID: 0}
-    - target: {fileID: 9013195813678353291, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 86832608}
@@ -5418,5 +5427,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[1]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[2]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[3]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[4]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[5]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: cbd6cf73894957b4db23e521b4f99f3f, type: 3}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[6]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: abbfce9777c9acb498060a0ec2356b0a, type: 3}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[7]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: abbfce9777c9acb498060a0ec2356b0a, type: 3}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[8]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: cf88e64f9d3b0c64882928d054b3c838, type: 3}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[9]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: c486c55e63c83b5479a1cef06d41bc22, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d9508166727000478eda80f659dca29, type: 3}

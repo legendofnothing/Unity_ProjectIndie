@@ -34,7 +34,6 @@ namespace Scripts.Bullet {
 
         private int _bouncedTimes;
         private bool _hasDestroyed;
-        private RaycastHit2D[] _hits;
 
         protected Vector3 Dir;
         protected Player.Player Player;
@@ -55,36 +54,30 @@ namespace Scripts.Bullet {
 
         protected virtual void FixedUpdate() {
             if (!CanMove) return;
+            
+            var prevPosition = transform.position;
             transform.position += Dir * (speed * Time.fixedDeltaTime);
-            _hits = Physics2D.CircleCastAll(
+            
+            var hit
+                = Physics2D.Raycast(
+                    transform.position,
+                    (transform.position - prevPosition).normalized,
+                    (transform.position - prevPosition).magnitude,
+                    layersToInteract);
+
+            if (!hit) return;
+            
+            var objs = Physics2D.CircleCastAll(
                 transform.position,
                 bulletRadius,
                 Vector2.zero,
                 0,
                 layersToInteract
             );
-
-            if (_hits.Length <= 0) return;
-            var obj = _hits.Length == 1
-                ? _hits[0]
-                : _hits.OrderBy(hit => (hit.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
-            
-            //check direction
-            var checkDir = Physics2D.BoxCast(
-                transform.position
-                , new Vector2(bulletRadius / 2f, bulletRadius / 2f)
-                , 0
-                , Dir);
-            
-            if (checkDir.collider == null) return;
             
             if (canBounce) {
-                if (_hits[0].transform.gameObject.layer != LayerMask.NameToLayer("Bounds")) {
-                    if (Math.Abs(Vector3.Dot(Dir, obj.point.normalized)) < 0.5f) return;
-                }
-                
-                var reflected = Vector3.Reflect(Dir, obj.normal);
-                var angleFromSurface = Vector3.Angle(reflected, obj.normal);
+                var reflected = Vector3.Reflect(Dir, hit.normal);
+                var angleFromSurface = Vector3.Angle(reflected, hit.normal);
                 if (angleFromSurface <= 10f) {
                     var reflectedAngle = Mathf.Atan2( reflected.y , reflected.x );
                     reflectedAngle += Random.Range(-10.0f, 15.0f) * Mathf.Deg2Rad;
@@ -93,22 +86,15 @@ namespace Scripts.Bullet {
 
                 Dir = reflected.normalized;
                 transform.rotation = Quaternion.FromToRotation(Vector3.up, reflected.normalized);
-                
-                foreach (var hit in _hits) {
-                    OnBounce(hit.transform.gameObject);
-                }
 
                 _bouncedTimes++;
                 if (_bouncedTimes >= thresholdBounces) {
                     OnBulletDestroy();
                 }
-
             }
 
-            else {
-                foreach (var hit in _hits) {
-                    OnBounce(hit.transform.gameObject);
-                }
+            foreach (var obj in objs) {
+                OnBounce(obj.transform.gameObject);
             }
         }
 
