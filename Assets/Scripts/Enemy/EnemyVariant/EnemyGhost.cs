@@ -17,11 +17,6 @@ namespace Enemy.EnemyVariant {
         private bool _isInvisible; 
 
         protected override void Move() {
-            if (currentHp <= 0) {
-                _animator.SetTrigger(EnemyAnim.Die);
-                return;
-            }
-            
             var randomDuration = Random.Range(0.7f, 1f);
             
             if (!_isInvisible) {
@@ -37,9 +32,8 @@ namespace Enemy.EnemyVariant {
 
         public override void TakeDamage(float amount) {
             base.TakeDamage(amount);
-            if (!_isInvisible) return;
-            _isInvisible = false;
-            _animator.SetBool(EnemyGhostAnim.IsGhost, false);
+            if (!_isInvisible && currentHp - amount < 0) return;
+            Change();
         }
         
         private IEnumerator DisappearCoroutine(float duration) {

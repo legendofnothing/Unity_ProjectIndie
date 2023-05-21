@@ -118,7 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 100
   speed: 8
-  thresholdBounces: 50
+  thresholdBounces: 25
   bulletRadius: 0.5
   canBounce: 1
   specialTag: 0

@@ -74,29 +74,44 @@ namespace Enemy {
         }
 
         public virtual void TakeDamage(float amount) {
-            if (currentHp <= 0) return;
-            currentHp -= amount;
-            currentHp = Mathf.Ceil(currentHp);
+            if (!_canTakeDamage) return;
+            StartCoroutine(Iframe(0.1f));
 
-            if (currentHp > 0 && _canTakeDamage) {
+            if (currentHp - amount < 0) {
+                currentHp = -1;
+                _canTakeDamage = false;
+                _col.enabled = false;
+                isEnemyDying = true;
+                
+                EventDispatcher.instance.SendMessage(EventType.OnEnemyDying, this);
+                hpText.text = "0.0";
+                healthBar.value = 0;
+                
+                Player.Player.instance.AddCoin(coinAddedOnDestroy);
+                Player.Player.instance.AddScore(scoreAddedOnDestroy);
+                
+                _animator.SetTrigger(EnemyAnim.Die);
+                
+                //Desperate check
+                StartCoroutine(DesperateCheckIfEnemyDie());
+            }
+
+            else {
+                currentHp -= amount;
                 Player.Player.instance.AddCoin(coinAddedOnHit);
                 Player.Player.instance.AddScore(scoreAddedOnHit);
 
                 hpText.text = currentHp.ToString("0.0");
-                healthBar.value = currentHp / hp;
+                healthBar.value = currentHp / _hp;
+                
                 _animator.SetTrigger(EnemyAnim.Hit);
             }
+        }
 
-            else {
-                _canTakeDamage = false;
-                hpText.text = "-1.0";
-                healthBar.value = 0;
+        private IEnumerator DesperateCheckIfEnemyDie() {
+            yield return new WaitForSeconds(1.4f);
+            if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Idle") {
                 _animator.SetTrigger(EnemyAnim.Die);
-                
-                EventDispatcher.instance.SendMessage(EventType.OnEnemyDying, this);
-                
-                Player.Player.instance.AddCoin(coinAddedOnDestroy);
-                Player.Player.instance.AddScore(scoreAddedOnDestroy);
             }
         }
 

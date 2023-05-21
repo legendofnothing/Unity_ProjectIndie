@@ -252,7 +252,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5310,10 +5310,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 930389340642575895, guid: fb413e549962aac49a7cb1e22bbeaddb, type: 3}
-      propertyPath: height
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 5081683451358816934, guid: fb413e549962aac49a7cb1e22bbeaddb, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -5324,7 +5320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5081683451358816934, guid: fb413e549962aac49a7cb1e22bbeaddb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5081683451358816934, guid: fb413e549962aac49a7cb1e22bbeaddb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5366,6 +5362,10 @@ PrefabInstance:
       propertyPath: boundCamera
       value: 
       objectReference: {fileID: 86832608}
+    - target: {fileID: 8524453288133860664, guid: fb413e549962aac49a7cb1e22bbeaddb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb413e549962aac49a7cb1e22bbeaddb, type: 3}
 --- !u!1001 &9013195812980675104
@@ -5429,75 +5429,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: bulletList.Array.size
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[1]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[2]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[3]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
     - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: bulletList.Array.data[4]
       value: 
-      objectReference: {fileID: 811179696128422734, guid: cbd6cf73894957b4db23e521b4f99f3f, type: 3}
+      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
     - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: bulletList.Array.data[5]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: cbd6cf73894957b4db23e521b4f99f3f, type: 3}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[6]
       value: 
       objectReference: {fileID: 811179696128422734, guid: abbfce9777c9acb498060a0ec2356b0a, type: 3}
     - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: bulletList.Array.data[7]
       value: 
-      objectReference: {fileID: 811179696128422734, guid: cf88e64f9d3b0c64882928d054b3c838, type: 3}
+      objectReference: {fileID: 811179696128422734, guid: abbfce9777c9acb498060a0ec2356b0a, type: 3}
     - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: bulletList.Array.data[8]
       value: 
-      objectReference: {fileID: 811179696128422734, guid: c486c55e63c83b5479a1cef06d41bc22, type: 3}
+      objectReference: {fileID: 811179696128422734, guid: cf88e64f9d3b0c64882928d054b3c838, type: 3}
     - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: bulletList.Array.data[9]
       value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
-    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: bulletList.Array.data[10]
-      value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
-    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: bulletList.Array.data[11]
-      value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
-    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: bulletList.Array.data[12]
-      value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
-    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: bulletList.Array.data[13]
-      value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
-    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: bulletList.Array.data[14]
-      value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
-    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: bulletList.Array.data[15]
-      value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
-    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: bulletList.Array.data[16]
-      value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
-    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: bulletList.Array.data[17]
-      value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
-    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: bulletList.Array.data[18]
-      value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
-    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: bulletList.Array.data[19]
-      value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
-    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: bulletList.Array.data[20]
-      value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
-    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: bulletList.Array.data[21]
-      value: 
-      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
+      objectReference: {fileID: 811179696128422734, guid: c486c55e63c83b5479a1cef06d41bc22, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d9508166727000478eda80f659dca29, type: 3}
