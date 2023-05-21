@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Scripts.Core;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Managers {
     public class GridManager : Singleton<GridManager> {
@@ -12,7 +13,7 @@ namespace Managers {
         public int width;
         public int height;
         public GameObject gridPrefab;
-        public float gridOffset;
+        [FormerlySerializedAs("gridOffset")] public float gridScale;
 
         [Header("Store GridManager")] 
         public Transform gridsParent;
@@ -32,27 +33,27 @@ namespace Managers {
         private void GenerateGrid() {
             var currIndex = 0;
 
-            for (var h = 0; h < height; h++)
-            {
-                for (var w = 0; w < width; w++)
-                {
+            for (var y = 0; y < height; y++) {
+                for (var x = 0; x < width; x++) {
+                    currIndex++;
                     //Spawn Grids 
                     var gridPosition = gridsParent.transform.position;
-                    var pos = new Vector2(w * gridOffset, h * gridOffset) + (Vector2) gridPosition;
+                    var pos = (Vector2) gridPosition + new Vector2(
+                                gridScale * (x - (width - 1) / 2f),
+                                gridScale * (y - (height - 1) / 2f));
                     
                     //Spawn Tiles 
                     var gridInst = Instantiate(gridPrefab, pos, Quaternion.identity);
                     gridInst.transform.SetParent(gridsParent);
-                    gridInst.name = $"GridManager [{w}:{h}]";
+                    gridInst.transform.localScale = Vector2.one * gridScale;
+                    gridInst.name = $"GridManager [{x}:{y}]";
 
-                    Sprite spriteToSet;
-                    if (h % 2 == 0) spriteToSet = currIndex % 2 == 0 ? lightTile : darkTile;
-                    else spriteToSet = currIndex % 2 == 0 ? darkTile : lightTile;
-                    
-                    tiles[w, h] = gridInst.GetComponent<Tile>();
-                    tiles[w, h].Init(spriteToSet, w, h, Contains.None);
-                    
-                    currIndex++;
+                    var spriteToSet = y % 2 == 0 
+                        ? currIndex % 2 == 0 ? lightTile : darkTile 
+                        : currIndex % 2 == 0 ? darkTile : lightTile;
+                        
+                    tiles[x, y] = gridInst.GetComponent<Tile>();
+                    tiles[x, y].Init(spriteToSet, x, y, Contains.None);
                 }
             }
         }

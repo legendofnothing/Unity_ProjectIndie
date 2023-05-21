@@ -287,7 +287,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5081683451311133422}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: -2.05, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -358,10 +358,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1c9ed06eb8f2fb4a98bb113719a99e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 6
-  height: 8
+  width: 8
+  height: 10
   gridPrefab: {fileID: 4700889268660111197, guid: 3a538a9c2e3c65e4298a5db532057dfd, type: 3}
-  gridOffset: 0.8
+  gridScale: 0.8
   gridsParent: {fileID: 5081683451311133420}
   lightTile: {fileID: -1453390739, guid: 3d8e1b807913c924cbfe447c797d324d, type: 3}
   darkTile: {fileID: 765207920, guid: 3d8e1b807913c924cbfe447c797d324d, type: 3}
@@ -377,8 +377,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0541856716edef4a8151fad81771175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStore: {fileID: 5081683450278813353}
   enemies: []
+  emptyTilesInst: []
 --- !u!114 &3839621648087332485
 MonoBehaviour:
   m_ObjectHideFlags: 0
