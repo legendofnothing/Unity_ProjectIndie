@@ -66,7 +66,7 @@ namespace Managers
         }
         
         public void SpawnPickups() {
-            if (SaveSystem.currentLevelData.TurnNumber % 6 != 0) return;
+            if (SaveSystem.currentLevelData.TurnNumber % 2 != 0) return;
             var randomAmount = UnityRandom.Range(minAmountSpawn, maxAmountSpawn);
             
             var rnd = new Random();

@@ -19,7 +19,7 @@ namespace Pickups.Bullets
         private void Start() {
             _currSequence = DOTween.Sequence();
             _currSequence
-                .Append(transform.DOMoveY(transform.position.y + 0.3f, 2.8f))
+                .Append(transform.DOMoveY(transform.position.y + 0.15f, 2.8f))
                 .PrependInterval(0.1f)
                 .SetLoops(-1, LoopType.Yoyo);
         }
@@ -38,7 +38,7 @@ namespace Pickups.Bullets
             _currSequence
                 .Append(sprite1.DOFade(0, 1.2f))
                 .Append(sprite2.DOFade(0, 1.2f))
-                .Append(transform.DOMoveY(transform.position.y + 0.5f, 1.6f))
+                .Append(transform.DOMoveY(transform.position.y + 0.1f, 0.8f))
                 .OnComplete(() => {
                     EventDispatcher.instance.SendMessage(EventType.PickupDestroyed, this);
                 });

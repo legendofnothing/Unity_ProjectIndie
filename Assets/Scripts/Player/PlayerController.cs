@@ -30,6 +30,7 @@ namespace Player
 
         [Header("Refs")] 
         [SerializeField] private BulletManager _bulletManager;
+        public Transform gun;
         
         private bool _canInput;
 
@@ -94,20 +95,20 @@ namespace Player
 
         private void RotatePlayer(){
             var touchPos = Player.instance.playerCamera.ScreenToWorldPoint(Input.mousePosition);
-            var position = transform.position;
+            var position = gun.position;
 
             var angle = Mathf.Atan2(touchPos.y - position.y, touchPos.x - position.x) * Mathf.Rad2Deg - 90f;
             
             var angleRotateTo = 
                 Quaternion.Euler(new Vector3(0, 0, ClampAngle(angle, -maxAngle, maxAngle)));
             
-            transform.rotation = Quaternion.Slerp(transform.rotation, angleRotateTo, 10f * Time.fixedDeltaTime);
+            gun.rotation = Quaternion.Slerp(gun.rotation, angleRotateTo, 10f * Time.fixedDeltaTime);
         }
         
         private void Shoot(){
             _touchState = TouchState.Default;
             EventDispatcher.instance.SendMessage(EventType.SwitchToShooting);
-            StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gameObject.transform.rotation));
+            StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gun.rotation));
         }
         #endregion
 
