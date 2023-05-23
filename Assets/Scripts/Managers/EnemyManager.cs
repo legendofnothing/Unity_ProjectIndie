@@ -36,7 +36,6 @@ namespace Managers {
             //Subscribe Events 
             EventDispatcher.instance.SubscribeListener(EventType.EnemyTurn, _=>EnemyTurn());
             EventDispatcher.instance.SubscribeListener(EventType.EnemyKilled, param=>RemoveEnemy((EnemyBase) param));
-            EventDispatcher.instance.SubscribeListener(EventType.SpawnEnemy, param => SpawnEnemyRandom((int) param));
         }
         
 

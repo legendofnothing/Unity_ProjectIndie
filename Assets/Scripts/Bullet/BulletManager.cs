@@ -4,6 +4,7 @@ using System.Linq;
 using Scripts.Bullet.Types;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
+using UI.Components;
 using UnityEngine;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 using Random = UnityEngine.Random;
@@ -30,6 +31,7 @@ namespace Scripts.Bullet {
         }
 
         private void Start() {
+            UIStatic.FireUIEvent(TextUI.Type.AmmoCount, bulletList.Count);
             EventDispatcher.instance.SubscribeListener(EventType.BulletDestroyed, bullet => OnBulletDestroyed((GameObject) bullet));
         }
 
@@ -38,6 +40,7 @@ namespace Scripts.Bullet {
             if (_currentList.Count > 0) return;
 
             bulletList.AddRange(_addedTempList);
+            UIStatic.FireUIEvent(TextUI.Type.AmmoCount, bulletList.Count);
             _addedTempList.Clear();
 
             //Switch to Enemy Turn
@@ -68,8 +71,11 @@ namespace Scripts.Bullet {
             yield return null;
         }
         
-        public void AddBullet(GameObject bullet) { 
-            if (_currentList.Count <= 0) bulletList.Add(bullet);
+        public void AddBullet(GameObject bullet) {
+            if (_currentList.Count <= 0) {
+                bulletList.Add(bullet);
+                UIStatic.FireUIEvent(TextUI.Type.AmmoCount, bulletList.Count);
+            }
             else _addedTempList.Add(bullet);
         }
         

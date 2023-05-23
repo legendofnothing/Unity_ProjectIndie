@@ -11,16 +11,13 @@ namespace Scripts.Core.EventDispatcher {
         SwitchToShop,
         SwitchToPlayer,
         SwitchToEnd,
-    
-        //Pickup Manager Events
-        SpawnPickup,
+        
 
         //Enemy Manager Events
         EnemyTurn,
         OnEnemyDying,
         EnemyKilled,
-        SpawnEnemy,
-    
+
         //Bullet Events
         BulletDestroyed,
     
@@ -42,6 +39,7 @@ namespace Scripts.Core.EventDispatcher {
         //UI Events
         OnTextUIChange,
         OnBarUIChange,
+        OnPlayerHPChange,
         OnPlayerDie,
     }
 }

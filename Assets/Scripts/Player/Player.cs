@@ -90,6 +90,8 @@ namespace Player {
             UIStatic.FireUIEvent(TextUI.Type.Health, _currentHp);
             UIStatic.FireUIEvent(BarUI.Type.Health, _currentHp / hp, true);
             
+            EventDispatcher.instance.SendMessage(EventType.OnPlayerHPChange, _currentHp);
+            
             DoCameraShake(0.5f, 1.2f);
 
             if (!(_currentHp <= 0)) return;

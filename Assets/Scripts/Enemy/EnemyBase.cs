@@ -79,10 +79,10 @@ namespace Enemy {
             StartCoroutine(Iframe(0.1f));
 
             if (currentHp - amount < 0) {
+                _col.enabled = false;
                 isEnemyDying = true;
                 currentHp = -1;
                 _canTakeDamage = false;
-                _col.enabled = false;
                 
                 EventDispatcher.instance.SendMessage(EventType.OnEnemyDying, this);
                 hpText.text = "0.0";

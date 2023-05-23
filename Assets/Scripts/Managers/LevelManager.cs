@@ -4,6 +4,7 @@ using Scripts.Core.EventDispatcher;
 using UI.Components;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
 namespace Managers
@@ -33,7 +34,7 @@ namespace Managers
         [Space] 
         public PickupBulletSpawningData pickupBulletSpawningData;
 
-        private Turn _currentTurn;
+        [FormerlySerializedAs("_currentTurn")] public Turn currentTurn;
         private bool _canAddTurn;
 
         private void Awake() {
@@ -62,9 +63,9 @@ namespace Managers
         /// <param name="turn">Turn to update</param>
         private void UpdateTurn(Turn turn)
         {
-            _currentTurn = turn;
+            currentTurn = turn;
 
-            switch (_currentTurn)
+            switch (currentTurn)
             {
                 case Turn.Start:
                     _enemyManager.SpawnEnemyRandom(10);
@@ -91,7 +92,7 @@ namespace Managers
 
                     // EventDispatcher.instance.SendMessage(SaveSystem.currentLevelData.TurnNumber % 3 == 0
                     //     ? EventType.OpenShop
-                    //     : EventType.SwitchToPlayer);
+                    //     : EventType.SwitchToPlayer); 
 
                     EventDispatcher.instance.SendMessage(EventType.SwitchToPlayer);
 
