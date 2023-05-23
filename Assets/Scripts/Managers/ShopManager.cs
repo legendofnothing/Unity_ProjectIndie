@@ -2,6 +2,7 @@ using System.Collections;
 using Scripts.Bullet;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
+using UI.Components;
 using UI.InGame;
 using UnityEngine;
 using EventType = Scripts.Core.EventDispatcher.EventType;
@@ -100,7 +101,7 @@ namespace Managers {
             if (EnemyManager.instance.enemies.Count <= 0) {
                 EventDispatcher.instance.SendMessage(EventType.SwitchToEnemy);
                 SaveSystem.currentLevelData.TurnNumber++;
-                EventDispatcher.instance.SendMessage(EventType.OnTurnNumberChange, SaveSystem.currentLevelData.TurnNumber);
+                UIStatic.FireUIEvent(TextUI.Type.Turn, SaveSystem.currentLevelData.TurnNumber);
             }
 
             else {

@@ -40,11 +40,8 @@ namespace Scripts.Core.EventDispatcher {
         OnEffectFinish,
 
         //UI Events
-        OnInitUI,
-        OnPlayerHpChange,
+        OnTextUIChange,
+        OnBarUIChange,
         OnPlayerDie,
-        OnTurnNumberChange,
-        OnScoreChange,
-        OnPlayerCoinChange,
     }
 }

@@ -2,6 +2,7 @@ using DG.Tweening;
 using Scripts.Bullet;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
+using UI.Components;
 using UI.InGame;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -76,15 +77,18 @@ namespace Player {
             bulletManager.ChangeDamageModifier(_attackModifier);
             bulletManager.ChangeCritModifier(_critChance);
             
-            EventDispatcher.instance.SendMessage(EventType.OnInitUI, new UIInitData() { 
-                PlayerHp = _currentHp,
-                PlayerCoins = SaveSystem.playerData.Coin
-            });
+            UIStatic.FireUIEvent(TextUI.Type.Health, _currentHp);
+            UIStatic.FireUIEvent(BarUI.Type.Health, _currentHp / hp, true);
+            UIStatic.FireUIEvent(TextUI.Type.Turn, SaveSystem.currentLevelData.TurnNumber);
+            UIStatic.FireUIEvent(TextUI.Type.Coin, SaveSystem.playerData.Coin);
+            UIStatic.FireUIEvent(TextUI.Type.Score, 0);
         }
 
         public void TakeDamage(float amount) {
             _currentHp -= amount * _defendModifier;
-            EventDispatcher.instance.SendMessage(EventType.OnPlayerHpChange, _currentHp);
+            
+            UIStatic.FireUIEvent(TextUI.Type.Health, _currentHp);
+            UIStatic.FireUIEvent(BarUI.Type.Health, _currentHp / hp, true);
             
             DoCameraShake(0.5f, 1.2f);
 
@@ -95,29 +99,31 @@ namespace Player {
         
         public void AddHealth(float amount) {
             _currentHp += amount;
-            EventDispatcher.instance.SendMessage(EventType.OnPlayerHpChange, _currentHp);
+            UIStatic.FireUIEvent(TextUI.Type.Health, _currentHp);
+            UIStatic.FireUIEvent(BarUI.Type.Health, _currentHp / hp, true);
         }
         
         public void SetHealth(float amount) {
             _currentHp = amount;
-            EventDispatcher.instance.SendMessage(EventType.OnPlayerHpChange, _currentHp);
+            UIStatic.FireUIEvent(TextUI.Type.Health, _currentHp);
+            UIStatic.FireUIEvent(BarUI.Type.Health, _currentHp / hp, true);
         }
 
         public float GetHealth => _currentHp;
 
         public void AddCoin(int amount) {
             SaveSystem.playerData.Coin += amount;
-            EventDispatcher.instance.SendMessage(EventType.OnPlayerCoinChange, SaveSystem.playerData.Coin);
+            UIStatic.FireUIEvent(TextUI.Type.Coin, SaveSystem.playerData.Coin);
         }
 
         public void ReduceCoin(int amount) {
             SaveSystem.playerData.Coin -= amount;
-            EventDispatcher.instance.SendMessage(EventType.OnPlayerCoinChange, SaveSystem.playerData.Coin);
+            UIStatic.FireUIEvent(TextUI.Type.Coin, SaveSystem.playerData.Coin);
         }
         
         public void AddScore(int amount) {
             SaveSystem.currentLevelData.Score += amount * SaveSystem.currentLevelData.TurnNumber;
-            EventDispatcher.instance.SendMessage(EventType.OnScoreChange, SaveSystem.currentLevelData.Score);
+            UIStatic.FireUIEvent(TextUI.Type.Score, SaveSystem.currentLevelData.Score);
         }
 
         public void DoCameraShake(float strength, float duration = 1f) {

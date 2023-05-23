@@ -1,6 +1,7 @@
 using ScriptableObjects;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
+using UI.Components;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using EventType = Scripts.Core.EventDispatcher.EventType;
@@ -67,14 +68,14 @@ namespace Managers
             {
                 case Turn.Start:
                     _enemyManager.SpawnEnemyRandom(10);
-                    EventDispatcher.instance.SendMessage(EventType.OnTurnNumberChange, SaveSystem.currentLevelData.TurnNumber);
+                    UIStatic.FireUIEvent(TextUI.Type.Turn, SaveSystem.currentLevelData.TurnNumber);
                     //UpdateTurn(Turn.Player);
                     break;
 
                 case Turn.Player:
                     SaveSystem.currentLevelData.TurnNumber++; 
                     
-                    EventDispatcher.instance.SendMessage(EventType.OnTurnNumberChange, SaveSystem.currentLevelData.TurnNumber);
+                    UIStatic.FireUIEvent(TextUI.Type.Turn, SaveSystem.currentLevelData.TurnNumber);
                     Player.Player.instance.input.CanInput(true);
                     break;
 
