@@ -90,12 +90,9 @@ namespace Managers
                 
                 case Turn.Shop:
 
-                    // EventDispatcher.instance.SendMessage(SaveSystem.currentLevelData.TurnNumber % 3 == 0
-                    //     ? EventType.OpenShop
-                    //     : EventType.SwitchToPlayer); 
-
-                    EventDispatcher.instance.SendMessage(EventType.SwitchToPlayer);
-
+                    EventDispatcher.instance.SendMessage(SaveSystem.currentLevelData.TurnNumber % 5 == 0
+                        ? EventType.OpenShop
+                        : EventType.SwitchToPlayer);
                     break;
                 
                 case Turn.End:

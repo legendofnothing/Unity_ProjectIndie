@@ -163,7 +163,6 @@ MonoBehaviour:
   hp: 100
   damage: 10
   spawnType: 0
-  moveType: 0
   movePriority: 1
   coinAddedOnHit: 100
   coinAddedOnDestroy: 200
@@ -172,7 +171,6 @@ MonoBehaviour:
   x: 0
   y: 0
   currentDestination: {fileID: 0}
-  hpText: {fileID: 1586827307648932575}
   healthBar: {fileID: 8844778334578490847}
   hasFinishedTurn: 0
   isEnemyDying: 0
@@ -498,11 +496,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9115996580033655885, guid: 0ff8a9a0a6368524a87285969836caaf, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9115996580033655885, guid: 0ff8a9a0a6368524a87285969836caaf, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.3
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 9115996580033655885, guid: 0ff8a9a0a6368524a87285969836caaf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -538,7 +536,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9115996580033655885, guid: 0ff8a9a0a6368524a87285969836caaf, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.6
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9115996580033655885, guid: 0ff8a9a0a6368524a87285969836caaf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -559,17 +557,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9115996580033655885, guid: 0ff8a9a0a6368524a87285969836caaf, type: 3}
   m_PrefabInstance: {fileID: 7675617435755741442}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1586827307648932575 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8971397384102337501, guid: 0ff8a9a0a6368524a87285969836caaf, type: 3}
-  m_PrefabInstance: {fileID: 7675617435755741442}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8844778334578490847 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1169724707836738781, guid: 0ff8a9a0a6368524a87285969836caaf, type: 3}

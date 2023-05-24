@@ -1,15 +1,21 @@
 using System;
 using DG.Tweening;
 using Managers;
+using Scripts.Core.EventDispatcher;
 using TMPro;
+using UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
+using EventType = Scripts.Core.EventDispatcher.EventType;
 
 namespace UI.InGame {
     public class GameUI : MonoBehaviour {
         [Header("UI")] 
         public GameObject footerUI;
         public RectTransform canvasRect;
+        
+        public Canvas dimBackground;
+        public Image dimBackgroundImage;
 
         [Header("Pause")]
         public Canvas pauseCanvas;
@@ -68,6 +74,12 @@ namespace UI.InGame {
 
             pauseGroup.alpha = 0;
             pauseCanvas.enabled = true;
+            
+            EventDispatcher.instance.SendMessage(EventType.OnDimUI, new DimUI.Message {
+                isOpen = true,
+                duration = 0.15f
+            });
+
             var s = DOTween.Sequence();
             s
                 .Append(pauseGroup.DOFade(1, 0.15f).SetUpdate(true))
@@ -85,7 +97,12 @@ namespace UI.InGame {
         public void UnPause() {
             if (!_isPaused) return;
             _isPaused = false;
-            
+
+            EventDispatcher.instance.SendMessage(EventType.OnDimUI, new DimUI.Message {
+                isOpen = false,
+                duration = 0.1f
+            });
+
             var s = DOTween.Sequence();
             s
                 .Append(pauseGroup.DOFade(0, 0.1f).SetUpdate(true))

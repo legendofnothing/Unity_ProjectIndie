@@ -30,15 +30,12 @@ namespace Scripts.Core.EventDispatcher {
         //Shop Event
         OpenShop,
         CloseShop,
-        ReOpenUI,
-        OnBuyCountChange,
         OnItemBought,
-        OnEffectItem,
-        OnEffectFinish,
 
         //UI Events
         OnTextUIChange,
         OnBarUIChange,
+        OnDimUI,
         OnPlayerHPChange,
         OnPlayerDie,
     }

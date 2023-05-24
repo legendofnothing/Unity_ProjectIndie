@@ -52,7 +52,6 @@ namespace UI.InGame.ItemEffects {
             nuclearEffect.transform.localScale = new Vector3(0, 0, 1);
             bomb.transform.localScale = _originalBombScale;
             nuclearEffect.color = new Color(255, 255, 255, 1);
-            EventDispatcher.instance.SendMessage(EventType.ReOpenUI);
         }
     }
 }

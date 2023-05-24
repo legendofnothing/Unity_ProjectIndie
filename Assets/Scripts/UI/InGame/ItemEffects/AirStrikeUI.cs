@@ -126,7 +126,7 @@ namespace UI.InGame.ItemEffects {
 
                                     effectRect.anchoredPosition = dest;
                                     StartCoroutine(EffectRoutine());
-                                    
+
                                     var hits = Physics2D.OverlapBoxAll(
                                         origin
                                         , _aimingZoneSize
@@ -138,9 +138,6 @@ namespace UI.InGame.ItemEffects {
                                         enemy.TakeDamage(desiredDamage);
                                     }
                                 }
-                            })
-                            .OnComplete(() => {
-                                EventDispatcher.instance.SendMessage(EventType.ReOpenUI);
                             });
                     });
             }

@@ -307,7 +307,6 @@ GameObject:
   - component: {fileID: 930389340642575895}
   - component: {fileID: 4675394282842489709}
   - component: {fileID: 3839621648087332485}
-  - component: {fileID: 1098549064590966324}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -346,6 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawningData: {fileID: 11400000, guid: a47e6e0b9338e414b9038ec92cc6d43d, type: 2}
   pickupBulletSpawningData: {fileID: 11400000, guid: 4a0c9d3a09f44f54c9794078a6069590, type: 2}
+  currentTurn: 0
 --- !u!114 &930389340642575895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 8
-  height: 10
+  height: 9
   gridPrefab: {fileID: 4700889268660111197, guid: 3a538a9c2e3c65e4298a5db532057dfd, type: 3}
   gridScale: 0.8
   gridsParent: {fileID: 5081683451311133420}
@@ -393,20 +393,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minAmountSpawn: 2
   maxAmountSpawn: 5
---- !u!114 &1098549064590966324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5081683451358816935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45b0e34dcbe5d564f98a631a070e0b60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxBuyCount: 2
-  isAwaitingForFinish: 0
 --- !u!1 &5081683451617540020
 GameObject:
   m_ObjectHideFlags: 0

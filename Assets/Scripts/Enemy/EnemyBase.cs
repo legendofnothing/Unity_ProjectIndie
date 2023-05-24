@@ -43,8 +43,7 @@ namespace Enemy {
         [HideInInspector] public int y;
         [HideInInspector] public Tile currentDestination;
 
-        [Header("UI Related")] 
-        public TextMeshProUGUI hpText;
+        [Header("UI Related")]
         public Slider healthBar;
 
         private float _hp;
@@ -65,7 +64,6 @@ namespace Enemy {
             _animator = gameObject.GetComponent<Animator>();
             _col = gameObject.GetComponent<BoxCollider2D>();
 
-            hpText.text = currHp.ToString("0.0");
             healthBar.value = 1;
         }
         
@@ -85,7 +83,6 @@ namespace Enemy {
                 _canTakeDamage = false;
                 
                 EventDispatcher.instance.SendMessage(EventType.OnEnemyDying, this);
-                hpText.text = "0.0";
                 healthBar.value = 0;
                 
                 Player.Player.instance.AddCoin(coinAddedOnDestroy);
@@ -101,8 +98,7 @@ namespace Enemy {
                 currentHp -= amount;
                 Player.Player.instance.AddCoin(coinAddedOnHit);
                 Player.Player.instance.AddScore(scoreAddedOnHit);
-
-                hpText.text = currentHp.ToString("0.0");
+                
                 healthBar.value = currentHp / _hp;
                 
                 _animator.SetTrigger(EnemyAnim.Hit);

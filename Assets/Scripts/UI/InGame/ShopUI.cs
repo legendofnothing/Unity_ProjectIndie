@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Managers;
 using ScriptableObjects;
+using Scripts.Bullet;
 using Scripts.Core;
 using Scripts.Core.Collections;
 using TMPro;
+using UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 using EventDispatcher = Scripts.Core.EventDispatcher.EventDispatcher;
@@ -40,34 +42,24 @@ namespace UI.InGame {
     }
     
     public class ShopUI : MonoBehaviour {
-        [Header("Misc")] 
-        public GameObject aura;
-        public TextMeshProUGUI buyCountText;
-        
         [Header("Refs")]
         public Canvas canvas;
-        public GraphicRaycaster input;
+        public CanvasGroup canvasGroup;
         public ShopItemData shopData;
         public List<ShopElement> shopElements;
-
-        private Sequence _currAuraSequence;
         private readonly WeightedList<ShopItem> _weightedShopItems = new();
 
         private void Start() {
             canvas.enabled = false;
+            canvasGroup.alpha = 0;
+            
             EventDispatcher.instance.SubscribeListener(EventType.OpenShop, _=>OpenShop());
             EventDispatcher.instance.SubscribeListener(EventType.CloseShop, _=>OnProceed());
-            EventDispatcher.instance
-                .SubscribeListener(EventType.OnBuyCountChange, obj => {
-                    var data = (FloatPair)obj;
-                    OnBuyCountChange(data.float1, data.float2);
-                });
+            EventDispatcher.instance.SubscribeListener(EventType.OnItemBought, item => HandleItem((ShopItem) item));
 
             foreach (var item in shopData.shopItems) {
                 _weightedShopItems.AddElement(item.shopItem, item.chanceToAppear);
             }
-
-            input.enabled = false;
         }
 
         private void OpenShop() {
@@ -75,28 +67,37 @@ namespace UI.InGame {
                 element.Init(_weightedShopItems.GetRandomItem());
             }
             
-            OverlayHandler.instance.OnDim(0.6f);
-            
             canvas.enabled = true;
-            input.enabled = true;
-            
-            if (!SaveSystem.UseFancyUI) return;
-            _currAuraSequence = DOTween.Sequence();
-            _currAuraSequence
-                .Append(aura.transform.DOScale(new Vector3(1.1f, 1.2f), 1.4f))
-                .SetLoops(-1, LoopType.Yoyo);
-        }
-
-        private void OnBuyCountChange(float currBuyCount, float maxBuyCount) {
-            buyCountText.SetText($"Purchases Left: {maxBuyCount - currBuyCount}/{maxBuyCount}");
+            canvasGroup.DOFade(1, 1f);
         }
 
         public void OnProceed() {
-            if (SaveSystem.UseFancyUI) _currAuraSequence.Kill();
-            canvas.enabled = false;
-            input.enabled = false;
-            OverlayHandler.instance.OnDim(0);
-            if (!ShopManager.instance.isAwaitingForFinish) StartCoroutine(ShopManager.instance.DelayInput());
+            canvasGroup.DOFade(0, 1f).OnComplete(() => {
+                canvas.enabled = false;
+                EventDispatcher.instance.SendMessage(EventType.SwitchToPlayer);
+            });
+        }
+
+        private void HandleItem(ShopItem item) {
+            switch (item.itemTag) {
+                case ShopItemTag.Bullet:
+                    BulletManager.instance.AddBullet(item.prefab);
+                    break;
+                case ShopItemTag.Health:
+                    if (Player.Player.instance.GetHealth + item.itemValue >= Player.Player.instance.hp) {
+                        Player.Player.instance.SetHealth(Player.Player.instance.hp);
+                    }
+                    
+                    else Player.Player.instance.AddHealth(item.itemValue);
+                    break;
+                case ShopItemTag.HealthSpecial:
+                    if (Player.Player.instance.GetHealth + item.itemValue >= Player.Player.instance.hp) {
+                        Player.Player.instance.SetHealth(Player.Player.instance.hp + 100f);
+                    }
+                    
+                    else Player.Player.instance.AddHealth(item.itemValue);
+                    break;
+            }
         }
     }
 }

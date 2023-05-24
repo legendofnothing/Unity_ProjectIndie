@@ -47,7 +47,7 @@ MonoBehaviour:
       itemName: Explosive Bullet
       itemDescriptor: x1
       itemValue: 0
-      itemSprite: {fileID: -2013629003, guid: f59a05515f6229745851c9adb9b43cca, type: 3}
+      itemSprite: {fileID: 21300000, guid: a04f7f498d9a98144aed7d9af11457bc, type: 3}
       prefab: {fileID: 811179696128422734, guid: c486c55e63c83b5479a1cef06d41bc22, type: 3}
   - chanceToAppear: 1
     shopItem:
