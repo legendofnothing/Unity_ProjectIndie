@@ -14,7 +14,6 @@ namespace Scripts.Bullet.Types {
             CanMove = false;
             Animator.SetTrigger("Explode");
             transform.DOScale(new Vector3(radius, radius), 0.4f);
-            Player.DoCameraShake(0.32f, 1.2f);
 
             var hits = Physics2D.OverlapCircleAll(transform.position, radius, enemyLayer);
             foreach (var obj in hits) {

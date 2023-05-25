@@ -98,7 +98,6 @@ namespace Managers
                 case Turn.End:
                     SaveSystem.SaveData(SceneManager.GetActiveScene().name);
                     Player.Player.instance.input.CanInput(false);
-                    EventDispatcher.instance.SendMessage(EventType.OnPlayerDie);
                     break;
 
                 default:

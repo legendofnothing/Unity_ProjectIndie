@@ -12,7 +12,6 @@ namespace Scripts.Core.EventDispatcher {
         SwitchToPlayer,
         SwitchToEnd,
         
-
         //Enemy Manager Events
         EnemyTurn,
         OnEnemyDying,
@@ -37,6 +36,5 @@ namespace Scripts.Core.EventDispatcher {
         OnBarUIChange,
         OnDimUI,
         OnPlayerHPChange,
-        OnPlayerDie,
     }
 }

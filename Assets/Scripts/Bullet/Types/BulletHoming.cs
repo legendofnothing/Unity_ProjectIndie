@@ -48,7 +48,6 @@ namespace Scripts.Bullet.Types {
             EventDispatcher.instance.SendMessage(EventType.TargetSystemOnTargetHit, this);
             transform.DOScale(new Vector3(radius, radius), 0.4f);
             Animator.SetTrigger("Explode");
-            Player.DoCameraShake(0.32f, 1.2f);
 
             var hits = Physics2D.OverlapCircleAll(transform.position, radius, enemyLayer);
             foreach (var obj in hits) {

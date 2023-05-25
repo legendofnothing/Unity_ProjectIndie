@@ -1,10 +1,13 @@
 using System;
 using DG.Tweening;
 using Managers;
+using Scripts.Core;
 using Scripts.Core.EventDispatcher;
 using TMPro;
 using UI.Components;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
@@ -13,9 +16,6 @@ namespace UI.InGame {
         [Header("UI")] 
         public GameObject footerUI;
         public RectTransform canvasRect;
-        
-        public Canvas dimBackground;
-        public Image dimBackgroundImage;
 
         [Header("Pause")]
         public Canvas pauseCanvas;
@@ -31,7 +31,7 @@ namespace UI.InGame {
         private Player.Player _player;
 
         private bool _isPaused;
-        private float _currTimeScale = 1f;
+        [HideInInspector] public float currTimeScale = 1f;
 
         private void Awake() {
             canvasRect = GetComponent<RectTransform>();
@@ -83,14 +83,14 @@ namespace UI.InGame {
             var s = DOTween.Sequence();
             s
                 .Append(pauseGroup.DOFade(1, 0.15f).SetUpdate(true))
-                .Insert(0, DOVirtual.Float(_currTimeScale, 0, 0.15f, value => Time.timeScale = value).SetUpdate(true));
+                .Insert(0, DOVirtual.Float(currTimeScale, 0, 0.15f, value => Time.timeScale = value).SetUpdate(true));
         }
 
         public void SwitchTimeScale() {
-            Time.timeScale = _currTimeScale is >= 1f and < 2 ? 2 : 1;
-            timeScaleImage.sprite = _currTimeScale is >= 1f and < 2 ? ffdTimescaleSprite : defaultTimescaleSprite;
-            _currTimeScale = Time.timeScale;
-            timeScaleText.SetText("x" + _currTimeScale.ToString("0"));
+            Time.timeScale = currTimeScale is >= 1f and < 2 ? 2 : 1;
+            timeScaleImage.sprite = currTimeScale is >= 1f and < 2 ? ffdTimescaleSprite : defaultTimescaleSprite;
+            currTimeScale = Time.timeScale;
+            timeScaleText.SetText("x" + currTimeScale.ToString("0"));
             
         }
 
@@ -106,7 +106,7 @@ namespace UI.InGame {
             var s = DOTween.Sequence();
             s
                 .Append(pauseGroup.DOFade(0, 0.1f).SetUpdate(true))
-                .Insert(0, DOVirtual.Float(0, _currTimeScale, 0.1f, value => Time.timeScale = value).SetUpdate(true))
+                .Insert(0, DOVirtual.Float(0, currTimeScale, 0.1f, value => Time.timeScale = value).SetUpdate(true))
                 .OnComplete(() => {
                     pauseGroup.alpha = 0;
                     pauseCanvas.enabled = false;
@@ -119,7 +119,8 @@ namespace UI.InGame {
         }
         
         public void ExitGame() {
-            
+            SaveSystem.SaveData(SceneManager.GetActiveScene().name);
+            Application.Quit();
         }
 
         #endregion

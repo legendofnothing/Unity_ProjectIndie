@@ -38,7 +38,7 @@ namespace Player {
         public Camera playerCamera;
         [HideInInspector] public FloatScreenPosition screenFloats;
 
-        private Tween _currentCameraShakeTween;
+        private bool _hasDied;
 
         /**
         * Desired specs
@@ -85,18 +85,19 @@ namespace Player {
         }
 
         public void TakeDamage(float amount) {
+            if (_hasDied) return;
             _currentHp -= amount * _defendModifier;
+
+            if (_currentHp <= 0) {
+                _hasDied = true;
+                _currentHp = 0;
+                EventDispatcher.instance.SendMessage(EventType.SwitchToEnd);
+            }
             
             UIStatic.FireUIEvent(TextUI.Type.Health, _currentHp);
             UIStatic.FireUIEvent(BarUI.Type.Health, _currentHp / hp, true);
-            
-            EventDispatcher.instance.SendMessage(EventType.OnPlayerHPChange, _currentHp);
-            
-            DoCameraShake(0.5f, 1.2f);
 
-            if (!(_currentHp <= 0)) return;
-            _currentHp = 0;
-            EventDispatcher.instance.SendMessage(EventType.SwitchToEnd);
+            EventDispatcher.instance.SendMessage(EventType.OnPlayerHPChange, _currentHp);
         }
         
         public void AddHealth(float amount) {
@@ -126,16 +127,6 @@ namespace Player {
         public void AddScore(int amount) {
             SaveSystem.currentLevelData.Score += amount * SaveSystem.currentLevelData.TurnNumber;
             UIStatic.FireUIEvent(TextUI.Type.Score, SaveSystem.currentLevelData.Score);
-        }
-
-        public void DoCameraShake(float strength, float duration = 1f) {
-            
-            if (!SaveSystem.UseFancyUI) return;
-            
-            _currentCameraShakeTween = playerCamera.DOShakePosition(duration, strength).OnComplete(() => {
-                playerCamera.transform.DOMove(new Vector3(0, 0, playerCamera.transform.position.z), 0.8f)
-                    .OnComplete(() => _currentCameraShakeTween = null);
-            });
         }
     }
 }
