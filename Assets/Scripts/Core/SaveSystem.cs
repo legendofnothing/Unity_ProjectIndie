@@ -7,6 +7,8 @@ using UnityEngine;
 namespace Scripts.Core {
     public static class DataKey {
         public const string Player = "PLAYER";
+        public const string Volume = "VOLUME";
+        public const string FPS = "FPS";
     }
 
     public static class PlayerStatLevels {
@@ -76,6 +78,14 @@ namespace Scripts.Core {
             };
             playerData.PreviousSceneName = sceneName;
             PlayerPrefs.SetString(DataKey.Player, JsonConvert.SerializeObject(playerData));
+        }
+
+        public static void SaveDataFloat(string key, float value) {
+            PlayerPrefs.SetFloat(key, value);
+        }
+
+        public static float GetDataFloat(string key) {
+            return PlayerPrefs.HasKey(key) ? PlayerPrefs.GetFloat(key) : 1;
         }
     }
 }
