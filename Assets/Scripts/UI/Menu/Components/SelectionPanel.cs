@@ -66,6 +66,8 @@ namespace UI.Menu.Components {
                 _ => 2
             };
             
+            if (prevSelection == _currSelection) return;
+            
             selectionText.SetText(selection);
             
             _ditherTween?.Kill();

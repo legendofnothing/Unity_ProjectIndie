@@ -7,6 +7,7 @@ using UnityEngine;
 namespace Scripts.Core {
     public static class DataKey {
         public const string Player = "PLAYER";
+        public const string PlayerSkin = "SKIN";
         public const string Volume = "VOLUME";
         public const string FPS = "FPS";
     }
@@ -50,7 +51,7 @@ namespace Scripts.Core {
             _init = true;
             if (!PlayerPrefs.HasKey(DataKey.Player)) {
                 playerData = new PlayerData {
-                    Coin = 727,
+                    Coin = 123456,
                     LevelData = new Dictionary<string, DataLevel>(),
                     PlayerLevels = new Dictionary<string, int>() {
                         {PlayerStatLevels.HP,   5},
@@ -77,6 +78,10 @@ namespace Scripts.Core {
                 Score = currentLevelData.Score
             };
             playerData.PreviousSceneName = sceneName;
+            PlayerPrefs.SetString(DataKey.Player, JsonConvert.SerializeObject(playerData));
+        }
+        
+        public static void SaveData() {
             PlayerPrefs.SetString(DataKey.Player, JsonConvert.SerializeObject(playerData));
         }
 

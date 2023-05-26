@@ -8253,7 +8253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353291, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: hp
-      value: 50
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353291, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: playerCamera
