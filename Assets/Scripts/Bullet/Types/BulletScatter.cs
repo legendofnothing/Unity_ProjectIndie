@@ -1,3 +1,4 @@
+using Bullet;
 using UnityEngine;
 
 namespace Scripts.Bullet.Types {

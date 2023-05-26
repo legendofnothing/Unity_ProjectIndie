@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 44017b1ffc2c9d84aaee0717a26fd832
+guid: 3c1b2dc5c955b5c49b42ea2c74bc29eb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 55
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -129,22 +129,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Shotgun
+      name: Pistol
       rect:
         serializedVersion: 2
-        x: 4
-        y: 1
-        width: 94
-        height: 20
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        x: 3
+        y: 4
+        width: 28
+        height: 18
+      alignment: 9
+      pivot: {x: 0.26856804, y: 0.4774996}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cdce7ed54bbfecb4aa9821497808fb32
-      internalID: -1962684563
+      spriteID: 23e6ee89b562498419c93019873e697b
+      internalID: -1788002972
       vertices: []
       indices: 
       edges: []
@@ -160,20 +160,21 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      '[EMPTYING] Shotgun_V1.02_6': 445734978
-      '[EMPTYING] Shotgun_V1.02_5': -14164667
-      '[EMPTYING] Shotgun_V1.02_8': 106463103
-      '[EMPTYING] Shotgun_V1.02_4': 1811518639
-      '[EMPTYING] Shotgun_V1.02_10': -1781426531
-      '[EMPTYING] Shotgun_V1.02_7': -936807273
-      '[EMPTYING] Shotgun_V1.02_11': 1072008943
-      '[EMPTYING] Shotgun_V1.02_9': -1609564338
-      '[EMPTYING] Shotgun_V1.02_13': -862926549
-      '[EMPTYING] Shotgun_V1.02_12': 2060620308
-      '[EMPTYING] Shotgun_V1.02_3': -1327461820
-      Shotgun: -1962684563
-      '[EMPTYING] Shotgun_V1.02_2': 1132106442
-      '[EMPTYING] Shotgun_V1.02_1': 2008207111
+      '[FULL]PistolV1.01_14': 1206298849
+      '[FULL]PistolV1.01_12': -1024603482
+      '[FULL]PistolV1.01_9': 17429327
+      '[FULL]PistolV1.01_1': -463616756
+      '[FULL]PistolV1.01_3': -822834147
+      '[FULL]PistolV1.01_4': -644988648
+      '[FULL]PistolV1.01_11': -1422882389
+      '[FULL]PistolV1.01_7': -419287883
+      '[FULL]PistolV1.01_2': 1835636744
+      '[FULL]PistolV1.01_13': 629085420
+      '[FULL]PistolV1.01_5': 1113938793
+      '[FULL]PistolV1.01_10': -12607131
+      '[FULL]PistolV1.01_6': 2038001682
+      '[FULL]PistolV1.01_8': 495466888
+      Pistol: -1788002972
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

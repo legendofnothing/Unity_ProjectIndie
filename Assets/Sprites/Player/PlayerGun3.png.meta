@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 44017b1ffc2c9d84aaee0717a26fd832
+guid: d22837cb57b880346baf9368cb6df02a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -129,22 +129,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Shotgun
+      name: AssaultRifle
       rect:
         serializedVersion: 2
-        x: 4
-        y: 1
-        width: 94
-        height: 20
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        x: 3
+        y: 25
+        width: 83
+        height: 28
+      alignment: 9
+      pivot: {x: 0.31913835, y: 0.5893542}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cdce7ed54bbfecb4aa9821497808fb32
-      internalID: -1962684563
+      spriteID: ec21814461779ba41acaf6660c6547a0
+      internalID: -820071411
       vertices: []
       indices: 
       edges: []
@@ -160,20 +160,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      '[EMPTYING] Shotgun_V1.02_6': 445734978
-      '[EMPTYING] Shotgun_V1.02_5': -14164667
-      '[EMPTYING] Shotgun_V1.02_8': 106463103
-      '[EMPTYING] Shotgun_V1.02_4': 1811518639
-      '[EMPTYING] Shotgun_V1.02_10': -1781426531
-      '[EMPTYING] Shotgun_V1.02_7': -936807273
-      '[EMPTYING] Shotgun_V1.02_11': 1072008943
-      '[EMPTYING] Shotgun_V1.02_9': -1609564338
-      '[EMPTYING] Shotgun_V1.02_13': -862926549
-      '[EMPTYING] Shotgun_V1.02_12': 2060620308
-      '[EMPTYING] Shotgun_V1.02_3': -1327461820
-      Shotgun: -1962684563
-      '[EMPTYING] Shotgun_V1.02_2': 1132106442
-      '[EMPTYING] Shotgun_V1.02_1': 2008207111
+      AssaultRifle: -820071411
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -2,13 +2,14 @@ using System;
 using DG.Tweening;
 using Enemy;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scripts.Bullet.Types {
     public class BulletExplosive : BulletBase {
 
         [Header("Config")] 
         [SerializeField] private float radius;
-        [SerializeField] private float splashDamage;
+        [SerializeField] private float splashDamageModifier;
 
         protected override void OnBounce(GameObject hitGameObject) {
             CanMove = false;
@@ -20,7 +21,7 @@ namespace Scripts.Bullet.Types {
                 if (!obj.TryGetComponent(out EnemyBase enemy)) continue;
                 
                 var dist = Vector3.Distance(obj.transform.position, transform.position);
-                var desiredDamage = Mathf.Lerp(splashDamage, 0, dist / radius);
+                var desiredDamage = Mathf.Lerp(damage * splashDamageModifier, 0, dist / radius);
                 
                 if (desiredDamage < 1f) continue; 
                 enemy.TakeDamage((float) Math.Round(desiredDamage, 1));

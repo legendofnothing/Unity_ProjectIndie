@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
+  damageModifier: 0.35
   speed: 9
   thresholdBounces: 5
   canBounce: 1

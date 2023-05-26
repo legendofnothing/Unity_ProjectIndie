@@ -259,6 +259,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!4 &15404531 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1663320315909983471, guid: 4d9508166727000478eda80f659dca29, type: 3}
+  m_PrefabInstance: {fileID: 9013195812980675104}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &41736119
 GameObject:
   m_ObjectHideFlags: 0
@@ -1628,6 +1633,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   textComp: {fileID: 549197275}
+--- !u!1 &607520193 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4613757442825611242, guid: 4d9508166727000478eda80f659dca29, type: 3}
+  m_PrefabInstance: {fileID: 9013195812980675104}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &625219907
 GameObject:
   m_ObjectHideFlags: 0
@@ -8247,13 +8257,49 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1663320315909983471, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4609972293404959195, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1788002972, guid: 3c1b2dc5c955b5c49b42ea2c74bc29eb, type: 3}
+    - target: {fileID: 5467214818012413969, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268791800206413382, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268791800206413382, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268791800206413382, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268791800206413382, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268791800206413382, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268791800206413382, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268791800206413382, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353290, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 9013195813678353291, guid: 4d9508166727000478eda80f659dca29, type: 3}
-      propertyPath: hp
-      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 9013195813678353291, guid: 4d9508166727000478eda80f659dca29, type: 3}
       propertyPath: playerCamera
@@ -8303,5 +8349,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9013195813678353294, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: gun
+      value: 
+      objectReference: {fileID: 15404531}
+    - target: {fileID: 9013195813678353294, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: firingPoint
+      value: 
+      objectReference: {fileID: 607520193}
+    - target: {fileID: 9013195813896224536, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2060599777, guid: e887b315d5868ab4bb7782d9c402402d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d9508166727000478eda80f659dca29, type: 3}

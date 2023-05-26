@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Bullet;
 using Scripts.Bullet;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
@@ -108,7 +109,8 @@ namespace Player
         private void Shoot(){
             _touchState = TouchState.Default;
             EventDispatcher.instance.SendMessage(EventType.SwitchToShooting);
-            StartCoroutine(_bulletManager.SpawnBullet(firingPoint.transform.position, gun.rotation));
+            StartCoroutine(_bulletManager
+                .SpawnBullet(firingPoint.transform.position + firingPoint.transform.right, gun.rotation));
         }
         #endregion
 

@@ -4,6 +4,7 @@ using DG.Tweening;
 using Enemy;
 using Scripts.Core.EventDispatcher;
 using UnityEngine;
+using UnityEngine.Serialization;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
 namespace Scripts.Bullet.Types {
@@ -11,7 +12,7 @@ namespace Scripts.Bullet.Types {
         [Header("Bullet Config")]
         [SerializeField] private Ease easeType;
         [SerializeField] private float radius;
-        [SerializeField] private float splashDamage;
+        [SerializeField] private float splashDamageModifier;
 
         private Tween _currentTween;
 
@@ -54,7 +55,7 @@ namespace Scripts.Bullet.Types {
                 if (!obj.TryGetComponent(out EnemyBase enemy)) continue;
                 
                 var dist = Vector3.Distance(obj.transform.position, transform.position);
-                var desiredDamage = Mathf.Lerp(splashDamage, 0, dist / radius);
+                var desiredDamage = Mathf.Lerp(damage * splashDamageModifier, 0, dist / radius);
                 
                 if (desiredDamage < 1f) continue; 
                 enemy.TakeDamage((float) Math.Round(desiredDamage, 1));

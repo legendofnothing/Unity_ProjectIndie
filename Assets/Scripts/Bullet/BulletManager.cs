@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Scripts.Bullet;
 using Scripts.Bullet.Types;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
@@ -9,10 +11,19 @@ using UnityEngine;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 using Random = UnityEngine.Random;
 
-namespace Scripts.Bullet {
-    /// <summary>
-    /// Manager to handle bullets
-    /// </summary>
+namespace Bullet {
+    [Serializable]
+    public struct GunInfo {
+        public Sprite gunSprite;
+        public float offsetToPlayer;
+        [Space] 
+        public float baseAttack;
+        public float baseFireRate;
+        public int baseAmmoCount;
+        [Space] 
+        public string gunDescription;
+    }
+    
     public class BulletManager : Singleton<BulletManager>
     {
         public List<GameObject> bulletList;
@@ -59,8 +70,8 @@ namespace Scripts.Bullet {
                 //Set Bullet Damage w/ any modifiers
                 var bulletComp = bulletInst.GetComponent<BulletBase>();
                 bulletComp.damage = Random.Range(0f, 1f) < _critChance
-                    ? bulletComp.damage * 2 * _damageModifier
-                    : bulletComp.damage * _damageModifier;
+                    ? bulletComp.damage * bulletComp.damageModifier * 2 * _damageModifier
+                    : bulletComp.damage * bulletComp.damageModifier * _damageModifier;
 
                 if (bulletComp.specialTag == BulletSpecialTag.Homing) 
                     TargetingSystem.instance.AddHomingBullet((BulletHoming) bulletComp);

@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
+  damageModifier: 1
   speed: 5
   thresholdBounces: 2
   canBounce: 0
@@ -184,7 +185,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   radius: 2
-  splashDamage: 75
+  splashDamageModifier: 0.75
 --- !u!95 &3343747745508927874
 Animator:
   serializedVersion: 4

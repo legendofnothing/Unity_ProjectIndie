@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8268791800206413382}
   - component: {fileID: 4609972293404959195}
   m_Layer: 3
-  m_Name: Sprite
+  m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,13 +26,12 @@ Transform:
   m_GameObject: {fileID: 4613757442825611242}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 9013195813375547299}
-  m_Father: {fileID: 1867614614952126491}
+  m_Children: []
+  m_Father: {fileID: 1663320315909983471}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &4609972293404959195
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -74,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 631771417
   m_SortingLayer: 1
   m_SortingOrder: -1
-  m_Sprite: {fileID: -1962684563, guid: 44017b1ffc2c9d84aaee0717a26fd832, type: 3}
+  m_Sprite: {fileID: 21840434, guid: 50f88091dbf739242b0fbbd58fd72440, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &9013195813375547298
+--- !u!1 &5365207901469876033
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,55 +92,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9013195813375547299}
+  - component: {fileID: 1663320315909983471}
   m_Layer: 3
-  m_Name: FiringPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9013195813375547299
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9013195813375547298}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.116, y: 0.069, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8268791800206413382}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &9013195813456117519
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1867614614952126491}
-  m_Layer: 3
-  m_Name: Gun
+  m_Name: GunAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1867614614952126491
+--- !u!4 &1663320315909983471
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9013195813456117519}
+  m_GameObject: {fileID: 5365207901469876033}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.261, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0.24, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8268791800206413382}
@@ -181,7 +149,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9013195813896224535}
-  - {fileID: 1867614614952126491}
+  - {fileID: 1663320315909983471}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -197,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ca30fb9862a3049ac0b5eba7c51677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 999
+  hp: 500
   input: {fileID: 9013195813678353294}
   bulletManager: {fileID: 9013195813678353295}
   playerCamera: {fileID: 0}
@@ -219,9 +187,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 32
   maxAngle: 82
-  firingPoint: {fileID: 9013195813375547298}
+  firingPoint: {fileID: 0}
   _bulletManager: {fileID: 9013195813678353295}
-  gun: {fileID: 1867614614952126491}
+  gun: {fileID: 8268791800206413382}
 --- !u!114 &9013195813678353295
 MonoBehaviour:
   m_ObjectHideFlags: 0

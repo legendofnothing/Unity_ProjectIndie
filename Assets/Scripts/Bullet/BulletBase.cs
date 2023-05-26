@@ -16,7 +16,8 @@ namespace Scripts.Bullet {
     
     public class BulletBase : MonoBehaviour {
         [Header("Config")]
-        public float damage = 100f;
+        [HideInInspector] public float damage = 100f;
+        public float damageModifier = 1f;
         public float speed = 3f;
         public int thresholdBounces = 12;
         
