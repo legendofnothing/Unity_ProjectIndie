@@ -14,5 +14,9 @@ namespace UI.Menu {
         private void Start() {
             UIStatic.FireUIEvent(TextUI.Type.Coin, SaveSystem.playerData.Coin);
         }
+
+        public void Load() {
+            SceneManager.LoadScene("Game1");
+        }
     }
 }

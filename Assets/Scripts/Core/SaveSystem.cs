@@ -7,6 +7,8 @@ using UnityEngine;
 namespace Scripts.Core {
     public static class DataKey {
         public const string Player = "PLAYER";
+        public const string PlayerWeapon = "WEAPONSTAT";
+        public const string PlayerEquippedWeapon = "WEAPON";
         public const string PlayerSkin = "SKIN";
         public const string Volume = "VOLUME";
         public const string FPS = "FPS";
@@ -51,7 +53,7 @@ namespace Scripts.Core {
             _init = true;
             if (!PlayerPrefs.HasKey(DataKey.Player)) {
                 playerData = new PlayerData {
-                    Coin = 123456,
+                    Coin = 12345678,
                     LevelData = new Dictionary<string, DataLevel>(),
                     PlayerLevels = new Dictionary<string, int>() {
                         {PlayerStatLevels.HP,   5},

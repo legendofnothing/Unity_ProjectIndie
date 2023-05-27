@@ -20,7 +20,10 @@ namespace UI.Menu.Components.WeaponUpgrade {
         private Sequence _currSeq;
         
         private void Start() {
-            foreach (var p in panels.Select(panel => panel.GetComponent<CanvasGroup>())) {
+            foreach (var panel in panels) {
+                panel.enabled = false;
+                
+                var p = panel.GetComponent<CanvasGroup>();
                 p.alpha = 0;
                 panelGroups.Add(p);
             }

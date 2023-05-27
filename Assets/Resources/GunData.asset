@@ -14,28 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunInfos:
   - gunSprite: {fileID: -1788002972, guid: 3c1b2dc5c955b5c49b42ea2c74bc29eb, type: 3}
-    offsetToPlayer: 0
+    offsetToPlayer: 0.6
     baseAttack: 70
-    baseFireRate: 56
+    baseFireRate: 120
     baseAmmoCount: 28
-    gunDescription: 
-  - gunSprite: {fileID: 21840434, guid: 50f88091dbf739242b0fbbd58fd72440, type: 3}
-    offsetToPlayer: 0
-    baseAttack: 150
-    baseFireRate: 18
-    baseAmmoCount: 20
-    gunDescription: 
-  - gunSprite: {fileID: -820071411, guid: d22837cb57b880346baf9368cb6df02a, type: 3}
-    offsetToPlayer: 0
-    baseAttack: 85
-    baseFireRate: 720
-    baseAmmoCount: 60
-    gunDescription: A fully-automatic weapon designed to dispense hell on earth.
-      This one is found in the trash can though.
+    gunDescription: This hits like a water pistol. Why are chess pieces holding guns???
+    gunCost: 0
   - gunSprite: {fileID: -1962684563, guid: 44017b1ffc2c9d84aaee0717a26fd832, type: 3}
-    offsetToPlayer: 0
+    offsetToPlayer: -0.2
     baseAttack: 100
-    baseFireRate: 128
+    baseFireRate: 256
     baseAmmoCount: 32
-    gunDescription: Trusty, worthy, a go-to weapon to fend off hordes of rule breaking
-      pieces. A hidden power allows it to shoot magical shells.
+    gunDescription: War crime stick. Spicy stick. Stick that dispense a single bullet
+      at a time.
+    gunCost: 340000
+  - gunSprite: {fileID: 21840434, guid: 50f88091dbf739242b0fbbd58fd72440, type: 3}
+    offsetToPlayer: 0.4
+    baseAttack: 150
+    baseFireRate: 90
+    baseAmmoCount: 20
+    gunDescription: This accurate rifle deals 10000 damage per seconds. I found this
+      by the sidewalk.
+    gunCost: 727000
+  - gunSprite: {fileID: -820071411, guid: d22837cb57b880346baf9368cb6df02a, type: 3}
+    offsetToPlayer: 0.3
+    baseAttack: 85
+    baseFireRate: 900
+    baseAmmoCount: 60
+    gunDescription: Arguably the most powerful weapon in this so-called game.
+    gunCost: 1337000

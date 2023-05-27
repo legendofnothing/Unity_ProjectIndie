@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using Bullet;
 using DG.Tweening;
+using Newtonsoft.Json;
+using ScriptableObjects;
 using Scripts.Bullet;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
@@ -9,22 +12,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
-namespace Player {
-    public class FloatScreenPosition {
-        public readonly float TopScreen    = 0f;
-        public readonly float RightScreen  = 0f;
-        public readonly float LeftScreen   = 0f;
-        public float BottomScreen = 0f;
-
-        public FloatScreenPosition(float t, float r, float l, float b) {
-            TopScreen = t;
-            RightScreen = r;
-            LeftScreen = l;
-            BottomScreen = b;
-        }
-    }
-    
-    public class Player : Singleton<Player> {
+namespace Player { public class Player : Singleton<Player> {
         public float hp;
         
         private float _currentHp;
@@ -32,12 +20,19 @@ namespace Player {
         private float _attackModifier;
         private float _critChance;
 
-        [Space]
+        [Space] 
+        public GunData gunData;
         public PlayerController input;
         public BulletManager bulletManager;
-        [FormerlySerializedAs("camera")] [Space]
+        [Space]
         public Camera playerCamera;
-        [HideInInspector] public FloatScreenPosition screenFloats;
+
+        [Space] 
+        public List<Sprite> playerSkins;
+        public SpriteRenderer playerSprite;
+        public GameObject aimingGuide;
+        public GameObject gunAnchor;
+        public SpriteRenderer gunSprite;
 
         private bool _hasDied;
 
@@ -58,12 +53,6 @@ namespace Player {
 
         private void Start() {
             SetupStats();
-
-            screenFloats = new FloatScreenPosition(
-                playerCamera.ViewportToWorldPoint(Vector3.one).y
-                ,playerCamera.ViewportToWorldPoint(Vector3.one).x
-                ,playerCamera.ViewportToWorldPoint(Vector3.zero).x
-                ,playerCamera.ViewportToWorldPoint(Vector3.zero).y);
         }
 
         private void SetupStats() {
@@ -83,7 +72,32 @@ namespace Player {
             UIStatic.FireUIEvent(TextUI.Type.Turn, SaveSystem.currentLevelData.TurnNumber);
             UIStatic.FireUIEvent(TextUI.Type.Coin, SaveSystem.playerData.Coin);
             UIStatic.FireUIEvent(TextUI.Type.Score, 0);
-        }
+
+            var currSkin = PlayerPrefs.HasKey(DataKey.PlayerSkin)
+                ? PlayerPrefs.GetInt(DataKey.PlayerSkin)
+                : 0;
+            playerSprite.sprite = playerSkins[currSkin];
+
+            var currWeapon = PlayerPrefs.HasKey(DataKey.PlayerEquippedWeapon)
+                ? PlayerPrefs.GetInt(DataKey.PlayerEquippedWeapon)
+                : 0;
+
+            gunSprite.sprite = gunData.gunInfos[currWeapon].gunSprite;
+            gunAnchor.transform.localPosition
+                = new Vector3(0, gunData.gunInfos[currWeapon].offsetToPlayer);
+            
+            var gunStats = PlayerPrefs.HasKey(DataKey.PlayerWeapon)
+                ? JsonConvert.DeserializeObject<GunStats>(PlayerPrefs.GetString(DataKey.PlayerWeapon))
+                : new GunStats {
+                    damageLevel = 1,
+                    fireRateLevel = 1,
+                    ammoCountLevel = 1,
+                    isAimingGuideUnlocked = false,
+                    isAmmoPouchUnlocked = false,
+                    isExtraDamageUnlocked = false
+                };
+            aimingGuide.SetActive(gunStats.isAimingGuideUnlocked);
+        }  
 
         public void TakeDamage(float amount) {
             if (_hasDied) return;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using Scripts.Bullet;
 using Scripts.Bullet.Types;
 using Scripts.Core;
@@ -22,6 +23,17 @@ namespace Bullet {
         public int baseAmmoCount;
         [Space] 
         public string gunDescription;
+        public int gunCost;
+    }
+    
+    [Serializable]
+    public class GunStats {
+        public int damageLevel;
+        public int fireRateLevel;
+        public int ammoCountLevel;
+        public bool isAimingGuideUnlocked;
+        public bool isAmmoPouchUnlocked;
+        public bool isExtraDamageUnlocked;
     }
     
     public class BulletManager : Singleton<BulletManager>
@@ -29,7 +41,15 @@ namespace Bullet {
         public List<GameObject> bulletList;
 
         private float _critChance; 
-        private float _damageModifier; 
+        private float _damageModifier;
+        
+        private float _damage = 100f;
+        private int _bulletCap = 100;
+        private float _fireRate = 100f;
+        
+        public const float damageModifier = 0.5f;
+        public const float fireRateModifier = 0.4f;
+        public const float ammoCountModifier = 0.2f;
         
         //Holds current bullet in the scene
         private List<GameObject> _currentList;
@@ -44,6 +64,52 @@ namespace Bullet {
         private void Start() {
             UIStatic.FireUIEvent(TextUI.Type.AmmoCount, bulletList.Count);
             EventDispatcher.instance.SubscribeListener(EventType.BulletDestroyed, bullet => OnBulletDestroyed((GameObject) bullet));
+            
+            var currWeapon = PlayerPrefs.HasKey(DataKey.PlayerEquippedWeapon)
+                ? PlayerPrefs.GetInt(DataKey.PlayerEquippedWeapon)
+                : 0;
+            
+            var gunStats = PlayerPrefs.HasKey(DataKey.PlayerWeapon)
+                ? JsonConvert.DeserializeObject<GunStats>(PlayerPrefs.GetString(DataKey.PlayerWeapon))
+                : new GunStats {
+                    damageLevel = 1,
+                    fireRateLevel = 1,
+                    ammoCountLevel = 1,
+                    isAimingGuideUnlocked = false,
+                    isAmmoPouchUnlocked = false,
+                    isExtraDamageUnlocked = false
+                };
+
+            var currData = Player.Player.instance.gunData.gunInfos[currWeapon];
+            if (gunStats.isExtraDamageUnlocked) {
+                _damage = gunStats.damageLevel == 1
+                    ? currData.baseAttack + currData.baseAttack * 0.1f
+                    : currData.baseAttack + currData.baseAttack * 0.1f +
+                      (float)Math.Round(damageModifier * gunStats.damageLevel, 1);
+            }
+            else {
+                _damage = gunStats.damageLevel == 1
+                    ? currData.baseAttack 
+                    : currData.baseAttack + (float)Math.Round(damageModifier * gunStats.damageLevel, 1);
+            }
+            
+            if (gunStats.isAmmoPouchUnlocked) {
+                _bulletCap = gunStats.ammoCountLevel == 1
+                    ? Mathf.CeilToInt(currData.baseAmmoCount + currData.baseAmmoCount * 0.25f)
+                    : Mathf.CeilToInt(currData.baseAmmoCount + currData.baseAmmoCount * 0.25f +
+                                      (float)Math.Round(ammoCountModifier * gunStats.ammoCountLevel, 1));
+            }
+            else {
+                _bulletCap = gunStats.ammoCountLevel == 1
+                    ? Mathf.CeilToInt(currData.baseAmmoCount)
+                    : Mathf.CeilToInt(currData.baseAmmoCount 
+                                      + (float)Math.Round(ammoCountModifier * gunStats.ammoCountLevel, 1));
+            }
+            
+            _fireRate =
+                gunStats.fireRateLevel == 1
+                    ? currData.baseFireRate
+                    : currData.baseFireRate + (float)Math.Round(fireRateModifier * gunStats.fireRateLevel, 1);
         }
 
         private void OnBulletDestroyed(GameObject bullet) {
@@ -70,13 +136,13 @@ namespace Bullet {
                 //Set Bullet Damage w/ any modifiers
                 var bulletComp = bulletInst.GetComponent<BulletBase>();
                 bulletComp.damage = Random.Range(0f, 1f) < _critChance
-                    ? bulletComp.damage * bulletComp.damageModifier * 2 * _damageModifier
-                    : bulletComp.damage * bulletComp.damageModifier * _damageModifier;
+                    ? _damage * bulletComp.damageModifier * 2 * _damageModifier
+                    : _damage * bulletComp.damageModifier * _damageModifier;
 
                 if (bulletComp.specialTag == BulletSpecialTag.Homing) 
                     TargetingSystem.instance.AddHomingBullet((BulletHoming) bulletComp);
                 
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(1 / (_fireRate/60f));
             }
             
             yield return null;
@@ -84,6 +150,7 @@ namespace Bullet {
         
         public void AddBullet(GameObject bullet) {
             if (_currentList.Count <= 0) {
+                if (bulletList.Count >= _bulletCap) return;
                 bulletList.Add(bullet);
                 UIStatic.FireUIEvent(TextUI.Type.AmmoCount, bulletList.Count);
             }
