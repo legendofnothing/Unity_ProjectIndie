@@ -310,17 +310,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5556f3f304a95c54bbef73dded5e808d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
-  damage: 10
+  hpModifier: 2
+  damageModifier: 2
   spawnType: 1
   movePriority: 5
-  coinAddedOnHit: 50
-  coinAddedOnDestroy: 100
-  scoreAddedOnHit: 10
-  scoreAddedOnDestroy: 20
+  coinHitModifier: 2
+  coinDestroyModifier: 4
+  scoreHitModifier: 2
+  scoreDestroyModifier: 4
   x: 0
   y: 0
-  currentDestination: {fileID: 0}
   healthBar: {fileID: 6115946034122343061}
   hasFinishedTurn: 0
   isEnemyDying: 0

@@ -66,8 +66,10 @@ namespace Managers
         }
         
         public void SpawnPickups() {
-            if (SaveSystem.currentLevelData.TurnNumber % 2 != 0) return;
-            var randomAmount = UnityRandom.Range(minAmountSpawn, maxAmountSpawn);
+            if (SaveSystem.currentLevelData.TurnNumber % LevelManager.instance.levelData.pickupTurn != 0) return;
+            var randomAmount 
+                = UnityRandom.Range(LevelManager.instance.levelData.minPickUpSpawnAmount
+                    , LevelManager.instance.levelData.maxPickUpSpawnAmount + 1);
             
             var rnd = new Random();
             var randomTileSpawners 

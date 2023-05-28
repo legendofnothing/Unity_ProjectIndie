@@ -33,8 +33,8 @@ namespace Enemy.EnemyVariant {
         private WeightedList<EnemySpecialOneMoves> _weightedMove = new();
         private SpecialOneMoves _currentMove; 
 
-        public override void Init(int xCord, int yCord, float currHp) {
-            base.Init(xCord, yCord, currHp);
+        public override void Init(int xCord, int yCord) {
+            base.Init(xCord, yCord);
 
             foreach (var set in moves) {
                 _weightedMove.AddElement(set, set.chance);
@@ -101,12 +101,12 @@ namespace Enemy.EnemyVariant {
         }
 
         public override void OnAttackAnimationDamage() {
-            var baseDamage = damage;
+            var baseDamage = _levelData.enemyBaseHP;
 
             var actualDamage = _currentMove switch {
                 SpecialOneMoves.Melee => baseDamage * 1.4f,
                 SpecialOneMoves.Range => baseDamage * 0.8f,
-                _ => damage
+                _ => baseDamage
             };
 
             Player.Player.instance.TakeDamage(actualDamage);

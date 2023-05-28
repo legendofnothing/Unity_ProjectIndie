@@ -33,8 +33,8 @@ namespace Enemy.EnemyVariant.ShotgunKing {
         private WeightedList<ShotgunKingAttackType> _attackWeighted = new();
         private ShotgunKingAttackType _currAttack;
 
-        public override void Init(int xCord, int yCord, float currHp) {
-            base.Init(xCord, yCord, currHp);
+        public override void Init(int xCord, int yCord) {
+            base.Init(xCord, yCord);
             
             foreach (var attack in attacks) {
                 _attackWeighted.AddElement(attack.attackType, attack.chance);

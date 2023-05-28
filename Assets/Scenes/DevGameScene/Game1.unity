@@ -4055,7 +4055,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 470, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1291508548
@@ -8299,5 +8299,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9013195813678353294, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: minHoldDuration
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013195813678353295, guid: 4d9508166727000478eda80f659dca29, type: 3}
+      propertyPath: bulletList.Array.data[0]
+      value: 
+      objectReference: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d9508166727000478eda80f659dca29, type: 3}

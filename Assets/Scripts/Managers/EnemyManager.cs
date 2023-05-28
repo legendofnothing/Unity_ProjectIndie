@@ -22,6 +22,7 @@ namespace Managers {
         private readonly WeightedList<GlobalDefines.SpawnData> _weightedEnemyList = new();
         [HideInInspector] public List<EnemyBase> enemies = new ();
         private GridManager _gridManager;
+        private LevelManager _levelManager;
         [HideInInspector] public List<Tile> emptyTilesInst = new ();
 
         private void Awake() {
@@ -30,6 +31,8 @@ namespace Managers {
             foreach (var enemy in LevelManager.instance.enemySpawningData.enemyData) {
                 _weightedEnemyList.AddElement(enemy, enemy.chance);
             }
+            
+            _levelManager = LevelManager.instance;
         }
     
         private void Start() {
@@ -69,7 +72,8 @@ namespace Managers {
         
             yield return new WaitForSeconds(0.4f);
             
-            var randomNum = RandomUnity.Range(10, 30);
+            var randomNum = RandomUnity.Range(
+                _levelManager.levelData.minEnemySpawnAmount, _levelManager.levelData.maxEnemySpawnAmount + 1);
             SpawnEnemyRandom(randomNum);
 
             yield return new WaitForSeconds(0.8f);
@@ -80,10 +84,10 @@ namespace Managers {
         #region Helper Functions
         public void SpawnEnemyRandom(int amount) {
             var emptyTiles = _gridManager.GetEmptyTiles();
-            if (emptyTiles.Count <= 0 && enemies.Count >= 30) return;
+            if (emptyTiles.Count <= 0 && enemies.Count >= _levelManager.levelData.enemyCap) return;
 
-            if (enemies.Count + amount >= 30) {
-                amount = 30 - enemies.Count;
+            if (enemies.Count + amount >= _levelManager.levelData.enemyCap) {
+                amount = _levelManager.levelData.enemyCap - enemies.Count;
             }
             
             var rnd = new Random();
@@ -107,8 +111,7 @@ namespace Managers {
                     , Quaternion.identity);
                 
                 enemyBase = enemyInst.GetComponent<EnemyBase>();
-                var adjustedEnemyHp = enemyBase.hp * SaveSystem.currentLevelData.TurnNumber;
-                enemyBase.Init(randomTile.x, randomTile.y, adjustedEnemyHp);
+                enemyBase.Init(randomTile.x, randomTile.y);
                 enemies.Add(enemyBase);
                 _gridManager.SetTileContainContent(randomTile.x, randomTile.y, Contains.Enemy);
             }

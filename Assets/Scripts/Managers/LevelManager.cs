@@ -27,6 +27,7 @@ namespace Managers
     {
         private GridManager _gridManager;
         private EnemyManager _enemyManager;
+        public LevelData levelData;
         
         [Space]
         public EnemySpawningData enemySpawningData;
@@ -47,14 +48,14 @@ namespace Managers
         }
 
         private void Start() {
-            UpdateTurn(Turn.Start);
-            
             //Subscribe Events w/ other scripts
             EventDispatcher.instance.SubscribeListener(EventType.SwitchToShooting, _=>UpdateTurn(Turn.Shooting));
             EventDispatcher.instance.SubscribeListener(EventType.SwitchToEnemy, _=>UpdateTurn(Turn.Enemy));
             EventDispatcher.instance.SubscribeListener(EventType.SwitchToPlayer, _=>UpdateTurn(Turn.Player));
             EventDispatcher.instance.SubscribeListener(EventType.SwitchToShop, _=>UpdateTurn(Turn.Shop));
             EventDispatcher.instance.SubscribeListener(EventType.SwitchToEnd, _=>UpdateTurn(Turn.End));
+            
+            UpdateTurn(Turn.Start);
         }
         
         /// <summary>
@@ -65,18 +66,15 @@ namespace Managers
         {
             currentTurn = turn;
 
-            switch (currentTurn)
-            {
+            switch (currentTurn) {
                 case Turn.Start:
-                    _enemyManager.SpawnEnemyRandom(10);
+                    Player.Player.instance.input.CanInput(false);
+                    _enemyManager.SpawnEnemyRandom(levelData.maxEnemySpawnAmount / 2);
                     UIStatic.FireUIEvent(TextUI.Type.Turn, SaveSystem.currentLevelData.TurnNumber);
-                    //UpdateTurn(Turn.Player);
+                    UpdateTurn(Turn.Player);
                     break;
 
                 case Turn.Player:
-                    SaveSystem.currentLevelData.TurnNumber++; 
-                    
-                    UIStatic.FireUIEvent(TextUI.Type.Turn, SaveSystem.currentLevelData.TurnNumber);
                     Player.Player.instance.input.CanInput(true);
                     break;
 
@@ -89,10 +87,13 @@ namespace Managers
                     break;
                 
                 case Turn.Shop:
-
-                    EventDispatcher.instance.SendMessage(SaveSystem.currentLevelData.TurnNumber % 5 == 0
+                    EventDispatcher.instance
+                        .SendMessage(SaveSystem.currentLevelData.TurnNumber % levelData.shopTurn == 0
                         ? EventType.OpenShop
                         : EventType.SwitchToPlayer);
+                    
+                    SaveSystem.currentLevelData.TurnNumber++;
+                    UIStatic.FireUIEvent(TextUI.Type.Turn, SaveSystem.currentLevelData.TurnNumber);
                     break;
                 
                 case Turn.End:

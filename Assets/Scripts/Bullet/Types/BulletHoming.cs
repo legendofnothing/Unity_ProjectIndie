@@ -25,6 +25,7 @@ namespace Scripts.Bullet.Types {
         }
 
         public void SetDestination(Vector3 destination) {
+            transform.rotation = Quaternion.FromToRotation(Vector3.up, destination.normalized);
             _currentTween = transform.DOMove(destination, 1 / speed)
                 .SetEase(easeType)
                 .OnComplete(ExplodeLogic);

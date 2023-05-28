@@ -66,7 +66,7 @@ MonoBehaviour:
   damage: 100
   damageModifier: 1
   speed: 8
-  thresholdBounces: 25
+  thresholdBounces: 999
   canBounce: 1
   specialTag: 0
   layersToInteract:

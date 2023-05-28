@@ -4,8 +4,11 @@ using System.Globalization;
 using System.Linq;
 using DG.Tweening;
 using Managers;
+using ScriptableObjects;
+using Scripts.Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using EventDispatcher = Scripts.Core.EventDispatcher.EventDispatcher;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 using Random = UnityEngine.Random;
@@ -24,42 +27,54 @@ namespace Enemy {
     /// Contains base behavior for enemies.
     /// </summary>
     public abstract class EnemyBase : MonoBehaviour {
-        public float hp = 100; //BaseHp
-        public float damage = 10;
+        public float hpModifier = 1; //BaseHp
+        public float damageModifier = 1;
         [Space]
         public EnemySpawnType spawnType;
         public int movePriority;
         
         [Space]
-        public int coinAddedOnHit = 50;
-        public int coinAddedOnDestroy = 100;
+        public float coinHitModifier = 1;
+        public float coinDestroyModifier = 2;
 
         [Space] 
-        public int scoreAddedOnHit = 10;
-        public int scoreAddedOnDestroy = 20;
+        public float scoreHitModifier = 1;
+        public float scoreDestroyModifier = 2;
         
         //Enemy Position on the grid
         [HideInInspector] public int x;
         [HideInInspector] public int y;
-        [HideInInspector] public Tile currentDestination;
 
         [Header("UI Related")]
         public Slider healthBar;
 
         private float _hp;
         protected float currentHp;
+        protected float currentDmg;
+        
+        
         [HideInInspector] public bool hasFinishedTurn;
         [HideInInspector] public bool isEnemyDying;
+
+        protected LevelData _levelData;
         protected BoxCollider2D _col;
         protected GridManager GridManager;
         protected Animator _animator;
         protected bool _canTakeDamage = true;
         
-        public virtual void Init(int xCord, int yCord, float currHp) {
+        public virtual void Init(int xCord, int yCord) {
             x = xCord;
             y = yCord;
-            currentHp = currHp;
-            _hp = currHp;
+
+            _levelData = LevelManager.instance.levelData;
+            
+            currentHp = _levelData.enemyBaseHP * hpModifier 
+                        + _levelData.enemyBaseHP * hpModifier
+                                                 * _levelData.enemyHPScale 
+                                                 * (SaveSystem.currentLevelData.TurnNumber - 1);
+            _hp = currentHp;
+            currentDmg = _levelData.enemyBaseDMG * damageModifier;
+            
             GridManager = GridManager.instance;
             _animator = gameObject.GetComponent<Animator>();
             _col = gameObject.GetComponent<BoxCollider2D>();
@@ -85,8 +100,8 @@ namespace Enemy {
                 EventDispatcher.instance.SendMessage(EventType.OnEnemyDying, this);
                 healthBar.value = 0;
                 
-                Player.Player.instance.AddCoin(coinAddedOnDestroy);
-                Player.Player.instance.AddScore(scoreAddedOnDestroy);
+                Player.Player.instance.AddCoin(Mathf.FloorToInt(coinDestroyModifier * _levelData.coinAdd));
+                Player.Player.instance.AddScore(Mathf.FloorToInt(scoreDestroyModifier * _levelData.scoreAdd));
                 
                 _animator.SetTrigger(EnemyAnim.Die);
                 
@@ -96,8 +111,8 @@ namespace Enemy {
 
             else {
                 currentHp -= amount;
-                Player.Player.instance.AddCoin(coinAddedOnHit);
-                Player.Player.instance.AddScore(scoreAddedOnHit);
+                Player.Player.instance.AddCoin(Mathf.FloorToInt(coinHitModifier * _levelData.coinAdd));
+                Player.Player.instance.AddScore(Mathf.FloorToInt(scoreHitModifier * _levelData.scoreAdd));
                 
                 healthBar.value = currentHp / _hp;
                 
@@ -120,7 +135,7 @@ namespace Enemy {
         }
 
         public virtual void OnAttackAnimationDamage() {
-            Player.Player.instance.TakeDamage(damage);
+            Player.Player.instance.TakeDamage(currentDmg);
         }
 
         public virtual void OnFinishAttackAnimation() {

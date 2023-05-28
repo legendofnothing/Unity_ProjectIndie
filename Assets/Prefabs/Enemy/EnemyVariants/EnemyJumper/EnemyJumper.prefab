@@ -77,17 +77,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e75a3947bb4a4ea06176d71b5b0932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
-  damage: 1.4
+  hpModifier: 1.2
+  damageModifier: 1.3
   spawnType: 1
   movePriority: 3
-  coinAddedOnHit: 50
-  coinAddedOnDestroy: 100
-  scoreAddedOnHit: 10
-  scoreAddedOnDestroy: 20
+  coinHitModifier: 1.3
+  coinDestroyModifier: 2
+  scoreHitModifier: 1.3
+  scoreDestroyModifier: 2
   x: 0
   y: 0
-  currentDestination: {fileID: 0}
   healthBar: {fileID: 6556706095333479987}
   hasFinishedTurn: 0
   isEnemyDying: 0

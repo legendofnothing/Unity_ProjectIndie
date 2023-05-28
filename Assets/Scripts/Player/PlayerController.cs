@@ -44,10 +44,6 @@ namespace Player
         private TouchState _touchState = TouchState.Default;
         private SpriteRenderer[] _spriteRendererGuide;
 
-        private void Start() {
-            _canInput = true;
-        }
-
         private void Update() {
             if (_canInput) HandleInput();
 
@@ -83,11 +79,11 @@ namespace Player
             if (Input.GetMouseButtonUp(0)) {
                 if (Mathf.Abs(Input.mousePosition.x) >= Screen.width - safePixelsWidth) return;
                 if (IsOverUI()) return;
-                if ((Time.time - _startTime) <= minHoldDuration) {
-                    _canSetTime = true;
-                    return;
-                }
-                _canSetTime = true;
+                // if ((Time.time - _startTime) <= minHoldDuration) {
+                //     _canSetTime = true;
+                //     return;
+                // }
+                // _canSetTime = true;
                 _touchState = TouchState.Shooting;
             }
         }

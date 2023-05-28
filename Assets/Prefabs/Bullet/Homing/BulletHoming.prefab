@@ -64,6 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 100
+  damageModifier: 1
   speed: 1
   thresholdBounces: 12
   canBounce: 0
@@ -79,7 +80,7 @@ MonoBehaviour:
     m_Bits: 768
   easeType: 19
   radius: 0.4
-  splashDamage: 50
+  splashDamageModifier: 0.75
 --- !u!95 &4737149991238354409
 Animator:
   serializedVersion: 4
