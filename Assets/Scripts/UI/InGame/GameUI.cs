@@ -5,6 +5,7 @@ using Scripts.Core;
 using Scripts.Core.EventDispatcher;
 using TMPro;
 using UI.Components;
+using UI.InGame.Components;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -27,10 +28,14 @@ namespace UI.InGame {
         public Sprite ffdTimescaleSprite;
         public Image timeScaleImage;
 
+        [Header("Closer")] 
+        public CloserUI closerUI;
+
         private CanvasScaler _scaler;
         private Player.Player _player;
 
         private bool _isPaused;
+        private bool _hasReturned;
         [HideInInspector] public float currTimeScale = 1f;
 
         private void Awake() {
@@ -47,12 +52,15 @@ namespace UI.InGame {
             timeScaleText.SetText("x1");
             
             pauseGroup.alpha = 0;
-            pauseCanvas.enabled = true;
+            pauseCanvas.enabled = false;
+            
+            var ratio = Screen.width / (float)Screen.height;
             
             //Set footer to desired position
-            var pos 
-                = _player.playerCamera
-                    .WorldToScreenPoint(_player.transform.position);
+            var pos
+                = ratio > 0.5f
+                    ? _player.playerCamera.WorldToScreenPoint(_player.transform.position)
+                    : _player.playerCamera.WorldToScreenPoint(_player.transform.position - new Vector3(0, 0.9f, 0));
             pos.z = 0;
             RectTransformUtility
                 .ScreenPointToLocalPointInRectangle(
@@ -115,12 +123,16 @@ namespace UI.InGame {
         }
         
         public void Return() {
-            
+            if (_hasReturned) return;
+            _hasReturned = true;
+            closerUI.Close(CloserUI.CloserType.ReturnToMenu);
         }
         
         public void ExitGame() {
+            if (_hasReturned) return;
+            _hasReturned = true;
             SaveSystem.SaveData(SceneManager.GetActiveScene().name);
-            Application.Quit();
+            closerUI.Close(CloserUI.CloserType.ExitGame);
         }
 
         #endregion

@@ -1,7 +1,9 @@
+using System;
 using DG.Tweening;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
 using TMPro;
+using UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 using EventType = Scripts.Core.EventDispatcher.EventType;
@@ -22,6 +24,14 @@ namespace UI.InGame {
         private Sequence currPriceTagSequence;
         private bool _hasBuy;
         
+        private Color _originalBuyButtonColor;
+        private Image _buyButtonImage;
+
+        private void Start() {
+            _buyButtonImage = priceTag.GetComponent<Image>();
+            _originalBuyButtonColor = _buyButtonImage.color;
+        }
+
         public void Init(ShopItem item) {
             _currShopItem = item;
             
@@ -29,7 +39,7 @@ namespace UI.InGame {
             soldBg.alpha = 0;
 
             itemName.text = item.itemName;
-            itemCost.text = item.itemCost.ToString();
+            itemCost.text = UIStatic.ConvertCost(item.itemCost);
             itemDescriptor.text = item.itemDescriptor;
             itemSprite.sprite = item.itemSprite;
             _hasBuy = false;
@@ -37,8 +47,24 @@ namespace UI.InGame {
 
         public void OnBuy() {
             if (_hasBuy) return;
+            
+            if (SaveSystem.playerData.Coin - _currShopItem.itemCost <= 0) {
+                currPriceTagSequence?.Kill();
+                _buyButtonImage.color = _originalBuyButtonColor;
+                currPriceTagSequence = DOTween.Sequence();
+                currPriceTagSequence
+                    .Append(_buyButtonImage.DOColor(Color.red, 0.15f))
+                    .SetLoops(6, LoopType.Yoyo);
+                
+                return;
+            }
+
             _hasBuy = true;
 
+            SaveSystem.playerData.Coin -= _currShopItem.itemCost;
+            SaveSystem.SaveData();
+            UIStatic.FireUIEvent(TextUI.Type.Coin, SaveSystem.playerData.Coin);
+            
             priceTag.DOFade(0, 1.2f);
             soldBg.DOFade(1, 1.2f);
             EventDispatcher.instance.SendMessage(EventType.OnItemBought, _currShopItem);

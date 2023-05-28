@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 631771417
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: e959a3b4bae476c468ad2cdca985f4bf, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.33333334}
@@ -155,7 +155,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 631771417
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: -1
   m_Sprite: {fileID: -1962684563, guid: 44017b1ffc2c9d84aaee0717a26fd832, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ca30fb9862a3049ac0b5eba7c51677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 9000
+  hp: 500
   gunData: {fileID: 11400000, guid: 3f49c31c9a42bc24db22e67eb8c12bdf, type: 2}
   input: {fileID: 9013195813678353294}
   bulletManager: {fileID: 9013195813678353295}
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safePixelsWidth: 2
-  minHoldDuration: 0.18
+  minHoldDuration: 0.09
   uiLayer:
     serializedVersion: 2
     m_Bits: 32
@@ -386,7 +386,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 631771417
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 2060599777, guid: e887b315d5868ab4bb7782d9c402402d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

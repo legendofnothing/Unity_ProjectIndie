@@ -61,6 +61,7 @@ namespace Player { public class Player : Singleton<Player> {
 
             _currentHp = hp;
             _defendModifier = 1 / (1 + 0.015f * playerStats[PlayerStatLevels.DEF]);
+            if (_defendModifier <= 0.3f) _defendModifier = 0.3f;
             _attackModifier = 1 * (1 + 0.005f * playerStats[PlayerStatLevels.ATK]);
             _critChance = 0.005f * playerStats[PlayerStatLevels.CRIT];
             

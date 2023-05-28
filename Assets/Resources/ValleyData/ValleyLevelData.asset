@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a675ed34aaa0cb40ba27051904b71e5, type: 3}
+  m_Name: ValleyLevelData
+  m_EditorClassIdentifier: 
+  shopTurn: 4
+  pickupTurn: 6
+  minPickUpSpawnAmount: 1
+  maxPickUpSpawnAmount: 5
+  enemyCap: 30
+  minEnemySpawnAmount: 7
+  maxEnemySpawnAmount: 18
+  scoreAdd: 50
+  coinAdd: 100
+  enemyBaseHP: 100
+  enemyBaseDMG: 8
+  enemyHPScale: 1.2

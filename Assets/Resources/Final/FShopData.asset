@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3c2c1aae034c89887c7a263aa8dd52, type: 3}
+  m_Name: FShopData
+  m_EditorClassIdentifier: 
+  shopItems:
+  - chanceToAppear: 1
+    shopItem:
+      itemTag: 0
+      itemCost: 12000
+      itemName: Basic Bullet
+      itemDescriptor: x1
+      itemValue: 0
+      itemSprite: {fileID: 603055541, guid: e58cb8714471e194db15054ab8606e96, type: 3}
+      prefab: {fileID: 811179696128422734, guid: 8ddb4ec5249b88343a93c90318ef29ed, type: 3}
+  - chanceToAppear: 1
+    shopItem:
+      itemTag: 0
+      itemCost: 12000
+      itemName: Heavy Bullet
+      itemDescriptor: x1
+      itemValue: 0
+      itemSprite: {fileID: -1582397652, guid: 4bfca636f86a51b43afb23abc17f4759, type: 3}
+      prefab: {fileID: 811179696128422734, guid: cbd6cf73894957b4db23e521b4f99f3f, type: 3}
+  - chanceToAppear: 0.5
+    shopItem:
+      itemTag: 0
+      itemCost: 12000
+      itemName: Homing Bullet
+      itemDescriptor: x1
+      itemValue: 0
+      itemSprite: {fileID: 400703055, guid: 31d2086bbcaa7b04fa88e2c010d6c6d2, type: 3}
+      prefab: {fileID: 811179696128422734, guid: bfa4ca9fba6d18541a7095c0be810608, type: 3}
+  - chanceToAppear: 0.4
+    shopItem:
+      itemTag: 0
+      itemCost: 12000
+      itemName: Explosive Bullet
+      itemDescriptor: x1
+      itemValue: 0
+      itemSprite: {fileID: 21300000, guid: a04f7f498d9a98144aed7d9af11457bc, type: 3}
+      prefab: {fileID: 811179696128422734, guid: c486c55e63c83b5479a1cef06d41bc22, type: 3}
+  - chanceToAppear: 0.6
+    shopItem:
+      itemTag: 0
+      itemCost: 12000
+      itemName: Scatter Bullet
+      itemDescriptor: x1
+      itemValue: 0
+      itemSprite: {fileID: -326733326, guid: f3fcac9a85ad16940b3d0ea8f7e06c5e, type: 3}
+      prefab: {fileID: 811179696128422734, guid: cf88e64f9d3b0c64882928d054b3c838, type: 3}
+  - chanceToAppear: 1
+    shopItem:
+      itemTag: 1
+      itemCost: 20000
+      itemName: HealthPack
+      itemDescriptor: +500 HP
+      itemValue: 100
+      itemSprite: {fileID: 21300000, guid: 156ef9e8cf8e675408a263bc7e8ed30d, type: 3}
+      prefab: {fileID: 0}
+  - chanceToAppear: 0.4
+    shopItem:
+      itemTag: 2
+      itemCost: 50000
+      itemName: Advanced HealthPack
+      itemDescriptor: +800 HP
+      itemValue: 500
+      itemSprite: {fileID: 21300000, guid: 0b15e712b225c0e45adeb0969d99cb2e, type: 3}
+      prefab: {fileID: 0}

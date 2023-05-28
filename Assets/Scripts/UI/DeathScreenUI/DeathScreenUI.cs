@@ -2,12 +2,14 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Scripts.Core;
 using TMPro;
+using UI.InGame.Components;
 using UnityEngine;
 
 namespace UI.DeathScreenUI { 
     public class DeathScreenUI : MonoBehaviour {
         public TextMeshProUGUI previousSceneName;
         public List<TextMeshProUGUI> statTexts;
+        public CloserUI closer;
         private int _currentSetIndex;
 
         private PlayerData _playerData;
@@ -52,6 +54,14 @@ namespace UI.DeathScreenUI {
                 if (_currentSetIndex >= statTexts.Count) return;
                 StartDisplayingStats();
             });
+        }
+
+        public void Return() {
+            closer.CloseWithoutTimeScale(CloserUI.CloserType.ReturnToMenu);
+        }
+
+        public void Exit() {
+            closer.CloseWithoutTimeScale(CloserUI.CloserType.ExitGame);
         }
     }
 }
