@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/DevGameScene/Game1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
@@ -17,4 +14,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DeathScene.unity
     guid: 2a1dbf7b869806947b20a3c8bebab4d2
+  - enabled: 1
+    path: Assets/Scenes/Trials/AbandonedValley.unity
+    guid: 4d454f40e1827fa4ca0acbf103a0a39e
+  - enabled: 1
+    path: Assets/Scenes/Trials/GatesOfHell.unity
+    guid: 348af2d73b1e84449bd49e351cb7f0f2
+  - enabled: 1
+    path: Assets/Scenes/Trials/Outskirts.unity
+    guid: 618dae8258f86094a92d07e4f8a7cbc9
+  - enabled: 1
+    path: Assets/Scenes/Trials/This Is It.unity
+    guid: eacb8892e8c963b40a7bce6bccd03e7d
   m_configObjects: {}

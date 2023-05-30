@@ -54,7 +54,9 @@ namespace Managers
             EventDispatcher.instance.SubscribeListener(EventType.SwitchToPlayer, _=>UpdateTurn(Turn.Player));
             EventDispatcher.instance.SubscribeListener(EventType.SwitchToShop, _=>UpdateTurn(Turn.Shop));
             EventDispatcher.instance.SubscribeListener(EventType.SwitchToEnd, _=>UpdateTurn(Turn.End));
-            
+        }
+
+        public void StartGame() {
             UpdateTurn(Turn.Start);
         }
         
@@ -62,8 +64,7 @@ namespace Managers
         /// Function to update game turn
         /// </summary>
         /// <param name="turn">Turn to update</param>
-        private void UpdateTurn(Turn turn)
-        {
+        private void UpdateTurn(Turn turn) {
             currentTurn = turn;
 
             switch (currentTurn) {

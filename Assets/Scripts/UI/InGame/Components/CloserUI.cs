@@ -48,7 +48,7 @@ namespace UI.InGame.Components {
                     Time.timeScale = value;
                 }))
                 .SetUpdate(true)
-                .Append(DOVirtual.Float(0f, 1f, 2f, value => {
+                .Insert(0.3f, DOVirtual.Float(0f, 1f, 2f, value => {
                     closerImage.fillAmount = value;
                 }))
                 .SetUpdate(true)
