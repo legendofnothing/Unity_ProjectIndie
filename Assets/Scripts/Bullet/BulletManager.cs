@@ -163,6 +163,8 @@ namespace Bullet {
 
                 if (bulletComp.specialTag == BulletSpecialTag.Homing) 
                     TargetingSystem.instance.AddHomingBullet((BulletHoming) bulletComp);
+                
+                AudioManagerHelper.instance.PlayEffect(AudioType.BULLET_Shoot);
 
                 yield return new WaitForSeconds(1 / (_fireRate/60f));
             }

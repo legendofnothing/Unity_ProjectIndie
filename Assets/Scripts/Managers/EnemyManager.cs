@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Enemy;
 using Scripts.Core;
 using Scripts.Core.Collections;
@@ -117,6 +118,9 @@ namespace Managers {
             }
 
             PickupManager.instance.SpawnPickups();
+            DOVirtual.DelayedCall(0.3f, () => {
+                AudioManagerHelper.instance.PlayEffect(AudioType.ENEMY_Spawn);
+            });
         }
         
         #endregion

@@ -11,6 +11,7 @@ using TMPro;
 using UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
+using AudioType = Managers.AudioType;
 using EventDispatcher = Scripts.Core.EventDispatcher.EventDispatcher;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
@@ -68,11 +69,13 @@ namespace UI.InGame {
                 element.Init(_weightedShopItems.GetRandomItem());
             }
             
+            AudioManagerHelper.instance.PlayEffect(AudioType.SHOP_Interaction);
             canvas.enabled = true;
             canvasGroup.DOFade(1, 1f);
         }
 
         public void OnProceed() {
+            AudioManagerHelper.instance.PlayEffect(AudioType.SHOP_Interaction);
             canvasGroup.DOFade(0, 1f).OnComplete(() => {
                 canvas.enabled = false;
                 EventDispatcher.instance.SendMessage(EventType.SwitchToPlayer);

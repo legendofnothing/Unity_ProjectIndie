@@ -1,11 +1,13 @@
 using System;
 using DG.Tweening;
+using Managers;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
 using TMPro;
 using UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
+using AudioType = UnityEngine.AudioType;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
 namespace UI.InGame {
@@ -55,11 +57,12 @@ namespace UI.InGame {
                 currPriceTagSequence
                     .Append(_buyButtonImage.DOColor(Color.red, 0.15f))
                     .SetLoops(6, LoopType.Yoyo);
-                
+                AudioManagerHelper.instance.PlayEffect(Managers.AudioType.SHOP_Reject);
                 return;
             }
 
             _hasBuy = true;
+            AudioManagerHelper.instance.PlayEffect(Managers.AudioType.SHOP_Coins);
 
             SaveSystem.playerData.Coin -= _currShopItem.itemCost;
             SaveSystem.SaveData();

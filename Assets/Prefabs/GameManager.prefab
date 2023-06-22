@@ -414,7 +414,14 @@ MonoBehaviour:
   playerImpactAudio: {fileID: 11400000, guid: 2d3814c899ec8c94698cefc2cc46b936, type: 2}
   enemyImpactSound: {fileID: 11400000, guid: 712ead5d31d0c5345a424175d2b00789, type: 2}
   enemyDeathSound: {fileID: 11400000, guid: 50ec52353f7cb424588a80aa39ebb7db, type: 2}
+  enemySpawnSound: {fileID: 11400000, guid: 97c7fbc98316f5747973fac34bd52889, type: 2}
   turnIndicatorSound: {fileID: 11400000, guid: 84884cb1ab3ffb047a4fea36e8fa4b02, type: 2}
+  shopInteractionAudios: {fileID: 11400000, guid: bcc3772ec5a87aa49af46d3219b3edd8, type: 2}
+  shopCoinAudios: {fileID: 11400000, guid: 7e8b459286fac5543946a8fcedc0d236, type: 2}
+  shopRejectAudios: {fileID: 11400000, guid: ee75f2da9eabb964594304deb7254d33, type: 2}
+  bulletShootAudios: {fileID: 11400000, guid: e74ea6b6274723e40829c10f551c478c, type: 2}
+  bulletImpactAudios: {fileID: 11400000, guid: fc65bf7c619c9b547b6c15532f219d9a, type: 2}
+  bulletExplosionAudios: {fileID: 11400000, guid: 5bf3ed37b401d5847a201ed48fa52001, type: 2}
 --- !u!1 &5081683451617540020
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c905ecdc7aa42e3bdcefdbbb47b140b, type: 3}
+  m_Name: Audio_Gunshots
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 8300000, guid: af81ce7ca033bb44cb73132e000be12a, type: 3}
+  - {fileID: 8300000, guid: 9b32278bdc4fda44b9494b8cb7fd44e7, type: 3}
+  - {fileID: 8300000, guid: 54a611e76eb98df448d96314d756a0f9, type: 3}
+  - {fileID: 8300000, guid: e14315ed4e65ec84a8cbe347fd48a14c, type: 3}
+  - {fileID: 8300000, guid: bb1e9953fb2410b4da58abf5808f48a5, type: 3}
+  - {fileID: 8300000, guid: 7a8eb86fdeb0cfc46a1f8e1490657471, type: 3}
+  - {fileID: 8300000, guid: 6146fdda4c82af842800a82c1a3963a7, type: 3}

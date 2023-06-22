@@ -13,8 +13,17 @@ namespace Managers {
         
         ENEMY_Impact,
         ENEMY_Death,
+        ENEMY_Spawn,
         
         TURN_Indicator,
+        
+        SHOP_Interaction,
+        SHOP_Coins,
+        SHOP_Reject,
+        
+        BULLET_Shoot,
+        BULLET_Impact,
+        BULLET_Explosion,
     }
     
     public class AudioManagerHelper : Singleton<AudioManagerHelper> {
@@ -30,8 +39,17 @@ namespace Managers {
         [Space] 
         public AudioListData enemyImpactSound;
         public AudioListData enemyDeathSound;
+        public AudioListData enemySpawnSound;
         [Space] 
         public AudioListData turnIndicatorSound;
+        [Space] 
+        public AudioListData shopInteractionAudios;
+        public AudioListData shopCoinAudios;
+        public AudioListData shopRejectAudios;
+        [Space] 
+        public AudioListData bulletShootAudios;
+        public AudioListData bulletImpactAudios;
+        public AudioListData bulletExplosionAudios;
 
         public void PlayEffect(AudioType type) {
             var clip = GetClipFromType(type);
@@ -45,7 +63,14 @@ namespace Managers {
                 AudioType.PLAYER_Impact => playerImpactAudio.list,
                 AudioType.ENEMY_Impact => enemyImpactSound.list,
                 AudioType.ENEMY_Death => enemyDeathSound.list,
+                AudioType.ENEMY_Spawn => enemySpawnSound.list,
                 AudioType.TURN_Indicator => turnIndicatorSound.list,
+                AudioType.SHOP_Interaction => shopInteractionAudios.list,
+                AudioType.SHOP_Coins => shopCoinAudios.list,
+                AudioType.SHOP_Reject => shopRejectAudios.list,
+                AudioType.BULLET_Shoot => bulletShootAudios.list,
+                AudioType.BULLET_Impact => bulletImpactAudios.list,
+                AudioType.BULLET_Explosion => bulletExplosionAudios.list,
                 _ => null
             };
 

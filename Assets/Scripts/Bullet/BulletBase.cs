@@ -1,10 +1,12 @@
 using System;
 using System.Linq;
 using Enemy;
+using Managers;
 using Scripts.Core;
 using Scripts.Core.EventDispatcher;
 using UnityEngine;
 using UnityEngine.Serialization;
+using AudioType = Managers.AudioType;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 using Random = UnityEngine.Random;
 
@@ -107,6 +109,10 @@ namespace Scripts.Bullet {
 
         private void OnBecameInvisible() {
             if (!_hasDestroyed) OnBulletDestroy();
+        }
+
+        public void PlayAudio(AudioType type) {
+            AudioManagerHelper.instance.PlayEffect(type);
         }
     }
 }

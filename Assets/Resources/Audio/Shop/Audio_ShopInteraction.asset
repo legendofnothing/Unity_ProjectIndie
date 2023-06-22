@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c905ecdc7aa42e3bdcefdbbb47b140b, type: 3}
+  m_Name: Audio_ShopInteraction
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 8300000, guid: 567314262d39edb43948fbe211e96e17, type: 3}
+  - {fileID: 8300000, guid: 805fd85065521c840a13e8b78dc88760, type: 3}
+  - {fileID: 8300000, guid: 0a80c4b04cb5f984b9577daa4b49cd74, type: 3}
+  - {fileID: 8300000, guid: f0f8a235ca67a5b4d8003e6d0969cfd6, type: 3}
