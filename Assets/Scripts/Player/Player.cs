@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Bullet;
 using DG.Tweening;
+using Managers;
 using Newtonsoft.Json;
 using ScriptableObjects;
 using Scripts.Bullet;
@@ -10,6 +11,7 @@ using UI.Components;
 using UI.InGame;
 using UnityEngine;
 using UnityEngine.Serialization;
+using AudioType = Managers.AudioType;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 
 namespace Player { public class Player : Singleton<Player> {
@@ -103,11 +105,23 @@ namespace Player { public class Player : Singleton<Player> {
         public void TakeDamage(float amount) {
             if (_hasDied) return;
             _currentHp -= amount * _defendModifier;
+            AudioManagerHelper.instance.PlayEffect(AudioType.PLAYER_Impact);
 
             if (_currentHp <= 0) {
+
+                DOVirtual.DelayedCall(0.1f, () => {
+                    AudioManagerHelper.instance.PlayEffect(AudioType.PLAYER_Death);
+                });
+                
                 _hasDied = true;
                 _currentHp = 0;
                 EventDispatcher.instance.SendMessage(EventType.SwitchToEnd);
+            }
+
+            else {
+                DOVirtual.DelayedCall(0.1f, () => {
+                    AudioManagerHelper.instance.PlayEffect(AudioType.PLAYER_Hurt);
+                });
             }
             
             UIStatic.FireUIEvent(TextUI.Type.Health, _currentHp);

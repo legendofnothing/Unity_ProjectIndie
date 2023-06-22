@@ -408,8 +408,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4df83e10dfacdec489a22ceeb8fdec2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pistolSounds: {fileID: 11400000, guid: c9306809e2f157c4aaf17f68bf2bee01, type: 2}
-  shotgunSounds: {fileID: 11400000, guid: b4b3a57c39ba2b84abe4c1636d82a141, type: 2}
+  levelSoundTrack: {fileID: 0}
+  playerHurtAudio: {fileID: 11400000, guid: c829673a6eeafd64f9b93fc2d621c421, type: 2}
+  playerDeathAudio: {fileID: 11400000, guid: cc7266ca0475cfd488ccfdb9ee3704ea, type: 2}
+  playerImpactAudio: {fileID: 11400000, guid: 2d3814c899ec8c94698cefc2cc46b936, type: 2}
+  enemyImpactSound: {fileID: 11400000, guid: 712ead5d31d0c5345a424175d2b00789, type: 2}
+  enemyDeathSound: {fileID: 11400000, guid: 50ec52353f7cb424588a80aa39ebb7db, type: 2}
+  turnIndicatorSound: {fileID: 11400000, guid: 84884cb1ab3ffb047a4fea36e8fa4b02, type: 2}
 --- !u!1 &5081683451617540020
 GameObject:
   m_ObjectHideFlags: 0

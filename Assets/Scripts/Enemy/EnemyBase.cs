@@ -9,6 +9,7 @@ using Scripts.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using AudioType = Managers.AudioType;
 using EventDispatcher = Scripts.Core.EventDispatcher.EventDispatcher;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 using Random = UnityEngine.Random;
@@ -184,5 +185,9 @@ namespace Enemy {
             yield return new WaitForSeconds(delay);
             _canTakeDamage = true;
         }
-    }
+
+        public void PlayAudio(AudioType type) {
+            AudioManagerHelper.instance.PlayEffect(type);
+        }
+    } 
 }

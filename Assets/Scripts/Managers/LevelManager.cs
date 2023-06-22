@@ -71,6 +71,9 @@ namespace Managers
         /// <param name="turn">Turn to update</param>
         private void UpdateTurn(Turn turn) {
             currentTurn = turn;
+            if (turn != Turn.Start) {
+                AudioManagerHelper.instance.PlayEffect(AudioType.TURN_Indicator);
+            }
 
             switch (currentTurn) {
                 case Turn.Start:

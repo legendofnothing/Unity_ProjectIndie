@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c905ecdc7aa42e3bdcefdbbb47b140b, type: 3}
+  m_Name: Audio_EnemyHit
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 8300000, guid: d806c62447347904b873bb7c08b41859, type: 3}
+  - {fileID: 8300000, guid: f0227a6349218714d9a895d8f04cb4ed, type: 3}
+  - {fileID: 8300000, guid: 06fba9901cd5e4e4ca90ee5078214e38, type: 3}
+  - {fileID: 8300000, guid: 987aba30df84bac4bad6674a57ba8e26, type: 3}
+  - {fileID: 8300000, guid: 84d2d611da7c3604381349c6b0ccc2dd, type: 3}

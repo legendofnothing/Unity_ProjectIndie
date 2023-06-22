@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c905ecdc7aa42e3bdcefdbbb47b140b, type: 3}
+  m_Name: Audio_EnemyDeath
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 8300000, guid: 77d6e40368ab1d34a83f29c3a2173bea, type: 3}
+  - {fileID: 8300000, guid: b28db46a23d4d544f90d387f81ea1bab, type: 3}
+  - {fileID: 8300000, guid: 81bb7bcf8c26168479f5458cd8d81c7d, type: 3}
+  - {fileID: 8300000, guid: 80bc69b8000111b439014be08e99b9d9, type: 3}
+  - {fileID: 8300000, guid: 5984e235e0d36cc4583de9a0f6956540, type: 3}
