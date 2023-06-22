@@ -42,6 +42,7 @@ namespace UI.InGame.Components {
         public void Close(CloserType type) {
             canvas.enabled = true;
             closerImage.fillAmount = 0;
+            AudioManager.instance.MuffleMusic(false, 2f);
             var s = DOTween.Sequence();
             s
                 .Append(DOVirtual.Float(gameUI.currTimeScale, 0, 1.6f, value => {
@@ -58,6 +59,7 @@ namespace UI.InGame.Components {
                         case CloserType.ReturnToMenu:
                             returnGroup.GetComponent<Canvas>().enabled = true;
                             returnGroup.DOFade(1, 0.1f).SetUpdate(true);
+                            AudioManager.instance.LowerMusic(AudioManager.MasterOption.Mute, 3f);
                             DOVirtual.DelayedCall(3f, () => {
                                 returnGroup
                                     .DOFade(0, 0.1f)
@@ -71,6 +73,7 @@ namespace UI.InGame.Components {
                         
                         case CloserType.ExitGame:
                             exitGroup.GetComponent<Canvas>().enabled = true;
+                            AudioManager.instance.LowerMusic(AudioManager.MasterOption.Mute, 1.5f);
                             exitGroup.DOFade(1, 0.1f).SetUpdate(true);
                             DOVirtual.DelayedCall(1.5f, () => {
                                 exitGroup
@@ -81,7 +84,10 @@ namespace UI.InGame.Components {
                             break;
                         
                         default:
-                            SceneManager.LoadScene("DeathScene");
+                            AudioManager.instance.LowerMusic(AudioManager.MasterOption.Mute, 0.5f);
+                            DOVirtual.DelayedCall(0.7f, () => {
+                                SceneManager.LoadScene("DeathScene");
+                            });
                             break;
                     }
                 });

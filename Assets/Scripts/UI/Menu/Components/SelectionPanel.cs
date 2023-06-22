@@ -5,6 +5,7 @@ using TMPro;
 using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace UI.Menu.Components {
     public class SelectionPanel : MonoBehaviour {
@@ -67,7 +68,17 @@ namespace UI.Menu.Components {
             };
             
             if (prevSelection == _currSelection) return;
+
+            switch (_currSelection) {
+                case 1:
+                    AudioManager.instance.MuffleMusic(true);
+                    break;
+                default:
+                    AudioManager.instance.MuffleMusic();
+                    break;
+            }
             
+            AudioManager.instance.PlayPanelSwitchEffect(Random.Range(0, 2));
             selectionText.SetText(selection);
             
             _ditherTween?.Kill();

@@ -32,6 +32,8 @@ namespace UI.Menu.Components {
             _canSwitch = false;
             _currIndex += dir;
             
+            AudioManager.instance.PlayEffect(AudioManager.EffectType.UISkinSelection);
+            
             if (_currIndex < 0) _currIndex = skins.Count - 1;
             else if (_currIndex > skins.Count - 1) _currIndex = 0;
             
@@ -39,11 +41,11 @@ namespace UI.Menu.Components {
             _currSeq = DOTween.Sequence();
             _currSeq
                 .Append(skinDisplay.gameObject.transform
-                    .DOLocalMoveY(skinDisplay.gameObject.transform.localPosition.y - 10f, 0.8f))
+                    .DOLocalMoveY(skinDisplay.gameObject.transform.localPosition.y - 10f, 0.2f))
                 .Insert(0.2f, skinDisplay.DOFade(0, 0.6f))
                 .Insert(0.8f, skinName.DOFade(0, 0.15f))
                 .Append(skinDisplay.gameObject.transform
-                    .DOLocalMoveY(0, 0.4f)
+                    .DOLocalMoveY(0, 0.3f)
                     .OnStart(() => {
                         skinDisplay.sprite = skins[_currIndex];
                         skinName.SetText(skins[_currIndex].name);

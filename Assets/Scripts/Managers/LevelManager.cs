@@ -25,6 +25,7 @@ namespace Managers
 
     public class LevelManager : Singleton<LevelManager>
     {
+        public GameObject audioManager;
         private GridManager _gridManager;
         private EnemyManager _enemyManager;
         public LevelData levelData;
@@ -39,6 +40,10 @@ namespace Managers
         private bool _canAddTurn;
 
         private void Awake() {
+            if (FindObjectOfType<AudioManager>() == null) {
+                Instantiate(audioManager);
+            }
+            
             SaveSystem.Init();
             _gridManager = GetComponentInChildren<GridManager>();
             _enemyManager = GetComponentInChildren<EnemyManager>();

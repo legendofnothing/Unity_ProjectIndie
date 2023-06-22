@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.Menu.TrialSelection {
-    public class SceneName {
+    public static class SceneName {
         public const string Outskirts = "Outskirts";
         public const string AbandonedValley = "AbandonedValley";
         public const string GatesOfHell = "GatesOfHell";
@@ -17,6 +17,8 @@ namespace UI.Menu.TrialSelection {
     
     public class TrialSelection : MonoBehaviour {
         public TrialDisplayData trialData;
+        public AudioListData trialAmbienceSounds;
+        public AudioClip selectionClip;
 
         [Header("Lists")] 
         public List<Canvas> trialCanvases = new();
@@ -71,6 +73,8 @@ namespace UI.Menu.TrialSelection {
                     SaveSystem.playerData.LevelData.TryGetValue(key, out var value)
                         ? value.Score.ToString()
                         : "NO DATA");
+            
+            AudioManager.instance.PlayMusic(trialAmbienceSounds.list[0], true);
         }
 
         public void StartGame() {
@@ -82,6 +86,9 @@ namespace UI.Menu.TrialSelection {
         public void Selection(int dir) {
             if (_isSwitching) return;
             _isSwitching = true;
+            
+            AudioManager.instance.PlayEffect(AudioManager.EffectType.UISelection);
+            
             var prevIndex = _currIndex;
             _currIndex += dir;
             
@@ -90,6 +97,8 @@ namespace UI.Menu.TrialSelection {
             
             trialCanvases[_currIndex].enabled = true;
             trialGroups[_currIndex].alpha = 0;
+            
+            AudioManager.instance.SwitchMusic(trialAmbienceSounds.list[_currIndex], true);
 
             var s = DOTween.Sequence();
             s

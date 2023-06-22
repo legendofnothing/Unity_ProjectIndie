@@ -307,6 +307,7 @@ GameObject:
   - component: {fileID: 930389340642575895}
   - component: {fileID: 4675394282842489709}
   - component: {fileID: 3839621648087332485}
+  - component: {fileID: 3577122390104416649}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -343,6 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fda2a6a9a8637242b3b5ae440abb8fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 2873231308220198180, guid: 6353ef599d2f100468c6346eb9969464, type: 3}
   levelData: {fileID: 11400000, guid: 5caf11a939f943f4bac54ec2866a7631, type: 2}
   enemySpawningData: {fileID: 11400000, guid: a47e6e0b9338e414b9038ec92cc6d43d, type: 2}
   pickupBulletSpawningData: {fileID: 11400000, guid: 4a0c9d3a09f44f54c9794078a6069590, type: 2}
@@ -394,6 +396,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minAmountSpawn: 2
   maxAmountSpawn: 5
+--- !u!114 &3577122390104416649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5081683451358816935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df83e10dfacdec489a22ceeb8fdec2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pistolSounds: {fileID: 11400000, guid: c9306809e2f157c4aaf17f68bf2bee01, type: 2}
+  shotgunSounds: {fileID: 11400000, guid: b4b3a57c39ba2b84abe4c1636d82a141, type: 2}
 --- !u!1 &5081683451617540020
 GameObject:
   m_ObjectHideFlags: 0

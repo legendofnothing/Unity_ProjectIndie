@@ -24,6 +24,10 @@ namespace UI.InGame.Components {
                             .OnComplete(() => {
                                 openerCanvas.enabled = false;
                                 LevelManager.instance.StartGame();
+
+                                DOVirtual.DelayedCall(2f, () => {
+                                    AudioManagerHelper.instance.PlaySoundTrack();
+                                });
                             });
                     });
                 });

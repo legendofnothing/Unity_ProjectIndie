@@ -42,6 +42,7 @@ namespace UI.Menu.Components {
         public void OnUpgrade() {
             if (!_canAdd) return;
             if (SaveSystem.playerData.Coin - _currCost < 0) {
+                AudioManager.instance.PlayEffect(AudioManager.EffectType.UIBuyReject);
                 _notEnoughMoneySeq?.Kill();
                 _notEnoughMoneySeq = DOTween.Sequence();
                 _notEnoughMoneySeq
@@ -51,6 +52,7 @@ namespace UI.Menu.Components {
             }
 
             else {
+                AudioManager.instance.PlayEffect(AudioManager.EffectType.UIBuySuccess);
                 _canAdd = false;
                 SaveSystem.playerData.Coin = SaveSystem.playerData.Coin - _currCost;
                 SaveData();

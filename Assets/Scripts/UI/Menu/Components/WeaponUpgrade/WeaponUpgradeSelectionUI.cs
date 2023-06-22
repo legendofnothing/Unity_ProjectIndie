@@ -37,6 +37,8 @@ namespace UI.Menu.Components.WeaponUpgrade {
             var prevSelection = _currSelection;
             _currSelection += dir;
             
+            AudioManager.instance.PlayEffect(AudioManager.EffectType.UISelection);
+            
             if (_currSelection < 0) _currSelection = selectionIcons.Count - 1;
             else if (_currSelection > selectionIcons.Count - 1) _currSelection = 0;
             

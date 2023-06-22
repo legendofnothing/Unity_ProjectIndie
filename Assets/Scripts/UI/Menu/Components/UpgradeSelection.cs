@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace UI.Menu.Components {
     public class UpgradeSelection : MonoBehaviour {
@@ -32,6 +33,7 @@ namespace UI.Menu.Components {
 
         public void OnSelect(int selection) {
             if (selection == _currSelection) return;
+            AudioManager.instance.PlayPanelSwitchEffect(Random.Range(0, 2));
 
             _currSelection = selection;
             var _prevSelection = selection == 0 ? 1 : 0;

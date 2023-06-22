@@ -15,8 +15,12 @@ namespace UI.Menu {
     
     public class MenuUI : MonoBehaviour {
         public Image opener;
+        public GameObject audioManager;
         
         private void Awake() {
+            if (FindObjectOfType<AudioManager>() == null) {
+                Instantiate(audioManager);
+            }
             SaveSystem.Init();
             Time.timeScale = 1;
         }
@@ -25,15 +29,11 @@ namespace UI.Menu {
             UIStatic.FireUIEvent(TextUI.Type.Coin, SaveSystem.playerData.Coin);
             opener.GetComponent<Canvas>().enabled = true;
 
-            DOVirtual.DelayedCall(1.2f, () => {
-                DOVirtual.Float(1, 0, 1.2f, value => {
-                    opener.fillAmount = value;
-                }).OnComplete(() => opener.gameObject.SetActive(false));
-            });
-        }
-
-        public void Load() {
-            SceneManager.LoadScene("Game1");
+            DOVirtual.DelayedCall(1.2f,
+                () => {
+                    DOVirtual.Float(1, 0, 1.2f, value => { opener.fillAmount = value; })
+                        .OnComplete(() => opener.gameObject.SetActive(false));
+                });
         }
     }
 }

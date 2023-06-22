@@ -37,10 +37,12 @@ namespace UI.Menu.Components.WeaponUpgrade {
             var cost = WeaponHandlerUI.baseCost * WeaponHandlerUI.GetModifier(id) * manager.GetLevel(id);
             if (SaveSystem.playerData.Coin - Mathf.RoundToInt(cost) <= 0) {
                 SetAlert(id);
+                AudioManager.instance.PlayEffect(AudioManager.EffectType.UIBuyReject);
                 return;
             }
 
             SaveSystem.playerData.Coin -= Mathf.RoundToInt(cost);
+            AudioManager.instance.PlayEffect(AudioManager.EffectType.UIBuySuccess);
             SaveSystem.SaveData();
             UIStatic.FireUIEvent(TextUI.Type.Coin, SaveSystem.playerData.Coin);
             

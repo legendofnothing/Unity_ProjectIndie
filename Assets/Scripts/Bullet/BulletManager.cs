@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Managers;
 using Newtonsoft.Json;
 using Scripts.Bullet;
 using Scripts.Bullet.Types;
@@ -9,6 +10,7 @@ using Scripts.Core;
 using Scripts.Core.EventDispatcher;
 using UI.Components;
 using UnityEngine;
+using AudioType = Managers.AudioType;
 using EventType = Scripts.Core.EventDispatcher.EventType;
 using Random = UnityEngine.Random;
 
@@ -38,6 +40,13 @@ namespace Bullet {
     
     public class BulletManager : Singleton<BulletManager>
     {
+        public enum Weapon {
+            Pistol,
+            Shotgun,
+            Rifle,
+            AutomaticRifle,
+        }
+        
         public List<GameObject> bulletList;
 
         private float _critChance; 
@@ -56,6 +65,8 @@ namespace Bullet {
         //Store any new bullets being added
         private List<GameObject> _addedTempList;
 
+        private Weapon _currWeapon;
+
         private void Awake(){
             _currentList = new List<GameObject>();
             _addedTempList = new List<GameObject>();
@@ -65,9 +76,20 @@ namespace Bullet {
             UIStatic.FireUIEvent(TextUI.Type.AmmoCount, bulletList.Count);
             EventDispatcher.instance.SubscribeListener(EventType.BulletDestroyed, bullet => OnBulletDestroyed((GameObject) bullet));
             
+            //0 - pistol
+            //1 - shotgun
+            //2 - rife
+            //3 - automatic rifle
             var currWeapon = PlayerPrefs.HasKey(DataKey.PlayerEquippedWeapon)
                 ? PlayerPrefs.GetInt(DataKey.PlayerEquippedWeapon)
                 : 0;
+
+            _currWeapon = PlayerPrefs.GetInt(DataKey.PlayerEquippedWeapon) switch {
+                1 => Weapon.Shotgun,
+                2 => Weapon.Rifle,
+                3 => Weapon.AutomaticRifle,
+                _ => Weapon.Pistol
+            };
             
             var gunStats = PlayerPrefs.HasKey(DataKey.PlayerWeapon)
                 ? JsonConvert.DeserializeObject<GunStats>(PlayerPrefs.GetString(DataKey.PlayerWeapon))
@@ -132,7 +154,7 @@ namespace Bullet {
             foreach (var bulletInst in bulletList.Select(bullet => Instantiate(bullet, position, rotation))) {
                 //Add all instantiated bullet into the currentList
                 _currentList.Add(bulletInst);
-                
+
                 //Set Bullet Damage w/ any modifiers
                 var bulletComp = bulletInst.GetComponent<BulletBase>();
                 bulletComp.damage = Random.Range(0f, 1f) < _critChance
@@ -141,7 +163,7 @@ namespace Bullet {
 
                 if (bulletComp.specialTag == BulletSpecialTag.Homing) 
                     TargetingSystem.instance.AddHomingBullet((BulletHoming) bulletComp);
-                
+
                 yield return new WaitForSeconds(1 / (_fireRate/60f));
             }
             

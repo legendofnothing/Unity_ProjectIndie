@@ -81,6 +81,7 @@ namespace UI.Menu.Components.WeaponUpgrade {
 
             var gear = GetGearByID(id);
             var prevGear = GetGearByID(prevID);
+            AudioManager.instance.PlayEffect(AudioManager.EffectType.UISelection);
             
             var unlocked = gear.type switch {
                 GearType.AmmoPouch => manager.gunStats.isAmmoPouchUnlocked,
@@ -123,6 +124,7 @@ namespace UI.Menu.Components.WeaponUpgrade {
             if (unlocked) return;
 
             if (SaveSystem.playerData.Coin - gear.gearPrice <= 0) {
+                AudioManager.instance.PlayEffect(AudioManager.EffectType.UIBuyReject);
                 _alertSeq?.Kill();
                 _alertSeq = DOTween.Sequence();
                 _alertSeq
@@ -133,6 +135,7 @@ namespace UI.Menu.Components.WeaponUpgrade {
             }
 
             SaveSystem.playerData.Coin -= gear.gearPrice;
+            AudioManager.instance.PlayEffect(AudioManager.EffectType.UIBuySuccess);
             SaveSystem.SaveData();
             UIStatic.FireUIEvent(TextUI.Type.Coin, SaveSystem.playerData.Coin);
             

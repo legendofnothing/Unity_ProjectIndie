@@ -87,6 +87,8 @@ namespace UI.InGame {
                 isOpen = true,
                 duration = 0.15f
             });
+            
+            AudioManager.instance.MuffleMusic(false, 0.2f);
 
             var s = DOTween.Sequence();
             s
@@ -110,6 +112,8 @@ namespace UI.InGame {
                 isOpen = false,
                 duration = 0.1f
             });
+            
+            AudioManager.instance.MuffleMusic(true, 0.2f);
 
             var s = DOTween.Sequence();
             s

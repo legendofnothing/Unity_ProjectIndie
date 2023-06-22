@@ -32,6 +32,16 @@ namespace UI.Menu.TrialSelection {
                 _ => SceneName.ThisIsIt
             };
 
+            const float muffleDuration = 1.2f;
+            AudioManager.instance.MuffleMusic(false, muffleDuration);
+            DOVirtual.DelayedCall(muffleDuration + 1f, () => {
+                AudioManager.instance.LowerMusic(AudioManager.MasterOption.Mute, muffleDuration * 2);
+            }).OnComplete(() => {
+                AudioManager.instance.StopMusic();
+                AudioManager.instance.MuffleMusic(true);
+                AudioManager.instance.LowerMusic(AudioManager.MasterOption.Unmute);
+            });
+
             closerCanvas.enabled = true;
             closerBackground
                 .DOColor(Color.black, 1f)

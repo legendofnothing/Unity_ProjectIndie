@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c905ecdc7aa42e3bdcefdbbb47b140b, type: 3}
+  m_Name: AbandonedValley_Track
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 8300000, guid: 605189f9faf922744a239786370e495a, type: 3}
+  - {fileID: 8300000, guid: 40398eee4f931104a899b6f19ae41e7c, type: 3}
+  - {fileID: 8300000, guid: c302f6ad944f87b43b75c789f7483f89, type: 3}
