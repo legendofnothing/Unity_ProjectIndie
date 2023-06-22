@@ -79,7 +79,8 @@ namespace UI.InGame {
             if (_isPaused) return;
             _isPaused = true;
             if (LevelManager.instance.currentTurn == Turn.Player) Player.Player.instance.input.CanInput(false);
-
+            
+            pauseCanvas.gameObject.SetActive(true);
             pauseGroup.alpha = 0;
             pauseCanvas.enabled = true;
             
@@ -120,6 +121,7 @@ namespace UI.InGame {
                 .Append(pauseGroup.DOFade(0, 0.1f).SetUpdate(true))
                 .Insert(0, DOVirtual.Float(0, currTimeScale, 0.1f, value => Time.timeScale = value).SetUpdate(true))
                 .OnComplete(() => {
+                    pauseCanvas.gameObject.SetActive(false);
                     pauseGroup.alpha = 0;
                     pauseCanvas.enabled = false;
                     if (LevelManager.instance.currentTurn == Turn.Player) Player.Player.instance.input.CanInput(true);
