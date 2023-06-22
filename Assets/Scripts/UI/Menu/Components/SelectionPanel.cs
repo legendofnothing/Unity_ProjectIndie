@@ -68,6 +68,8 @@ namespace UI.Menu.Components {
             };
             
             if (prevSelection == _currSelection) return;
+            
+            selectionList[_currSelection].gameObject.SetActive(true);
 
             switch (_currSelection) {
                 case 1:
@@ -92,7 +94,10 @@ namespace UI.Menu.Components {
                     .DOLocalMove(buttons[_currSelection].localPosition, duration)
                     .SetEase(easeType))
                 .Insert(0f, selectionLegend.DOFade(1, 0.15f).SetEase(Ease.InSine))
-                .Insert(0f, _selectionCanvasGroup[prevSelection].DOFade(0, 0.15f).OnComplete(() => selectionList[prevSelection].enabled = false))
+                .Insert(0f, _selectionCanvasGroup[prevSelection].DOFade(0, 0.15f).OnComplete(() => {
+                    selectionList[prevSelection].gameObject.SetActive(false);
+                    selectionList[prevSelection].enabled = false;
+                }))
                 .Insert(0f, _selectionCanvasGroup[_currSelection].DOFade(1, 0.15f).OnStart(() => selectionList[_currSelection].enabled = true))
                 .Append(DOVirtual.DelayedCall(0.8f, null))
                 .Append(selectionLegend.DOFade(0, 1.4f).SetEase(Ease.InSine));

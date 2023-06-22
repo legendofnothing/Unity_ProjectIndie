@@ -126,12 +126,25 @@ namespace UI.InGame.Components {
                                     .OnComplete(Application.Quit);
                             });
                             break;
-                        
+
                         default:
                             SceneManager.LoadScene("DeathScene");
                             break;
                     }
                 });
+        }
+
+        public void Retry(string sceneName) {
+            returnGroup.GetComponent<Canvas>().enabled = true;
+            returnGroup.DOFade(1, 0.1f);
+            DOVirtual.DelayedCall(3f, () => {
+                returnGroup
+                    .DOFade(0, 0.1f)
+                    .OnComplete(() => {
+                        Time.timeScale = 1;
+                        SceneManager.LoadScene(sceneName);
+                    });
+            });
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
+using Managers;
 using Scripts.Core;
 using TMPro;
 using UI.InGame.Components;
@@ -7,6 +8,10 @@ using UnityEngine;
 
 namespace UI.DeathScreenUI { 
     public class DeathScreenUI : MonoBehaviour {
+        public GameObject audioManager;
+        public List<AudioClip> myReactionAudios;
+        public AudioClip goodTryClip;
+        [Space]
         public TextMeshProUGUI previousSceneName;
         public List<TextMeshProUGUI> statTexts;
         public CloserUI closer;
@@ -21,7 +26,24 @@ namespace UI.DeathScreenUI {
         }
 
         private void Start() {
+            if (FindObjectOfType<AudioManager>() == null) {
+                Instantiate(audioManager);
+            }
+            
             previousSceneName.text = _playerData.PreviousSceneName;
+
+            var s = DOTween.Sequence();
+            s
+                .Append(DOVirtual.DelayedCall(0, () => {
+                    var clip = myReactionAudios[Random.Range(0, myReactionAudios.Count)];
+                    AudioManager.instance.PlayEffect(clip);
+                }))
+                .PrependInterval(0.5f)
+                .AppendInterval(0.5f)
+                .Append(DOVirtual.DelayedCall(0, () => {
+                    var clip = myReactionAudios[Random.Range(0, myReactionAudios.Count)];
+                    AudioManager.instance.PlayEffect(goodTryClip);
+                }));
 
             foreach (var text in statTexts) {
                 text.text = "0";
@@ -56,6 +78,10 @@ namespace UI.DeathScreenUI {
             });
         }
 
+        public void Retry() {
+            closer.Retry(_playerData.PreviousSceneName);
+        }
+        
         public void Return() {
             closer.CloseWithoutTimeScale(CloserUI.CloserType.ReturnToMenu);
         }

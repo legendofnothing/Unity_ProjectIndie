@@ -947,7 +947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 134c342a3b3fd4943a8758b3cdc63cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muffledThreshold: 200
+  muffledThreshold: 1000
   mixer: {fileID: 24100000, guid: f033d8cccf649344d8b252b3521d05b1, type: 2}
   effectsData: {fileID: 11400000, guid: b19003b13c690294ba8c06f2b013b498, type: 2}
   musicSources:
