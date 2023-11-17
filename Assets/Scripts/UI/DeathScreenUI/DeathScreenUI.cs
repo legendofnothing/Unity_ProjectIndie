@@ -55,13 +55,13 @@ namespace UI.DeathScreenUI {
             currText.text = "0";
             
             var valueToSwitch = 0;
-            var duration = 3.3f;
+            var duration = 0.1f;
             switch (_currentSetIndex) {
                 case 0:
                     valueToSwitch = _playerData.LevelData[_playerData.PreviousSceneName].Score;
                     break;
                 case 1:
-                    duration = 1.2f;
+                    duration = 0.1f;
                     valueToSwitch = _playerData.LevelData[_playerData.PreviousSceneName].TurnNumber;
                     break;
                 case 2:

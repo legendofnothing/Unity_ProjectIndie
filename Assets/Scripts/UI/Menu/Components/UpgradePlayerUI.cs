@@ -57,15 +57,8 @@ namespace UI.Menu.Components {
                 SaveSystem.playerData.Coin = SaveSystem.playerData.Coin - _currCost;
                 SaveData();
 
-                _levelUpSeq = DOTween.Sequence();
-                _levelUpSeq
-                    .Append(levelUpEffect.DOValue(1, 0.6f).SetEase(Ease.InSine))
-                    .Append(DOVirtual.DelayedCall(0.2f, () => { 
-                        levelText.SetText($"Lvl.{GetLevel()}");
-                        levelUpEffect.value = 0;
-                        _canAdd = true;
-                    }));
-
+                levelText.SetText($"Lvl.{GetLevel()}");
+                _canAdd = true;
                 _currCost = (int) (_baseCost * GetLevel() * GetCostModifier());
                 costText.SetText(ConvertCost(_currCost));
                 UIStatic.FireUIEvent(TextUI.Type.Coin, SaveSystem.playerData.Coin);
